@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class GameInfo
 {
-	String gameName;
-	Map<String, Integer> pieceTypes;
+	private String gameName;
+	private Map<String, Integer> pieceTypes;
 
 	public String getGameName()
 	{

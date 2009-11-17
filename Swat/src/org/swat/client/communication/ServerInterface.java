@@ -11,57 +11,57 @@ import org.swat.data.LineReader;
 
 public class ServerInterface
 {
-	private LineReader reader;
-	private PrintWriter writer;
+	private static LineReader reader;
+	private static PrintWriter writer;
 
-	private void connect()
+	private static void connect()
 	{
 		reader = Networking.getReader();
 		writer = Networking.getWriter();
 	}
 
-	private void disconnect()
+	private static void disconnect()
 	{
 		Networking.closeConnection();
 		reader = null;
 		writer = null;
 	}
 
-	private void writeAuthenticationInfo()
+	private static void writeAuthenticationInfo()
 	{
 		// TODO
 		writer.println("username:username");
 		writer.println("password:password");
 	}
 
-	private void verifyResponseOpening()
+	private static void verifyResponseOpening()
 	{
 		DataParsing.verify(new PrintWriter(System.err), reader.advance()
 				.equals("BEGIN_RESPONSE"), "Malformed response");
 	}
 
-	private void verifyResponseClosing()
+	private static void verifyResponseClosing()
 	{
 		DataParsing.verify(new PrintWriter(System.err), reader.advance()
 				.equals("END_RESPONSE"), "Malformed response");
 	}
 
-	GameState createGame(String gameType)
+	public static GameState createGame(String gameType)
 	{
 		return null;
 	}
 
-	GameState joinGame(int gameID)
+	public static GameState joinGame(int gameID)
 	{
 		return null;
 	}
 
-	GameState makeMove(List<Coordinate> coordinates)
+	public static GameState makeMove(List<Coordinate> coordinates)
 	{
 		return null;
 	}
 
-	List<String> retrieveDeployedGames()
+	public static List<String> retrieveDeployedGames()
 	{
 		connect();
 
@@ -80,30 +80,29 @@ public class ServerInterface
 		return games;
 	}
 
-	GameInfo retrieveGameInfo(String gameType)
+	public static GameInfo retrieveGameInfo(String gameType)
 	{
 		return null;
 	}
 
-	GameState retrieveGameState(int gameID)
+	public static GameState retrieveGameState(int gameID)
 	{
 		return null;
 	}
 
-	List<GameState> retrieveMyGames()
+	public static List<GameState> retrieveMyGames()
 	{
 		return null;
 	}
 
-	List<GameState> retrieveOpenGames()
+	public static List<GameState> retrieveOpenGames()
 	{
 		return null;
 	}
 
 	public static void main(String args[])
 	{
-		ServerInterface server = new ServerInterface();
-		List<String> games = server.retrieveDeployedGames();
+		List<String> games = ServerInterface.retrieveDeployedGames();
 
 		for (String game : games)
 		{

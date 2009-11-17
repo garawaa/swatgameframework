@@ -4,13 +4,13 @@ import java.util.List;
 
 public class GameState
 {
-	List<String> currentMessages;
-	int gameID;
-	String gameType;
-	int grid[][];
-	int playTurnID;
-	boolean started;
-	String winnerID;
+	private List<String> currentMessages;
+	private int gameID;
+	private String gameType;
+	private int grid[][];
+	private int playTurnID;
+	private boolean started;
+	private String winnerID;
 
 	public List<String> getCurrentMessage()
 	{

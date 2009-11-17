@@ -1,4 +1,4 @@
-package org.swat.game;
+package org.swat.server.game;
 
 import java.util.List;
 

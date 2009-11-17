@@ -1,11 +1,11 @@
-package org.swat.gameimpl;
+package org.swat.server.gameimpl;
 
 import java.util.HashMap;
 
-import org.swat.game.GAME_PLAYERS;
-import org.swat.game.Game;
-import org.swat.game.GameMove;
-import org.swat.game.GameState;
+import org.swat.server.game.GAME_PLAYERS;
+import org.swat.server.game.Game;
+import org.swat.server.game.GameMove;
+import org.swat.server.game.GameState;
 
 public class TicTacToe implements Game {
 

@@ -9,6 +9,8 @@ public class GameInstanceManager {
 	 * Make a move on a game
 	 * Retrieve a game state
 	 * List deployed games
+	 * Join game
+	 * Retrieve all active games
 	 * 
 	 */
 

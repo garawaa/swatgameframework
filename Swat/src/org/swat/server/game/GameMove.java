@@ -1,29 +1,27 @@
 package org.swat.server.game;
 
+import java.util.ArrayList;
+
+import org.swat.data.MoveCoordinates;
+
 public class GameMove {
 	
 	private int gameID;
 	private int gameInstanceID;
 	private int gameStateID;
 	
-	private int playerID;
-	private int fromX, fromY, toX, toY;
+	private String playerUID;
+	private ArrayList<MoveCoordinates> moveCoordinates;
 	
 	public GameMove(int gameID, int gameInstanceID, int gameStateID,
-			int playerID) {
+			String playerUID) {
 		super();
 		this.gameID = gameID;
 		this.gameInstanceID = gameInstanceID;
 		this.gameStateID = gameStateID;
-		this.playerID = playerID;
+		this.playerUID = playerUID;
 	}
 	
-	public void setDetails(int fromX, int fromY, int toX, int toY) {
-		this.fromX = fromX;
-		this.fromY = fromY;
-		this.toX = toX;
-		this.toY = toY;
-	}
 	
 	/*
 	 * Getters and setters
@@ -46,39 +44,24 @@ public class GameMove {
 	public void setGameStateID(int gameStateID) {
 		this.gameStateID = gameStateID;
 	}
-	public int getPlayerID() {
-		return playerID;
+	public String getPlayerUID() {
+		return playerUID;
 	}
-	public void setPlayerID(int playerID) {
-		this.playerID = playerID;
-	}
-	public int getFromX() {
-		return fromX;
-	}
-	public void setFromX(int fromX) {
-		this.fromX = fromX;
-	}
-	public int getFromY() {
-		return fromY;
-	}
-	public void setFromY(int fromY) {
-		this.fromY = fromY;
-	}
-	public int getToX() {
-		return toX;
-	}
-	public void setToX(int toX) {
-		this.toX = toX;
-	}
-	public int getToY() {
-		return toY;
-	}
-	public void setToY(int toY) {
-		this.toY = toY;
-	}
-	/*
+	public void setPlayerUID(String playerUID) {
+		this.playerUID = playerUID;
+	}	/*
 	 * (end) Getters and setters
 	 */
+
+
+	public void addMoveCoordinate(MoveCoordinates moveCoordinate) {
+		this.moveCoordinates.add(moveCoordinate);
+	}
+
+
+	public ArrayList<MoveCoordinates> getMoveCoordinates() {
+		return moveCoordinates;
+	}
 	
 
 }

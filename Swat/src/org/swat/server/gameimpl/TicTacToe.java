@@ -2,7 +2,8 @@ package org.swat.server.gameimpl;
 
 import java.util.HashMap;
 
-import org.swat.server.game.GAME_PLAYERS;
+import org.swat.server.game.GAME_PLAYER;
+import org.swat.server.game.GAME_TYPE;
 import org.swat.server.game.Game;
 import org.swat.server.game.GameMove;
 import org.swat.server.game.GameState;
@@ -26,7 +27,7 @@ public class TicTacToe implements Game {
 		pieces.put(0, "Check");
 		pieces.put(1, "Circle");
 		
-		initialState = new GameState();
+		initialState = new GameState(this);
 		initialState.setPieceInfo(new int[3][3]);
 		
 	}
@@ -54,7 +55,7 @@ public class TicTacToe implements Game {
 	}
 	
 	@Override
-	public GAME_PLAYERS getPlayerWhoShouldMakeMove() {
+	public GAME_PLAYER getPlayerWhoShouldMakeMove() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -105,9 +106,11 @@ public class TicTacToe implements Game {
 	public int getNumberOfPlayersNeeded() {
 		return numberOfPlayersNeeded;
 	}
-	/*
-	 * (end) property accessors
-	 */
+	
+	@Override
+	public GAME_TYPE getGameType() {
+		return GAME_TYPE.ADD;
+	}
 
 	
 

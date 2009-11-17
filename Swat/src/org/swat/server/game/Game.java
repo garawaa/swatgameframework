@@ -6,6 +6,7 @@ public interface Game {
 		
 	public abstract int getID();
 	public String getName();
+	public GAME_TYPE getGameType();
 	public int getNumberOfPlayersNeeded();
 	public int getBoardLength();
 	public int getBoardWidth();
@@ -13,6 +14,6 @@ public interface Game {
 	
 	public GameState getInitialState();
 	public boolean makeMove(GameState state, GameMove move);
-	public abstract GAME_PLAYERS getPlayerWhoShouldMakeMove();
+	public abstract GAME_PLAYER getPlayerWhoShouldMakeMove();
 
 }

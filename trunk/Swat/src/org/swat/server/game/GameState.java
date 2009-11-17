@@ -9,10 +9,18 @@ public class GameState {
 	private int gameInstanceID;
 	
 	private int[][] pieceInfo;
-	private GAME_STATES gameState;
-	private int turnOfPlayer;
-	private int winnerID;
+	private GAME_STATE gameState;
+	private String turnOfPlayer;
+	private String winnerID;
 	private List<String> messages;
+	private List<String> players;
+	private String ownerUID;
+	
+	private Game game;
+	
+	public GameState(Game game) {
+		this.game = game;
+	}
 	
 	/*
 	 * Property accessors
@@ -29,22 +37,22 @@ public class GameState {
 	public void setPieceInfo(int[][] pieceInfo) {
 		this.pieceInfo = pieceInfo;
 	}
-	public GAME_STATES getGameState() {
+	public GAME_STATE getGameState() {
 		return gameState;
 	}
-	public void setGameState(GAME_STATES gameState) {
+	public void setGameState(GAME_STATE gameState) {
 		this.gameState = gameState;
 	}
-	public int getTurnOfPlayer() {
+	public String getTurnOfPlayer() {
 		return turnOfPlayer;
 	}
-	public void setTurnOfPlayer(int turnOfPlayer) {
+	public void setTurnOfPlayer(String turnOfPlayer) {
 		this.turnOfPlayer = turnOfPlayer;
 	}
-	public int getWinnerID() {
+	public String getWinnerID() {
 		return winnerID;
 	}
-	public void setWinnerID(int winnerID) {
+	public void setWinnerID(String winnerID) {
 		this.winnerID = winnerID;
 	}
 	public int getID() {
@@ -68,8 +76,27 @@ public class GameState {
 	public void emptyMessages() {
 		this.messages.clear();
 	}
-	/*
-	 * (end) Property accessors
-	 */
+	
+	public List<String> getPlayers() {
+		return players;
+	}
+	
+	public void addPlayer(String newPlayer) {
+
+		if(this.game.getNumberOfPlayersNeeded() > this.players.size())
+			this.players.add(newPlayer);
+		
+		if(this.game.getNumberOfPlayersNeeded() == this.players.size())
+			this.gameState = GAME_STATE.STARTED;
+
+	}
+	
+	public String getOwnerUID() {
+		return ownerUID;
+	}
+	
+	public void setOwnerUID(String ownerUID) {
+		this.ownerUID = ownerUID;
+	}
 	
 }

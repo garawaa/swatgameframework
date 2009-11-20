@@ -1,6 +1,7 @@
 package org.swat.client.communication;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -61,7 +62,8 @@ public class Networking
 		// Connect a reader to the input stream
 		try
 		{
-			reader = new LineReader(socket.getInputStream());
+			reader = new LineReader(new InputStreamReader(socket
+					.getInputStream()));
 			return reader;
 		}
 		catch (IOException e)

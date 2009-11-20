@@ -20,11 +20,13 @@ public class DataParsing
 
 	public static GameState readGameState(LineReader reader)
 	{
+		// TODO
 		return null;
 	}
 
 	public static void writeGameState(PrintWriter writer, GameState state)
 	{
+		// TODO
 	}
 
 	public static GameInfo readGameInfo(LineReader reader)
@@ -194,14 +196,14 @@ public class DataParsing
 		writer.println("END_STRING_INT_MAP");
 	}
 
-	public static int[][] readGrid(LineReader reader)
+	public static int[][] read2DIntArray(LineReader reader)
 	{
-		int[][] grid;
+		int[][] array;
 		int width, height;
 		String width_str, height_str;
 
 		// Verify the opening
-		if (!reader.advance().equals("BEGIN_GRID"))
+		if (!reader.advance().equals("BEGIN_2D_INT_ARRAY"))
 		{
 			return null;
 		}
@@ -218,12 +220,12 @@ public class DataParsing
 			return null;
 		}
 
-		// Create the grid
+		// Create the array
 		try
 		{
 			height = Integer.parseInt(height_str.substring(7));
 			width = Integer.parseInt(width_str.substring(6));
-			grid = new int[height][width];
+			array = new int[height][width];
 		}
 		catch (NumberFormatException e)
 		{
@@ -238,7 +240,7 @@ public class DataParsing
 			{
 				try
 				{
-					grid[i][j] = Integer.parseInt(elements[j]);
+					array[i][j] = Integer.parseInt(elements[j]);
 				}
 				catch (NumberFormatException e)
 				{
@@ -248,20 +250,20 @@ public class DataParsing
 		}
 
 		// Verify the closing
-		if (!reader.getLine().equals("END_GRID"))
+		if (!reader.advance().equals("END_2D_INT_ARRAY"))
 		{
 			return null;
 		}
 
-		return grid;
+		return array;
 	}
 
-	public static void writeGrid(PrintWriter writer, int[][] grid)
+	public static void write2DIntArray(PrintWriter writer, int[][] array)
 	{
-		writer.println("BEGIN_GRID");
-		writer.println("width=" + grid[0].length);
-		writer.println("height=" + grid.length);
-		for (int[] row : grid)
+		writer.println("BEGIN_2D_INT_ARRAY");
+		writer.println("width=" + array[0].length);
+		writer.println("height=" + array.length);
+		for (int[] row : array)
 		{
 			for (int i = 0; i < row.length - 1; i++)
 			{
@@ -269,6 +271,6 @@ public class DataParsing
 			}
 			writer.println(row[row.length - 1]);
 		}
-		writer.println("END_GRID");
+		writer.println("END_2D_INT_ARRAY");
 	}
 }

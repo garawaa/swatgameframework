@@ -2,17 +2,16 @@ package org.swat.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class LineReader
 {
 	private BufferedReader reader;
 	private String currentLine = null;
 
-	public LineReader(InputStream stream)
+	public LineReader(Reader reader)
 	{
-		this.reader = new BufferedReader(new InputStreamReader(stream));
+		this.reader = new BufferedReader(reader);
 	}
 
 	// Reads the next line from the stream

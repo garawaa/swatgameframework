@@ -33,37 +33,37 @@ public class DataParsing
 	{
 		GameInfo info = new GameInfo();
 
-		// Verify the opening
-		if (!reader.advance().equals("BEGIN_GAME_INFO"))
-		{
-			return null;
-		}
-
-		// Verify the name
-		if (!reader.advance().startsWith("name="))
-		{
-			return null;
-		}
-		info.setGameName(reader.getLine().substring(5));
-
-		// Get the piece types
-		info.setPieceTypes(readStringIntMap(reader));
-
-		// Verify the closing
-		if (!reader.advance().equals("END_GAME_INFO"))
-		{
-			return null;
-		}
+		// // Verify the opening
+		// if (!reader.advance().equals("BEGIN_GAME_INFO"))
+		// {
+		// return null;
+		// }
+		//
+		// // Verify the name
+		// if (!reader.advance().startsWith("name="))
+		// {
+		// return null;
+		// }
+		// info.setGameName(reader.getLine().substring(5));
+		//
+		// // Get the piece types
+		// info.setPieceTypes(readStringIntMap(reader));
+		//
+		// // Verify the closing
+		// if (!reader.advance().equals("END_GAME_INFO"))
+		// {
+		// return null;
+		// }
 
 		return info;
 	}
 
 	public static void writeGameInfo(PrintWriter writer, GameInfo info)
 	{
-		writer.println("BEGIN_GAME_INFO");
-		writer.println("name=" + info.getGameName());
-		writeStringIntMap(writer, info.getPieceTypes());
-		writer.println("END_GAME_INFO");
+		// writer.println("BEGIN_GAME_INFO");
+		// writer.println("name=" + info.getGameName());
+		// writeStringIntMap(writer, info.getPieceTypes());
+		// writer.println("END_GAME_INFO");
 	}
 
 	public static Coordinate readCoordinate(LineReader reader)
@@ -148,6 +148,52 @@ public class DataParsing
 			writer.println(item);
 		}
 		writer.println("END_STRING_LIST");
+	}
+
+	public static Map<Integer, String> readIntStringMap(LineReader reader)
+	{
+		Map<Integer, String> map = new HashMap<Integer, String>();
+
+		// Verify the opening
+		if (!reader.advance().equals("BEGIN_INT_STRING_MAP"))
+		{
+			return null;
+		}
+
+		// Add each key-value pair to the map
+		while (reader.advance() != null
+				&& !reader.getLine().equals("END_INT_STRING_MAP"))
+		{
+			try
+			{
+				int separator = reader.getLine().indexOf(':');
+				map.put(Integer.parseInt(reader.getLine().substring(0,
+						separator)), reader.getLine().substring(separator + 1));
+			}
+			catch (NumberFormatException e)
+			{
+				return null;
+			}
+		}
+
+		// Verify the closing
+		if (!reader.getLine().equals("END_INT_STRING_MAP"))
+		{
+			return null;
+		}
+
+		return map;
+	}
+
+	public static void writeIntStringMap(PrintWriter writer,
+			Map<Integer, String> map)
+	{
+		writer.println("BEGIN_INT_STRING_MAP");
+		for (int key : map.keySet())
+		{
+			writer.println(key + ":" + map.get(key));
+		}
+		writer.println("END_INT_STRING_MAP");
 	}
 
 	public static Map<String, Integer> readStringIntMap(LineReader reader)

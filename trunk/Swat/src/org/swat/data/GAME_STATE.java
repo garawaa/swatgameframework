@@ -1,4 +1,4 @@
-package org.swat.server.game;
+package org.swat.data;
 
 public enum GAME_STATE {
 	

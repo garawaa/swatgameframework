@@ -1,8 +1,7 @@
-package org.swat.server.game;
+package org.swat.data;
 
 import java.util.ArrayList;
 
-import org.swat.data.MoveCoordinate;
 
 public class GameMove {
 	

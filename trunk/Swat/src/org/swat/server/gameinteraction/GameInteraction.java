@@ -1,9 +1,10 @@
 package org.swat.server.gameinteraction;
 
 import java.util.List;
+
+import org.swat.data.GameMove;
 import org.swat.server.game.Game;
-import org.swat.server.game.GameState;
-import org.swat.server.game.GameMove;
+import org.swat.data.GameState;
 
 
 public interface GameInteraction {

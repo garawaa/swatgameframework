@@ -2,14 +2,14 @@ package org.swat.server.gameimpl;
 
 import java.util.HashMap;
 
+import org.swat.data.GAME_PLAYER;
+import org.swat.data.GAME_STATE;
+import org.swat.data.GAME_TYPE;
 import org.swat.data.GameInfo;
+import org.swat.data.GameMove;
 import org.swat.data.MoveCoordinate;
-import org.swat.server.game.GAME_PLAYER;
-import org.swat.server.game.GAME_STATE;
-import org.swat.server.game.GAME_TYPE;
 import org.swat.server.game.Game;
-import org.swat.server.game.GameMove;
-import org.swat.server.game.GameState;
+import org.swat.data.GameState;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 

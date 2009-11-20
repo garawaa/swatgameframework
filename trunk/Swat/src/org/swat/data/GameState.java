@@ -7,7 +7,7 @@ import org.swat.server.game.Game;
 
 public class GameState {
 	
-	private int ID;
+	private int counter;
 	private int gameID;
 	private int gameInstanceID;
 	
@@ -57,11 +57,11 @@ public class GameState {
 	public void setWinnerID(String winnerID) {
 		this.winnerID = winnerID;
 	}
-	public int getID() {
-		return ID;
+	public int getCounter() {
+		return counter;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setCounter(int counter) {
+		this.counter = counter;
 	}
 	public int getGameInstanceID() {
 		return gameInstanceID;
@@ -107,8 +107,8 @@ public class GameState {
 		
 	}
 	
-	public synchronized void incrementStateID() {
-		this.ID++;
+	public synchronized void incrementCounter() {
+		this.counter++;
 	}
 	
 }

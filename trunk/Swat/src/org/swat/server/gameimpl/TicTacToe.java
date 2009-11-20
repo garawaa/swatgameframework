@@ -124,7 +124,7 @@ public class TicTacToe implements Game {
 			}
 			
 			//increment state ID
-			state.incrementStateID();			
+			state.incrementCounter();			
 
 		}
 		

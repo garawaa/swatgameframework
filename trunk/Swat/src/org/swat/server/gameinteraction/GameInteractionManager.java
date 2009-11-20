@@ -1,51 +1,76 @@
 package org.swat.server.gameinteraction;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import org.swat.data.GameMove;
 import org.swat.server.game.Game;
+import org.swat.server.game.exceptions.IllegalGameStateException;
+import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.data.GameState;
 
 public class GameInteractionManager implements GameInteraction {
 
+	private static int gameInstanceIDCounter = 0;
+
 	private static GameInteractionManager _instance;
-	
+	private static HashMap<Integer, GameState> gameStates;
+	private static HashMap<Integer, Game> games;
+
 	private GameInteractionManager() {
-		
+
+		// TODO:
+		// enumerate all games
+		// initialize gameStates, games
+
 	}
-	
+
+	// add new game
+	public synchronized void deployGame(Game game) {
+
+		// TODO:
+
+	}
+
 	public static synchronized GameInteractionManager getInstance() {
-		
-		if(_instance == null)
+
+		if (_instance == null)
 			_instance = new GameInteractionManager();
-		
+
 		return _instance;
-		
+
 	}
-	
-	
+
 	@Override
 	public GameState createGame(int gameID, String playerUID) {
-		// TODO Auto-generated method stub
+
+		// TODO: create new gamestate and return it, store it too
 		return null;
+
 	}
 
 	@Override
-	public List<GameState> getAllActiveGames() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<GameState> getAllActiveGames() {
+
+		// return the collection of gamestates
+		return gameStates.values();
+
 	}
 
 	@Override
-	public List<Game> getDeployedGames() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Game> getDeployedGames() {
+
+		// return the collection of games
+		return games.values();
+
 	}
 
 	@Override
 	public GameState getGameState(int gameInstanceID) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return gameStates.get(gameInstanceID);
+
 	}
 
 	@Override
@@ -67,9 +92,16 @@ public class GameInteractionManager implements GameInteraction {
 	}
 
 	@Override
-	public GameState makeMove(GameMove move) {
-		// TODO Auto-generated method stub
-		return null;
+	public GameState makeMove(GameMove move) throws IllegalMoveException,
+			IllegalGameStateException {
+
+		Game specifiedGame = games.get(move.getGameID());
+		GameState specifiedGameState = gameStates.get(move.getGameInstanceID());
+		if (specifiedGameState.getCounter() != move.getCounter())
+			throw new IllegalMoveException();
+
+		return specifiedGame.makeMove(specifiedGameState, move);
+
 	}
 
 }

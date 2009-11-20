@@ -1,5 +1,6 @@
 package org.swat.server.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
@@ -13,7 +14,7 @@ public class GameState {
 	private String turnOfPlayer;
 	private String winnerID;
 	private List<String> messages;
-	private List<String> players;
+	private ArrayList<String> players;
 	
 	private Game game;
 	
@@ -88,6 +89,24 @@ public class GameState {
 		if(this.game.getNumberOfPlayersNeeded() == this.players.size())
 			this.gameState = GAME_STATE.STARTED;
 
+	}
+	
+	public int getPlayerNumber(String playerUID) {
+		
+		int playerNumber = -1;
+		String[] playerUIDs = new String[players.size()];
+		playerUIDs = players.toArray(playerUIDs);
+		
+		for(int loop1=0; loop1<playerUIDs.length; loop1++)
+			if(playerUIDs[loop1].equals(playerUID))
+				playerNumber = loop1+1;
+		
+		return (playerNumber);
+		
+	}
+	
+	public synchronized void incrementStateID() {
+		this.ID++;
 	}
 	
 }

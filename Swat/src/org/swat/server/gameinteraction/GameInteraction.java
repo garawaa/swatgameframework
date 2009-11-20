@@ -19,7 +19,7 @@ public interface GameInteraction {
 	/*
 	 * Use ID obtained from getDeployedGames()
 	 */
-	public GameState createGame(int gameID);
+	public GameState createGame(int gameID, String playerUID);
 	
 	public List<GameState> getGamesThatNeedPlayers();
 	
@@ -28,7 +28,7 @@ public interface GameInteraction {
 	
 	public GameState getGameState(int gameInstanceID);
 	
-	public GameState joinGame(int gameID, String playerUID);
+	public GameState joinGame(int gameInstanceID, String playerUID);
 	
 	/*
 	 * Retrieves the list of games for which the player

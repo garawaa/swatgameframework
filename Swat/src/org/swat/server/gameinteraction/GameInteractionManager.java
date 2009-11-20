@@ -1,6 +1,6 @@
 package org.swat.server.gameinteraction;
 
-public class GameInstanceManager {
+public class GameInteractionManager {
 	
 	/*
 	 * Methods:

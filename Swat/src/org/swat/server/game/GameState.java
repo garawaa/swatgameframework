@@ -14,7 +14,6 @@ public class GameState {
 	private String winnerID;
 	private List<String> messages;
 	private List<String> players;
-	private String ownerUID;
 	
 	private Game game;
 	
@@ -89,14 +88,6 @@ public class GameState {
 		if(this.game.getNumberOfPlayersNeeded() == this.players.size())
 			this.gameState = GAME_STATE.STARTED;
 
-	}
-	
-	public String getOwnerUID() {
-		return ownerUID;
-	}
-	
-	public void setOwnerUID(String ownerUID) {
-		this.ownerUID = ownerUID;
 	}
 	
 }

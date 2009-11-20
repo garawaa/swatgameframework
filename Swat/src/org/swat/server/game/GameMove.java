@@ -2,7 +2,7 @@ package org.swat.server.game;
 
 import java.util.ArrayList;
 
-import org.swat.data.MoveCoordinates;
+import org.swat.data.MoveCoordinate;
 
 public class GameMove {
 	
@@ -11,7 +11,7 @@ public class GameMove {
 	private int gameStateID;
 	
 	private String playerUID;
-	private ArrayList<MoveCoordinates> moveCoordinates;
+	private ArrayList<MoveCoordinate> moveCoordinates;
 	
 	public GameMove(int gameID, int gameInstanceID, int gameStateID,
 			String playerUID) {
@@ -54,12 +54,12 @@ public class GameMove {
 	 */
 
 
-	public void addMoveCoordinate(MoveCoordinates moveCoordinate) {
+	public void addMoveCoordinate(MoveCoordinate moveCoordinate) {
 		this.moveCoordinates.add(moveCoordinate);
 	}
 
 
-	public ArrayList<MoveCoordinates> getMoveCoordinates() {
+	public ArrayList<MoveCoordinate> getMoveCoordinates() {
 		return moveCoordinates;
 	}
 	

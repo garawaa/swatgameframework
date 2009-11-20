@@ -1,6 +1,6 @@
 package org.swat.data;
 
-public class MoveCoordinates {
+public class MoveCoordinate {
 	
 	private Coordinate from, to;
 

@@ -54,11 +54,6 @@ public class TicTacToe implements Game {
 		return pieces;
 	}
 	
-	@Override
-	public GAME_PLAYER getPlayerWhoShouldMakeMove() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean makeMove(GameState state, GameMove move) {

@@ -1,17 +1,75 @@
 package org.swat.server.gameinteraction;
 
-public class GameInteractionManager {
+import java.util.List;
+
+import org.swat.server.game.Game;
+import org.swat.server.game.GameMove;
+import org.swat.server.game.GameState;
+
+public class GameInteractionManager implements GameInteraction {
+
+	private static GameInteractionManager _instance;
 	
-	/*
-	 * Methods:
-	 * Create game
-	 * Get games that need players
-	 * Make a move on a game
-	 * Retrieve a game state
-	 * List deployed games
-	 * Join game
-	 * Retrieve all active games
-	 * 
-	 */
+	private GameInteractionManager() {
+		
+	}
+	
+	public static synchronized GameInteractionManager getInstance() {
+		
+		if(_instance == null)
+			_instance = new GameInteractionManager();
+		
+		return _instance;
+		
+	}
+	
+	
+	@Override
+	public GameState createGame(int gameID, String playerUID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GameState> getAllActiveGames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Game> getDeployedGames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GameState getGameState(int gameInstanceID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GameState> getGamesThatNeedPlayers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GameState> getPlayersGames(String playerUID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GameState joinGame(int gameInstanceID, String playerUID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GameState makeMove(GameMove move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

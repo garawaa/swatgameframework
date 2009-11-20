@@ -1,12 +1,15 @@
 package org.swat.server.controller;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
+import org.swat.server.gameinteraction.*;
+import org.swat.data.*;
 
 public class GamePersistence {
 	
@@ -44,7 +47,7 @@ public class GamePersistence {
 	}
 	
 	private void initializeGameStates() {
-		storeGameStates(new LinkedList());
+		this.storeGameStates(new LinkedList());
 	}
 	
 	public boolean storeGameStates(List<GameState> l) {

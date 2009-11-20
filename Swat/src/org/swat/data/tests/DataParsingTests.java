@@ -34,6 +34,13 @@ public class DataParsingTests
 		+ "Key3:3\n"
 		+ "END_STRING_INT_MAP\n";
 
+	public static final String INT_STRING_MAP = 
+		"BEGIN_INT_STRING_MAP\n"
+		+ "1:Value1\n" 
+		+ "2:Value2\n" 
+		+ "3:Value3\n"
+		+ "END_INT_STRING_MAP\n";
+
 	public static final String INT_ARRAY = 
 		"BEGIN_2D_INT_ARRAY\n"
 		+ "width=2\n"
@@ -47,8 +54,9 @@ public class DataParsingTests
 		+ "x=6\n"
 		+ "y=3\n"
 		+ "END_COORDINATE\n";
-	
+
 	private Map<String, Integer> stringIntMap;
+	private Map<Integer, String> intStringMap;
 	private List<String> stringList;
 	private Coordinate coordinate;
 	private int[][] intArray;
@@ -61,6 +69,11 @@ public class DataParsingTests
 		stringIntMap.put("Key1", 1);
 		stringIntMap.put("Key2", 2);
 		stringIntMap.put("Key3", 3);
+
+		intStringMap = new TreeMap<Integer, String>();
+		intStringMap.put(1, "Value1");
+		intStringMap.put(2, "Value2");
+		intStringMap.put(3, "Value3");
 
 		stringList = new ArrayList<String>();
 		stringList.add("Test1");
@@ -164,6 +177,28 @@ public class DataParsingTests
 		pWriter.close();
 
 		assertEquals(STRING_INT_MAP, sWriter.toString());
+	}
+
+	@Test
+	public void testReadIntStringMap() throws IOException
+	{
+		LineReader reader = new LineReader(new StringReader(INT_STRING_MAP));
+		Map<Integer, String> map = DataParsing.readIntStringMap(reader);
+		reader.close();
+
+		assertEquals(intStringMap, map);
+	}
+
+	@Test
+	public void testWriteIntStringMap() throws IOException
+	{
+		StringWriter sWriter = new StringWriter();
+		PrintWriter pWriter = new PrintWriter(sWriter);
+		DataParsing.writeIntStringMap(pWriter, intStringMap);
+		sWriter.close();
+		pWriter.close();
+
+		assertEquals(INT_STRING_MAP, sWriter.toString());
 	}
 
 	@Test

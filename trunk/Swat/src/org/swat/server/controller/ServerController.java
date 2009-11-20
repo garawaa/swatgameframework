@@ -2,20 +2,23 @@ package org.swat.server.controller;
 
 import java.util.*;
 import java.io.*;
+import org.swat.data.*;
+import org.swat.server.gameinteraction.*;
+import org.swat.server.game.*;
 
 public class ServerController {
 	
 	private GamePersistence gamepersistence;
 	private UserAuthentication userauthentication;
-	private GameInteraction gameinteraction;
+	private GameInteractionManager gameinteraction;
 	
 	public ServerController() {
 		gamepersistence = new GamePersistence();
 		userauthentication = new UserAuthentication();
-		gameinteraction = new GameInteraction();
+		gameinteraction = GameInteractionManager.getInstance();
 	}
 	
-	public List<GameState> retrieveDeployedGames() {
+	public List<Game> retrieveDeployedGames() {
 		return gameinteraction.getDeployedGames();
 	}
 	
@@ -27,7 +30,7 @@ public class ServerController {
 	
 	//who create a game?
 	public GameState createGame(int gameid, String username) {
-		return gameinteraction.createGame(gameid);
+		return gameinteraction.createGame(gameid, username);
 	}
 	
 	//gameinstanceid ?

@@ -2,14 +2,13 @@ package org.swat.server.gameimpl;
 
 import java.util.HashMap;
 
-import org.swat.data.GAME_PLAYER;
 import org.swat.data.GAME_STATE;
 import org.swat.data.GAME_TYPE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
+import org.swat.data.GameState;
 import org.swat.data.MoveCoordinate;
 import org.swat.server.game.Game;
-import org.swat.data.GameState;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 
@@ -85,12 +84,45 @@ public class TicTacToe implements Game {
 			int playerNumber = state.getPlayerNumber(move.getPlayerUID());
 			state.getPieceInfo()[x][y] = playerNumber;
 			
+			state.setGameState(GAME_STATE.DRAWN);
+			int[][] pieces = state.getPieceInfo();
+			
+			//check for draw
+			for(int loop1=0; loop1<3; loop1++)
+				for(int loop2=0; loop2<3; loop2++)
+					if(pieces[loop1][loop2] == 0)
+						state.setGameState(GAME_STATE.STARTED);
+			
 			//check for winner
 			int pieceInfo[][] = state.getPieceInfo();
-			int sum[] = new int[6];
+			int sum[] = new int[8];
 			
 			for(int loop1=0; loop1<3; loop1++)
-
+				for(int loop2=0; loop2<3; loop2++) {
+					sum[loop1] += pieceInfo[loop1][loop2];
+					sum[loop1+3] += pieceInfo[loop2][loop1];
+					if(pieceInfo[loop1][loop2] == 0) {
+						sum[loop1] = -6;
+						sum[loop2+3] = -6;
+					}
+						
+				}
+			
+			for(int loop1=0; loop1<3; loop1++) {
+				sum[6] += pieceInfo[loop1][loop1];
+				sum[7] += pieceInfo[2-loop1][2-loop1];
+			}
+			
+			for(int loop1=0; loop1<8; loop1++) {
+			
+				if(sum[loop1] == 3 || sum[loop1] == 6) {
+					state.setWinnerID(move.getPlayerUID());
+					state.setGameState(GAME_STATE.FINISHED);
+					break;
+				}
+					
+			}
+			
 			//increment state ID
 			state.incrementStateID();			
 

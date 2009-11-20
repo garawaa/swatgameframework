@@ -2,7 +2,6 @@ package org.swat.data;
 
 import java.util.Map;
 
-import org.swat.server.game.GAME_TYPE;
 
 public class GameInfo
 {

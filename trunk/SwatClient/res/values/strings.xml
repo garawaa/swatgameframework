@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Swat Online Board Games</string>
+	<string-array name="menuItems">
+		<item name="Game">Game Options</item>
+		<item name="Join">Join Game</item>
+		<item name="Create">Create Game</item>
+	</string-array>
+	<string-array name="gameOptionMenuItems">
+		<item name="retDepG">Retrieve Deployed Games</item>
+		<item name="retOprnG">Retrieve Open Games</item>
+		<item name="retMyG">Retrieve My Games</item>
+	</string-array>
+	<string name="gameSure">Are you sure?</string>
+	<string name="alert_dialog_username">Email</string>
+	<string name="alert_dialog_password">Password</string>
+	<string name="alert_dialog_text_entry"></string>
+	<string name="alert_dialog_ok">Log In</string>
+	<string name="alert_dialog_cancel">Cancel</string>
+	<string name="alert_dialog_register">Register</string>
+	<string name="alert_dialog_start_game">Start Game</string>
+	<string name="alert_dialog_join_game">Join Game</string>
+</resources>

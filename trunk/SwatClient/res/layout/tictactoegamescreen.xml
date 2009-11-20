@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout android:id="@+id/widget33"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<ImageView android:id="@+id/board" android:layout_width="310px"
+		android:src="@drawable/tictactoeboard" android:layout_height="310px"
+		android:layout_x="0px" android:layout_y="0px">
+	</ImageView>
+	<ImageView android:id="@+id/cross1" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="0px" android:layout_y="0px">
+	</ImageView>
+	<ImageView android:id="@+id/cross2" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="105px" android:layout_y="0px">
+	</ImageView>
+	<ImageView android:id="@+id/cross3" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="210px" android:layout_y="0px">
+	</ImageView>
+	<ImageView android:id="@+id/cross4" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="0px" android:layout_y="105px">
+	</ImageView>
+	<ImageView android:id="@+id/cross5" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="105px" android:layout_y="105px">
+	</ImageView>
+	<ImageView android:id="@+id/cross6" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="210px" android:layout_y="105px">
+	</ImageView>
+	<ImageView android:id="@+id/cross7" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="0px" android:layout_y="210px">
+	</ImageView>
+	<ImageView android:id="@+id/cross8" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="105px" android:layout_y="2100px">
+	</ImageView>
+	<ImageView android:id="@+id/cross9" android:layout_width="100px"
+		android:src="@drawable/x" android:layout_height="100px"
+		android:layout_x="210px" android:layout_y="210px">
+	</ImageView>
+	<ImageView android:id="@+id/circle1" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle2" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle3" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle4" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle5" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle6" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle7" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle8" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+	<ImageView android:id="@+id/circle9" android:layout_width="100px"
+		android:src="@drawable/o" android:layout_height="100px">
+	</ImageView>
+</AbsoluteLayout>

@@ -14,6 +14,5 @@ public interface Game {
 	
 	public GameState getInitialState();
 	public boolean makeMove(GameState state, GameMove move);
-	public abstract GAME_PLAYER getPlayerWhoShouldMakeMove();
 
 }

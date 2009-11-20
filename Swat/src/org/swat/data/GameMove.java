@@ -7,7 +7,7 @@ public class GameMove {
 	
 	private int gameID;
 	private int gameInstanceID;
-	private int gameStateID;
+	private int counter;
 	
 	private String playerUID;
 	private ArrayList<MoveCoordinate> moveCoordinates;
@@ -17,7 +17,7 @@ public class GameMove {
 		super();
 		this.gameID = gameID;
 		this.gameInstanceID = gameInstanceID;
-		this.gameStateID = gameStateID;
+		this.counter = gameStateID;
 		this.playerUID = playerUID;
 	}
 	
@@ -37,11 +37,11 @@ public class GameMove {
 	public void setGameInstanceID(int gameInstanceID) {
 		this.gameInstanceID = gameInstanceID;
 	}
-	public int getGameStateID() {
-		return gameStateID;
+	public int getCounter() {
+		return counter;
 	}
-	public void setGameStateID(int gameStateID) {
-		this.gameStateID = gameStateID;
+	public void setCounter(int counter) {
+		this.counter = counter;
 	}
 	public String getPlayerUID() {
 		return playerUID;

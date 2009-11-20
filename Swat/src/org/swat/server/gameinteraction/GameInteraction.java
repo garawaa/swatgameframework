@@ -1,9 +1,12 @@
 package org.swat.server.gameinteraction;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.swat.data.GameMove;
 import org.swat.server.game.Game;
+import org.swat.server.game.exceptions.IllegalGameStateException;
+import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.data.GameState;
 
 
@@ -15,7 +18,7 @@ public interface GameInteraction {
 	 * game, and getID() provides the UI for that
 	 * game type
 	 */
-	public List<Game> getDeployedGames();
+	public Collection<Game> getDeployedGames();
 	
 	/*
 	 * Use ID obtained from getDeployedGames()
@@ -25,7 +28,7 @@ public interface GameInteraction {
 	public List<GameState> getGamesThatNeedPlayers();
 	
 	
-	public GameState makeMove(GameMove move);
+	public GameState makeMove(GameMove move) throws IllegalMoveException, IllegalGameStateException;
 	
 	public GameState getGameState(int gameInstanceID);
 	
@@ -40,6 +43,6 @@ public interface GameInteraction {
 	/*
 	 * For persistence
 	 */
-	public List<GameState> getAllActiveGames();
+	public Collection<GameState> getAllActiveGames();
 
 }

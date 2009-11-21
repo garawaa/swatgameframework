@@ -1,16 +1,20 @@
 package org.swat.server.controller;
 
-import java.util.*;
-import java.io.*;
-import org.swat.data.*;
-import org.swat.server.gameinteraction.*;
-import org.swat.server.game.*;
+import java.util.Iterator;
+import java.util.List;
+
+import org.swat.data.GameMove;
+import org.swat.data.GameState;
+import org.swat.server.game.Game;
+import org.swat.server.game.exceptions.IllegalGameStateException;
+import org.swat.server.game.exceptions.IllegalMoveException;
+import org.swat.server.gameinteraction.GameInteractionManager;
 
 public class ServerController {
 	
-	private GamePersistence gamepersistence;
-	private UserAuthentication userauthentication;
-	private GameInteractionManager gameinteraction;
+	private final GamePersistence gamepersistence;
+	private final UserAuthentication userauthentication;
+	private final GameInteractionManager gameinteraction;
 	
 	public ServerController() {
 		gamepersistence = new GamePersistence();
@@ -43,7 +47,21 @@ public class ServerController {
 	}
 
 	public GameState makeMove(GameMove gamemove) {
-		return gameinteraction.makeMove(gamemove);
+		try
+		{
+			return gameinteraction.makeMove(gamemove);
+		}
+		catch (IllegalMoveException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IllegalGameStateException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public GameState retrieveGameState(int gameinstanceid) {

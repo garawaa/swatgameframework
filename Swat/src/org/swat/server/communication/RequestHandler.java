@@ -122,19 +122,19 @@ public class RequestHandler implements Runnable
 		writer.println("END_RESPONSE");
 	}
 
-	public void createGame(LineReader reader, PrintWriter writer)
+	private void createGame(LineReader reader, PrintWriter writer)
 	{
 	}
 
-	public void joinGame(LineReader reader, PrintWriter writer)
+	private void joinGame(LineReader reader, PrintWriter writer)
 	{
 	}
 
-	public void makeMove(LineReader reader, PrintWriter writer)
+	private void makeMove(LineReader reader, PrintWriter writer)
 	{
 	}
 
-	public void retrieveDeployedGames(LineReader reader, PrintWriter writer)
+	private void retrieveDeployedGames(LineReader reader, PrintWriter writer)
 	{
 		// Get the list of games
 		// TODO
@@ -147,19 +147,19 @@ public class RequestHandler implements Runnable
 		DataParsing.writeStringList(writer, games);
 	}
 
-	public void retrieveGameInfo(LineReader reader, PrintWriter writer)
+	private void retrieveGameInfo(LineReader reader, PrintWriter writer)
 	{
 	}
 
-	public void retrieveGameState(LineReader reader, PrintWriter writer)
+	private void retrieveGameState(LineReader reader, PrintWriter writer)
 	{
 	}
 
-	public void retrieveMyGames(LineReader reader, PrintWriter writer)
+	private void retrieveMyGames(LineReader reader, PrintWriter writer)
 	{
 	}
 
-	public void retrieveOpenGames(LineReader reader, PrintWriter writer)
+	private void retrieveOpenGames(LineReader reader, PrintWriter writer)
 	{
 	}
 }

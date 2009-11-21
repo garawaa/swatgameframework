@@ -1,5 +1,6 @@
 package org.swat.server.gameinteraction;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -51,18 +52,18 @@ public class GameInteractionManager implements GameInteraction {
 	}
 
 	@Override
-	public Collection<GameState> getAllActiveGames() {
+	public List<GameState> getAllActiveGames() {
 
 		// return the collection of gamestates
-		return gameStates.values();
+		return new ArrayList<GameState>(gameStates.values());
 
 	}
 
 	@Override
-	public Collection<Game> getDeployedGames() {
+	public List<Game> getDeployedGames() {
 
 		// return the collection of games
-		return games.values();
+		return new ArrayList<Game>(games.values());
 
 	}
 

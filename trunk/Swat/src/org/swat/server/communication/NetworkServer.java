@@ -3,11 +3,23 @@ package org.swat.server.communication;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class Networking
+public class NetworkServer
 {
-	public static final int PORT = 9876;
+	private final int port;
 
-	public static void startServer()
+	public NetworkServer()
+	{
+		port = 9876;
+		start();
+	}
+
+	public NetworkServer(int port)
+	{
+		this.port = port;
+		start();
+	}
+	
+	private void start()
 	{
 		ServerSocket serverSocket = null;
 		boolean listening = true;
@@ -15,11 +27,11 @@ public class Networking
 		// Open the socket to listen for connections
 		try
 		{
-			serverSocket = new ServerSocket(PORT);
+			serverSocket = new ServerSocket(port);
 		}
 		catch (IOException e)
 		{
-			System.err.println("Could not listen on port: " + PORT);
+			System.err.println("Could not listen on port: " + port);
 			System.exit(-1);
 		}
 
@@ -32,7 +44,7 @@ public class Networking
 			}
 			catch (IOException e)
 			{
-				System.err.println("Accept failed: " + PORT);
+				System.err.println("Accept failed: " + port);
 			}
 		}
 
@@ -52,6 +64,6 @@ public class Networking
 	public static void main(String args[])
 	{
 		// TODO remove
-		startServer();
+		new NetworkServer();
 	}
 }

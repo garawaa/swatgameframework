@@ -1,10 +1,7 @@
-package org.swat.server.game;
+package org.swat.data;
 
 import java.util.HashMap;
 
-import org.swat.data.GAME_TYPE;
-import org.swat.data.GameMove;
-import org.swat.data.GameState;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 

@@ -8,16 +8,6 @@ import java.util.Map;
 
 public class DataParsing
 {
-	// Writes an error message if the expression is false
-	public static void verify(PrintWriter writer, boolean expression,
-			String errorMessage)
-	{
-		if (!expression)
-		{
-			writer.println("ERROR: " + errorMessage);
-		}
-	}
-
 	public static GameState readGameState(LineReader reader)
 	{
 		// TODO

@@ -2,7 +2,9 @@ package org.swat.server.communication;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,9 @@ import org.swat.data.LineReader;
 public class RequestHandler implements Runnable
 {
 	private final Socket socket;
+	private LineReader reader;
+	private PrintWriter writer;
+	private StringBuffer writeBuffer;
 
 	public RequestHandler(Socket socket)
 	{
@@ -22,21 +27,32 @@ public class RequestHandler implements Runnable
 	@Override
 	public void run()
 	{
-		LineReader in = null;
-		PrintWriter out = null;
-
 		try
 		{
-			// Create the reader and writer
-			out = new PrintWriter(socket.getOutputStream(), true);
-			in = new LineReader(new InputStreamReader(socket.getInputStream()));
+			/*
+			 * Instead of writing directly to the socket's output stream I use
+			 * an intermediate StringBuffer. This allows us to clear the buffer
+			 * in case of an error instead of sending an incomplete response.
+			 */
+			StringWriter stringWriter = new StringWriter(256);
+			writeBuffer = stringWriter.getBuffer();
+			writer = new PrintWriter(stringWriter, true);
+			reader = new LineReader(new InputStreamReader(socket
+					.getInputStream()));
 
 			// Process the request
-			processRequest(in, out);
+			processRequest();
+
+			// Copy the buffer to the output stream
+			OutputStreamWriter out = new OutputStreamWriter(socket
+					.getOutputStream());
+			out.write(writeBuffer.toString());
+			out.flush();
+			out.close();
 		}
 		catch (IOException e)
 		{
-			System.err.println("Error connecting to client");
+			System.err.println("Error processing client request");
 			e.printStackTrace();
 			return;
 		}
@@ -45,8 +61,8 @@ public class RequestHandler implements Runnable
 			try
 			{
 				// Close everything
-				out.close();
-				in.close();
+				writer.close();
+				reader.close();
 				socket.close();
 			}
 			catch (IOException e)
@@ -57,20 +73,28 @@ public class RequestHandler implements Runnable
 		}
 	}
 
-	private void processRequest(LineReader reader, PrintWriter writer)
+	private void processRequest()
 	{
 		// Read the username and password
-		DataParsing.verify(writer, reader.advance().startsWith("username:"),
-				"Malformed username line");
+		if (!reader.advance().startsWith("username:"))
+		{
+			sendError("Malformed username line");
+			return;
+		}
 		String username = reader.getLine().substring(9);
-		DataParsing.verify(writer, reader.advance().startsWith("password:"),
-				"Malformed password line");
+
+		if (!reader.advance().startsWith("password:"))
+		{
+			sendError("Malformed password line");
+			return;
+		}
 		String password = reader.getLine().substring(9);
 
-		// Authenticate
+		// TODO Authenticate
 		if (!username.equals("username") || !password.equals("password"))
 		{
-			// TODO
+			sendError("Invalid login credentials");
+			return;
 		}
 
 		// Start the response
@@ -79,65 +103,74 @@ public class RequestHandler implements Runnable
 		// Branch depending on the command
 		if (reader.advance().equals("createGame"))
 		{
-			createGame(reader, writer);
+			createGame();
 		}
 		else if (reader.getLine().equals("joinGame"))
 		{
-			joinGame(reader, writer);
+			joinGame();
 		}
 		else if (reader.getLine().equals("makeMove"))
 		{
-			makeMove(reader, writer);
+			makeMove();
 		}
 		else if (reader.getLine().equals("retrieveDeployedGames"))
 		{
-			retrieveDeployedGames(reader, writer);
+			retrieveDeployedGames();
 		}
 		else if (reader.getLine().equals("retrieveGameInfo"))
 		{
-			retrieveGameInfo(reader, writer);
+			retrieveGameInfo();
 		}
 		else if (reader.getLine().equals("retrieveGameState"))
 		{
-			retrieveGameState(reader, writer);
+			retrieveGameState();
 		}
 		else if (reader.getLine().equals("retrieveMyGames"))
 		{
-			retrieveMyGames(reader, writer);
+			retrieveMyGames();
 		}
 		else if (reader.getLine().equals("retrieveOpenGames"))
 		{
-			retrieveOpenGames(reader, writer);
+			retrieveOpenGames();
 		}
 		else
 		{
-			DataParsing.verify(writer, false, "Unsupported command");
+			sendError("Unsupported command");
+			return;
 		}
 
 		// Read the end of the command
-		DataParsing.verify(writer, reader.advance().equals("END_REQUEST"),
-				"Malformed request");
+		if (!reader.advance().equals("END_REQUEST"))
+		{
+			sendError("Malformed request");
+			return;
+		}
 
 		// End the response
 		writer.println("END_RESPONSE");
 	}
 
-	private void createGame(LineReader reader, PrintWriter writer)
+	private void sendError(String message)
+	{
+		writeBuffer.setLength(0);
+		writer.println("ERROR: " + message);
+	}
+
+	private void createGame()
 	{
 	}
 
-	private void joinGame(LineReader reader, PrintWriter writer)
+	private void joinGame()
 	{
 	}
 
-	private void makeMove(LineReader reader, PrintWriter writer)
+	private void makeMove()
 	{
 	}
 
-	private void retrieveDeployedGames(LineReader reader, PrintWriter writer)
+	private void retrieveDeployedGames()
 	{
-		// Get the list of games
-		// TODO
+		// TODO Get the list of games
 		List<String> games = new ArrayList<String>();
 		games.add("Chess");
 		games.add("Checkers");
@@ -147,19 +180,19 @@ public class RequestHandler implements Runnable
 		DataParsing.writeStringList(writer, games);
 	}
 
-	private void retrieveGameInfo(LineReader reader, PrintWriter writer)
+	private void retrieveGameInfo()
 	{
 	}
 
-	private void retrieveGameState(LineReader reader, PrintWriter writer)
+	private void retrieveGameState()
 	{
 	}
 
-	private void retrieveMyGames(LineReader reader, PrintWriter writer)
+	private void retrieveMyGames()
 	{
 	}
 
-	private void retrieveOpenGames(LineReader reader, PrintWriter writer)
+	private void retrieveOpenGames()
 	{
 	}
 }

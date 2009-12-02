@@ -2,9 +2,9 @@ package org.swat.server.gameinteraction;
 
 import java.util.List;
 
+import org.swat.data.Game;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
-import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 

@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.swat.data.Game;
 import org.swat.data.GameMove;
-import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.data.GameState;

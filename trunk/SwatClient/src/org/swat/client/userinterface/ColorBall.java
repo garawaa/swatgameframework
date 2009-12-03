@@ -1,70 +1,20 @@
 package org.swat.client.userinterface;
 
-import java.io.File;
-
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
-import android.os.Environment;
 
 public class ColorBall  {
+	private Context context;
+
 	private Bitmap img; // the image of the ball
+
 	private int coordX = 0; // the x coordinate at the canvas
 	private int coordY = 0; // the y coordinate at the canvas
-	private int id; // gives every ball his own id, for now not necessary
-	private static int count = 1;
-	private boolean goRight = true;
-	private boolean goDown = true;
 
-	public ColorBall(String image) {
-		try
-		{
-			BitmapFactory.Options options=new BitmapFactory.Options();
-			options.inSampleSize = 1;
-
-			img = BitmapFactory.decodeFile(image, options);
-			if(img == null)
-				throw new Exception("Image not found");
-		}
-		catch(Exception ex)
-		{			
-			ex.printStackTrace();
-		}
-		id=count;
-		count++;		
-	}
-	
-	public ColorBall()
+	public ColorBall(Context c)
 	{
-		
-	}
-
-	public ColorBall(String image, Point point) {
-
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inSampleSize = 1;
-		try
-		{
-			if(new File(image).exists() == false)
-			{
-				System.out.println("!!!!!!!!!!!!!!-------------------!!!!!!!!!!!!!!!\n" + 
-						"File " + image + " does not exist");
-				image = Environment.getExternalStorageDirectory() + "/images/8countbodybuilders.png";
-			}
-			img = BitmapFactory.decodeFile(image, options);			
-		}
-		catch(Exception ex)
-		{			
-			ex.printStackTrace();
-		}
-		id=count;
-		count++;
-		coordX= point.x;
-		coordY = point.y;
-	}
-
-	public static int getCount() {
-		return count;
+		context = c;
 	}
 
 	void setX(int newValue) {
@@ -81,28 +31,19 @@ public class ColorBall  {
 
 	public int getY() {
 		return coordY;
-	}
-
-	public int getID() {
-		return id;
 	}	
 
 	public Bitmap getBitmap() {
 		return img;
 	}
 
-	public void setImage(String p, int x, int y){
+	public void setImage(int p, int x, int y, int width, int height){
 		try
-		{
-			if(new File(p).exists() == false)
-			{
-				System.out.println("!!!!!!!!!!!!!!-------------------!!!!!!!!!!!!!!!\n" + 
-						"File " + p + " does not exist");
-				p = Environment.getExternalStorageDirectory() + "/images/8countbodybuilders.png";
-			}
-			BitmapFactory.Options options=new BitmapFactory.Options();
-			options.inSampleSize = 1;
-			img = BitmapFactory.decodeFile(p, options);
+		{			
+			BitmapFactory.Options opts = new BitmapFactory.Options();
+			opts.outHeight = height;
+			opts.outWidth = width;
+			img = BitmapFactory.decodeResource(context.getResources(), p);
 			coordX = x;
 			coordY = y;
 		}
@@ -110,34 +51,5 @@ public class ColorBall  {
 		{
 			ex.printStackTrace();
 		}
-	}
-
-	public void moveBall(int goX, int goY) {
-		// check the borders, and set the direction if a border has reached
-		if (coordX > 270){
-			goRight = false;
-		}
-		if (coordX < 0){
-			goRight = true;
-		}
-		if (coordY > 400){
-			goDown = false;
-		}
-		if (coordY < 0){
-			goDown = true;
-		}
-		// move the x and y 
-		if (goRight){
-			coordX += goX;
-		}else
-		{
-			coordX -= goX;
-		}
-		if (goDown){
-			coordY += goY;
-		}else
-		{
-			coordY -= goY;
-		}
-	}
+	}	
 }

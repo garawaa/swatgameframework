@@ -10,7 +10,8 @@ public class Strings
 	public static String retOpenGames = "Retrieve Open Games";
 	public static String retMyGames = "Retrieve My Games";
 	
-	public static String submitMove = "Submit Move";
+	public static String submitMove = "Move Submitted";
+	public static String submitMoveNot = "Move cannot be submitted at this time";
 	
 	public static String gameOptions = "Game Options";
 	public static String gameList = "Game List";
@@ -23,5 +24,5 @@ public class Strings
 	public static String tictactoe = "Tic Tac Toe";
 	
 	public static String circle = "Circle";
-	public static String cross = "Cross";
+	public static String cross = "Cross";	
 }

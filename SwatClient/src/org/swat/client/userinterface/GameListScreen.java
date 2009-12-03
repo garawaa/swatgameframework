@@ -42,7 +42,7 @@ public class GameListScreen extends ListActivity
 					@Override
 					public void onClick(DialogInterface arg0, int menuOption) {										
 						//Start game from control
-						Control.createNewGame(gameList[position]);										
+						//TODO Control.createNewGame(gameList[position]);										
 
 						//Display game screen
 						Intent intent = new Intent(GameListScreen.this, GameScreen.class);
@@ -58,8 +58,8 @@ public class GameListScreen extends ListActivity
 					@Override
 					public void onClick(DialogInterface arg0, int menuOption) {										
 						//Join game from control
-						int gameID = Control.getCurrentMyGames().get(position).getGameID();
-						Control.joinGame(gameID);			
+						//TODO int gameID = Control.getCurrentMyGames().get(position).getGameID();
+						//Control.joinGame(gameID);			
 
 						//Display game screen
 						Intent intent = new Intent(GameListScreen.this, GameScreen.class);
@@ -75,8 +75,8 @@ public class GameListScreen extends ListActivity
 					@Override
 					public void onClick(DialogInterface arg0, int menuOption) {										
 						//Join game from control
-						int gameID = Control.getCurrentOpenGames().get(position).getGameID();
-						Control.joinGame(gameID);										
+						//TODO int gameID = Control.getCurrentOpenGames().get(position).getGameID();
+						//Control.joinGame(gameID);										
 
 						//Display game screen
 						Intent intent = new Intent(GameListScreen.this, GameScreen.class);

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.swat.client.communication.ServerInterface;
-import org.swat.client.data.Coordinate;
-import org.swat.client.data.GameInfo;
-import org.swat.client.data.GameState;
+import org.swat.data.Coordinate;
+import org.swat.data.GameInfo;
+import org.swat.data.GameState;
 
 public class Control 
 {
@@ -138,7 +138,7 @@ public class Control
 		List<String> openGamesNames = new ArrayList<String>();		
 		for(GameState gameState: currentOpenGames)
 		{
-			openGamesNames.add(gameState.getGameType());
+			// openGamesNames.add(gameState.getGameType());
 		}
 		return openGamesNames;
 	}
@@ -152,7 +152,7 @@ public class Control
 		List<String> MyGamesNames = new ArrayList<String>();		
 		for(GameState gameState: currentMyGames)
 		{
-			MyGamesNames.add(gameState.getGameType());
+			// MyGamesNames.add(gameState.getGameType());
 		}
 		return MyGamesNames;
 	}
@@ -164,7 +164,7 @@ public class Control
 		currentGameState = ServerInterface.createGame(gameType);		
 		//currentGameInfo = ControlTest.retrieveGameInfo(gameType);
 		//currentGameState = ControlTest.createGame(gameType);
-		playerOneID = currentGameState.getPlayTurnID();
+		// playerOneID = currentGameState.getPlayTurnID();
 		playerTwoID = 0; //for now set it to 0
 	}
 
@@ -173,7 +173,7 @@ public class Control
 	{
 		currentGameState = ServerInterface.joinGame(gameID);
 		//currentGameState = ControlTest.joinGame(gameID);
-		playerOneID = currentGameState.getPlayTurnID();
+		// playerOneID = currentGameState.getPlayTurnID();
 		playerTwoID = 0; //for now set it to 0
 	}
 

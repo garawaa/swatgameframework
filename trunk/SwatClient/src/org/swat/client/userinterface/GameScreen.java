@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.swat.client.R;
 import org.swat.client.control.Control;
-import org.swat.client.data.Coordinate;
-import org.swat.client.data.GameInfo;
-import org.swat.client.data.GameState;
+import org.swat.data.Coordinate;
+import org.swat.data.GameInfo;
+import org.swat.data.GameState;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -60,8 +60,8 @@ public class GameScreen extends Activity
 
 	private List<Coordinate> coordinates;
 
-	private float downX = 0;
-	private float downY = 0;
+	private final float downX = 0;
+	private final float downY = 0;
 
 	private float gridElementX = 0;
 	private float gridElementY = 0;
@@ -90,7 +90,7 @@ public class GameScreen extends Activity
 		switch (item.getItemId()) {
 		case submitMove:			
 			Control.makeMove(coordinates);
-			if(!Control.getCurrentGameState().getIsValid())
+			if (false) // TODO !Control.getCurrentGameState().getIsValid())
 			{
 				AlertDialog.Builder b = new AlertDialog.Builder(GameScreen.this);
 				b.setMessage("Invalid move. Please try again").setPositiveButton(R.string.alert_dialog_ok,
@@ -124,7 +124,8 @@ public class GameScreen extends Activity
 	/** Makes move based on whose  turn it is and where the user has clicked**/
 	private void displayPiece(int gameX, int gameY) {	
 		boolean playerOnePlaying = false;
-		if(Control.getPlayerOneID() == Control.getCurrentGameState().getPlayTurnID())
+		if (true) // TODO Control.getPlayerOneID() ==
+					// Control.getCurrentGameState().getPlayTurnID())
 			playerOnePlaying = true;
 		else
 			playerOnePlaying = false;
@@ -239,7 +240,7 @@ public class GameScreen extends Activity
 		gameState = Control.getCurrentGameState();
 		gameInfo = Control.getCurrentGameInfo();
 
-		String gameType = gameState.getGameType();
+		String gameType = "";// TODO gameState.getGameType();
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		coordinates = new ArrayList<Coordinate>();
 

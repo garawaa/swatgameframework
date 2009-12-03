@@ -3,23 +3,32 @@ package org.swat.client.communication;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.swat.client.data.*;
+import org.swat.data.Coordinate;
+import org.swat.data.DataParsing;
+import org.swat.data.GameInfo;
+import org.swat.data.GameState;
+import org.swat.data.LineReader;
 
 public class ServerInterface
 {
 	private static LineReader reader;
 	private static PrintWriter writer;
+	private static ServerConnection server;
+
+	private static String serverIP = "172.21.123.94";
+	private static int serverPort = 9876;
 
 	private static void connect()
 	{
-		//reader = Networking.getReader();
-		writer = Networking.getWriter();
+		server = new ServerConnection(serverIP, serverPort);
+		reader = server.getReader();
+		writer = server.getWriter();
 	}
 
 	private static void disconnect()
 	{
-		Networking.closeConnection();
-		//reader = null;
+		server.closeConnection();
+		reader = null;
 		writer = null;
 	}
 
@@ -32,14 +41,22 @@ public class ServerInterface
 
 	private static void verifyResponseOpening()
 	{
-		DataParsing.verify(new PrintWriter(System.err), reader.advance()
-				.equals("BEGIN_RESPONSE"), "Malformed response");
+		if (!reader.advance().equals("BEGIN_RESPONSE"))
+		{
+			// TODO error("Malformed response");
+		}
+		else if (reader.getLine().startsWith("ERROR"))
+		{
+			// TODO error("error");
+		}
 	}
 
 	private static void verifyResponseClosing()
 	{
-		DataParsing.verify(new PrintWriter(System.err), reader.advance()
-				.equals("END_RESPONSE"), "Malformed response");
+		if (!reader.advance().equals("END_RESPONSE"))
+		{
+			// TODO error("Malformed response");
+		}
 	}
 
 	public static GameState createGame(String gameType)
@@ -96,8 +113,29 @@ public class ServerInterface
 		return null;
 	}
 
+	public static String getServerIP()
+	{
+		return serverIP;
+	}
+
+	public static void setServerIP(String serverIP)
+	{
+		ServerInterface.serverIP = serverIP;
+	}
+
+	public static int getServerPort()
+	{
+		return serverPort;
+	}
+
+	public static void setServerPort(int serverPort)
+	{
+		ServerInterface.serverPort = serverPort;
+	}
+
 	public static void main(String args[])
 	{
+		// TODO remove
 		List<String> games = ServerInterface.retrieveDeployedGames();
 
 		for (String game : games)

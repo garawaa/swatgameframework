@@ -12,10 +12,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-public class DrawView extends View {
-	private static ColorBall [] crossPieces; 
-	private static ColorBall [] circlePieces;
-	private static ColorBall boardImage;
+public class GameView extends View {
+	private static PieceImage [] crossPieces; 
+	private static PieceImage [] circlePieces;
 
 	private int boardX;
 	private int boardY;
@@ -25,12 +24,11 @@ public class DrawView extends View {
 	private int crossIndex = 0;
 	private int circleIndex = 0;
 
-	public DrawView(Context context) {
+	public GameView(Context context) {
 		super(context);
 		setFocusable(true); //necessary for getting the touch events
-		crossPieces = new ColorBall[9];
-		circlePieces = new ColorBall[9];
-		boardImage = new ColorBall(context);
+		crossPieces = new PieceImage[9];
+		circlePieces = new PieceImage[9];
 		this.context = context;
 	}
 
@@ -41,7 +39,6 @@ public class DrawView extends View {
 		try
 		{
 			//draw the cards on the canvas
-			canvas.drawBitmap(boardImage.getBitmap(), boardImage.getX(), boardImage.getY(), null);
 			for(int i = 0; i<9; i++)
 			{				
 				canvas.drawBitmap(crossPieces[i].getBitmap(), crossPieces[i].getX(), crossPieces[i].getY(), null);				
@@ -118,13 +115,12 @@ public class DrawView extends View {
 	{			
 		for(int i = 0; i<9 ; i++)
 		{
-			crossPieces[i] = new ColorBall(context);
-			circlePieces[i] = new ColorBall(context);
+			crossPieces[i] = new PieceImage(context);
+			circlePieces[i] = new PieceImage(context);
 			
 			crossPieces[i].setImage(img1, -320, 0, 100, 100);	
 			circlePieces[i].setImage(img2, -320, 00, 100, 100);
 		}
-		boardImage.setImage(img3, 0, 0, Control.boardWidth, Control.boardHeight);
 		invalidate();
 	}
 }

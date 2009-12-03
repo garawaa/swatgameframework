@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -37,7 +38,21 @@ public class GameScreen extends Activity
 		mainLayout.setLayoutParams( new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
-		DrawView drawView = new DrawView(GameScreen.this);
+		ImageView boardImage = new ImageView(GameScreen.this);
+		boardImage.setImageResource(R.drawable.tictactoeboard);		
+		//LayoutParams boardParams = new LayoutParams(Control.boardWidth, Control.boardHeight);
+		//LayoutParams boardParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		LayoutParams boardParams = new LayoutParams(320, 320);
+		boardParams.leftMargin = 0;
+		boardParams.topMargin = 0;
+		boardImage.setLayoutParams(boardParams);
+		RelativeLayout boardLayout = new RelativeLayout(GameScreen.this);
+		boardLayout.setLayoutParams(boardParams);
+		//boardLayout.setLayoutParams(params);
+		boardLayout.addView(boardImage);
+		mainLayout.addView(boardLayout);
+		
+		GameView drawView = new GameView(GameScreen.this);
 		drawView.setImages(R.drawable.o, R.drawable.x, R.drawable.tictactoeboard);
 		LayoutParams drawViewParams = new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

@@ -3,13 +3,16 @@ package org.swat.server.controller;
 import java.util.Iterator;
 import java.util.List;
 
+import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.data.Coordinate;
+import org.swat.server.communication.NetworkServer;
 import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
-import org.swat.server.gameinteraction.GameInteractionManager;
+import org.swat.server.game.interaction.GameInteractionManager;
+
 
 public class ServerController {
 	
@@ -37,7 +40,9 @@ public class ServerController {
 		return gameinteraction.getDeployedGames();
 	}
 	
-	public List<GameInfo> 
+	public GameInfo getGameInfo(String gamename) {
+		return gameinteraction.getGameInfo(gamename);
+	}
 	
 	public List<GameState> retrieveOpenGames() {
 		return gameinteraction.getGamesThatNeedPlayers();

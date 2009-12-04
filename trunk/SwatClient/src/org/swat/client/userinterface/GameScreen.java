@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,6 +22,22 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public class GameScreen extends Activity
 {
+	/**Called when back button is hit**/
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		switch(keyCode)
+		{
+		case KeyEvent.KEYCODE_BACK:
+			AlertDialog.Builder b = new AlertDialog.Builder(GameScreen.this);
+			b.setMessage("Game will be saved on server");
+			b.show();
+			//TODO save game on server
+			return true;			
+		}
+		return false;		
+	}
+	
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	// GUI functions
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -42,7 +59,7 @@ public class GameScreen extends Activity
 		boardImage.setImageResource(R.drawable.tictactoeboard);		
 		//LayoutParams boardParams = new LayoutParams(Control.boardWidth, Control.boardHeight);
 		//LayoutParams boardParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-		LayoutParams boardParams = new LayoutParams(320, 320);
+		LayoutParams boardParams = new LayoutParams(Control.boardWidth, Control.boardHeight);
 		boardParams.leftMargin = 0;
 		boardParams.topMargin = 0;
 		boardImage.setLayoutParams(boardParams);
@@ -100,6 +117,9 @@ public class GameScreen extends Activity
 						}						
 					});
 					b.show();
+					//After move is made, increment cross index
+					Control.crossIndex+=1;
+					//TODO get other player's move and display it
 				}
 				else
 				{

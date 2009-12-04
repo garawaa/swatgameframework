@@ -34,6 +34,10 @@ public class Control
 	public static final int boardHeight = 320;
 	
 	private static boolean tempTestTurn = false;
+	
+	public static int crossIndex = 0;
+	public static int circleIndex = 0;
+
 
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	// Getters and setters
@@ -201,7 +205,10 @@ public class Control
 				gridY +=1;
 			}			
 			clickedLocation = new Coordinate(gridX, gridY);
-			okToSubmitMove = true;
+			if(okToSubmitMove)
+				okToSubmitMove = false;
+			else
+				okToSubmitMove = true;
 		}
 		return true;
 	}

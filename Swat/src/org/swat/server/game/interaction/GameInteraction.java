@@ -2,6 +2,7 @@ package org.swat.server.game.interaction;
 
 import java.util.List;
 
+import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.server.game.Game;
@@ -17,7 +18,9 @@ public interface GameInteraction {
 	 * game, and getID() provides the UI for that
 	 * game type
 	 */
-	public List<Game> getDeployedGames();
+	public List<String> getDeployedGames();
+	
+	public GameInfo getGameInfo(String gameName);
 	
 	/*
 	 * Use ID obtained from getDeployedGames()

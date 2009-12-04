@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.IllegalGameStateException;
@@ -58,13 +59,27 @@ public class GameInteractionManager implements GameInteraction {
 		return new ArrayList<GameState>(gameStates.values());
 
 	}
+	
+	/*
+	 * get list of game names for getdeployedgames
+	 * retrievegameinfo(string name)
+	 */
+	
 
 	@Override
-	public List<Game> getDeployedGames() {
+	public List<String> getDeployedGames() {
 
-		// return the collection of games
-		return new ArrayList<Game>(games.values());
+		// TODO: return the collection of games
+		return null;
 
+	}
+	
+	@Override
+	public GameInfo getGameInfo(String gameName) {
+		
+		//TODO
+		return null;
+		
 	}
 
 	@Override

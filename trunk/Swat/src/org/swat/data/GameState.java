@@ -3,6 +3,8 @@ package org.swat.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.swat.server.game.Game;
+
 
 public class GameState {
 	

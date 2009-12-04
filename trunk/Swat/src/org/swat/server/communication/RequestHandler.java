@@ -9,19 +9,27 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.swat.data.Coordinate;
 import org.swat.data.DataParsing;
+import org.swat.data.GameInfo;
+import org.swat.data.GameState;
 import org.swat.data.LineReader;
+import org.swat.server.controller.ServerController;
 
 public class RequestHandler implements Runnable
 {
 	private final Socket socket;
+	private final ServerController controller;
 	private LineReader reader;
 	private PrintWriter writer;
 	private StringBuffer writeBuffer;
+	private boolean error = false;
+	private String username;
 
 	public RequestHandler(Socket socket)
 	{
 		this.socket = socket;
+		controller = ServerController.getInstance();
 	}
 
 	@Override
@@ -81,7 +89,7 @@ public class RequestHandler implements Runnable
 			sendError("Malformed username line");
 			return;
 		}
-		String username = reader.getLine().substring(9);
+		username = reader.getLine().substring(9);
 
 		if (!reader.advance().startsWith("password:"))
 		{
@@ -147,52 +155,161 @@ public class RequestHandler implements Runnable
 		}
 
 		// End the response
-		writer.println("END_RESPONSE");
+		if (!error)
+		{
+			writer.println("END_RESPONSE");
+		}
 	}
 
 	private void sendError(String message)
 	{
 		writeBuffer.setLength(0);
 		writer.println("ERROR: " + message);
+		error = true;
 	}
 
 	private void createGame()
 	{
+		String gameName;
+
+		// Read the gameName
+		if ((gameName = reader.advance()) == null)
+		{
+			sendError("Incomplete request");
+			return;
+		}
+
+		// Create the game
+		GameState state = null; // TODO controller.createGame(gameName, username);
+		if (state == null)
+		{
+			sendError("Unable to create game");
+			return;
+		}
+
+		// Write the results
+		DataParsing.writeGameState(writer, state);
 	}
 
 	private void joinGame()
 	{
+		int gameID;
+
+		// Read the gameID
+		try
+		{
+			gameID = Integer.parseInt(reader.advance());
+		}
+		catch (NumberFormatException e)
+		{
+			sendError("Invalid gameID received");
+			return;
+		}
+
+		// Add the user to the game
+		GameState state = controller.joinGame(gameID, username);
+		if (state == null)
+		{
+			sendError("Unable to join game");
+			return;
+		}
+
+		// Write the results
+		DataParsing.writeGameState(writer, state);
 	}
 
 	private void makeMove()
 	{
+		// Read the list of coordinates
+		List<Coordinate> coords = DataParsing.readCoordinateList(reader);
+		if (coords == null)
+		{
+			sendError("Incomplete request");
+			return;
+		}
+
+		// Update the game
+		GameState state = null;// TODO controller.makeMove(coords);
+
+		// Write the results
+		DataParsing.writeGameState(writer, state);
 	}
 
 	private void retrieveDeployedGames()
 	{
-		// TODO Get the list of games
-		List<String> games = new ArrayList<String>();
+		// Get a list of the deployed games
+		List<String> games = new ArrayList<String>();// TODO controller.retrieveDeployedGames();
 		games.add("Chess");
 		games.add("Checkers");
-		games.add("Tic-Tac-Toe");
-
-		// Write the list of games
+		// Write the results
 		DataParsing.writeStringList(writer, games);
 	}
 
 	private void retrieveGameInfo()
 	{
+		String gameName;
+
+		// Read the gameName
+		if ((gameName = reader.advance()) == null)
+		{
+			sendError("Incomplete request");
+			return;
+		}
+
+		// Retrieve the GameInfo
+		GameInfo info = null; // TODO controller.retrieveGameInfo(gameName);
+		if (info == null)
+		{
+			sendError("Could not find game '" + gameName + "'");
+			return;
+		}
+
+		// Write the results
+		DataParsing.writeGameInfo(writer, info);
 	}
 
 	private void retrieveGameState()
 	{
+		int gameID;
+
+		// Read the gameID
+		try
+		{
+			gameID = Integer.parseInt(reader.advance());
+		}
+		catch (NumberFormatException e)
+		{
+			sendError("Invalid gameID received");
+			return;
+		}
+
+		// Retrieve the GameState
+		GameState state = controller.retrieveGameState(gameID);
+		if (state == null)
+		{
+			sendError("Could not find game instance #" + gameID);
+			return;
+		}
+
+		// Write the results
+		DataParsing.writeGameState(writer, state);
 	}
 
 	private void retrieveMyGames()
 	{
+		// Retrieve a list of the user's active games
+		List<GameState> games = null; // TODO controller.retrieveMyGames(username);
+
+		// Write the results
+		DataParsing.writeGameStateList(writer, games);
 	}
 
 	private void retrieveOpenGames()
 	{
+		// Retrieve a list of open games
+		List<GameState> games = controller.retrieveOpenGames();
+
+		// Write the results
+		DataParsing.writeGameStateList(writer, games);
 	}
 }

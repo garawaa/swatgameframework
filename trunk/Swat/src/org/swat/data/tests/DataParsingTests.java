@@ -55,10 +55,27 @@ public class DataParsingTests
 		+ "y=3\n"
 		+ "END_COORDINATE\n";
 
+	public static final String COORDINATE_LIST =
+		"BEGIN_COORDINATE_LIST\n"
+		+ "BEGIN_COORDINATE\n"
+		+ "x=1\n"
+		+ "y=2\n"
+		+ "END_COORDINATE\n"
+		+ "BEGIN_COORDINATE\n"
+		+ "x=3\n"
+		+ "y=4\n"
+		+ "END_COORDINATE\n"
+		+ "BEGIN_COORDINATE\n"
+		+ "x=5\n"
+		+ "y=6\n"
+		+ "END_COORDINATE\n"
+		+ "END_COORDINATE_LIST\n";
+
 	private Map<String, Integer> stringIntMap;
 	private Map<Integer, String> intStringMap;
 	private List<String> stringList;
 	private Coordinate coordinate;
+	private List<Coordinate> coordList;
 	private int[][] intArray;
 
 	// Create common test data
@@ -80,6 +97,11 @@ public class DataParsingTests
 		stringList.add("Test2");
 		stringList.add("Test3");
 		
+		coordList = new ArrayList<Coordinate>();
+		coordList.add(new Coordinate(1, 2));
+		coordList.add(new Coordinate(3, 4));
+		coordList.add(new Coordinate(5, 6));
+
 		intArray = new int[2][2];
 		intArray[0][0] = 1;
 		intArray[0][1] = 2;
@@ -98,6 +120,31 @@ public class DataParsingTests
 	@Test
 	public void testWriteGameState()
 	{
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testReadGameStateList() throws IOException
+	{
+		// LineReader reader = new LineReader(new
+		// StringReader(GAME_STATE_LIST));
+		// List<GameState> list = DataParsing.readCoordinateList(reader);
+		// reader.close();
+		//
+		// assertEquals(stateList, list);
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testWriteGameStateList() throws IOException
+	{
+		// StringWriter sWriter = new StringWriter();
+		// PrintWriter pWriter = new PrintWriter(sWriter);
+		// DataParsing.writeCoordinateList(pWriter, stateList);
+		// sWriter.close();
+		// pWriter.close();
+		//
+		// assertEquals(GAME_STATE_LIST, sWriter.toString());
 		fail("Not yet implemented");
 	}
 
@@ -133,6 +180,28 @@ public class DataParsingTests
 		pWriter.close();
 
 		assertEquals(COORDINATE, sWriter.toString());
+	}
+	
+	@Test
+	public void testReadCoordinateList() throws IOException
+	{
+		LineReader reader = new LineReader(new StringReader(COORDINATE_LIST));
+		List<Coordinate> list = DataParsing.readCoordinateList(reader);
+		reader.close();
+
+		assertEquals(coordList, list);
+	}
+
+	@Test
+	public void testWriteCoordinateList() throws IOException
+	{
+		StringWriter sWriter = new StringWriter();
+		PrintWriter pWriter = new PrintWriter(sWriter);
+		DataParsing.writeCoordinateList(pWriter, coordList);
+		sWriter.close();
+		pWriter.close();
+
+		assertEquals(COORDINATE_LIST, sWriter.toString());
 	}
 
 	@Test

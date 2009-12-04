@@ -10,7 +10,7 @@ public class GameMove {
 	private int counter;
 	
 	private String playerUID;
-	private ArrayList<MoveCoordinate> moveCoordinates;
+	private ArrayList<Coordinate> moveCoordinates;
 	
 	public GameMove(int gameID, int gameInstanceID, int gameStateID,
 			String playerUID) {
@@ -53,12 +53,14 @@ public class GameMove {
 	 */
 
 
-	public void addMoveCoordinate(MoveCoordinate moveCoordinate) {
+	public void addMoveCoordinate(Coordinate moveCoordinate)
+	{
 		this.moveCoordinates.add(moveCoordinate);
 	}
 
 
-	public ArrayList<MoveCoordinate> getMoveCoordinates() {
+	public ArrayList<Coordinate> getMoveCoordinates()
+	{
 		return moveCoordinates;
 	}
 	

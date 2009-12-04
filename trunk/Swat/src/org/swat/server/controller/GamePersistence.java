@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
-import org.swat.server.gameinteraction.*;
+
+import org.swat.server.game.interaction.*;
 import org.swat.data.*;
 
 public class GamePersistence {

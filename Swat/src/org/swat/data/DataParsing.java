@@ -8,17 +8,6 @@ import java.util.Map;
 
 public class DataParsing
 {
-	public static GameState readGameState(LineReader reader)
-	{
-		// TODO
-		return null;
-	}
-
-	public static void writeGameState(PrintWriter writer, GameState state)
-	{
-		// TODO
-	}
-
 	public static GameInfo readGameInfo(LineReader reader)
 	{
 		GameInfo info = new GameInfo();
@@ -54,6 +43,54 @@ public class DataParsing
 		// writer.println("name=" + info.getGameName());
 		// writeStringIntMap(writer, info.getPieceTypes());
 		// writer.println("END_GAME_INFO");
+	}
+
+	public static GameState readGameState(LineReader reader)
+	{
+		// TODO
+		return null;
+	}
+
+	public static void writeGameState(PrintWriter writer, GameState state)
+	{
+		// TODO
+	}
+
+	public static List<GameState> readGameStateList(LineReader reader)
+	{
+		List<GameState> stateList = new ArrayList<GameState>();
+		GameState state;
+
+		// Verify the opening
+		if (!reader.advance().equals("BEGIN_GAME_STATE_LIST"))
+		{
+			return null;
+		}
+
+		// Read each coordinate and add to the list
+		while ((state = readGameState(reader)) != null)
+		{
+			stateList.add(state);
+		}
+
+		// Verify the closing
+		if (!reader.getLine().equals("END_GAME_STATE_LIST"))
+		{
+			return null;
+		}
+
+		return stateList;
+	}
+
+	public static void writeGameStateList(PrintWriter writer,
+			List<GameState> stateList)
+	{
+		writer.println("BEGIN_GAME_STATE_LIST");
+		for (GameState state : stateList)
+		{
+			writeGameState(writer, state);
+		}
+		writer.println("END_GAME_STATE_LIST");
 	}
 
 	public static Coordinate readCoordinate(LineReader reader)
@@ -102,6 +139,43 @@ public class DataParsing
 		writer.println("x=" + coord.getX());
 		writer.println("y=" + coord.getY());
 		writer.println("END_COORDINATE");
+	}
+
+	public static List<Coordinate> readCoordinateList(LineReader reader)
+	{
+		List<Coordinate> list = new ArrayList<Coordinate>();
+		Coordinate coord;
+
+		// Verify the opening
+		if (!reader.advance().equals("BEGIN_COORDINATE_LIST"))
+		{
+			return null;
+		}
+
+		// Read each coordinate and add to the list
+		while ((coord = readCoordinate(reader)) != null)
+		{
+			list.add(coord);
+		}
+
+		// Verify the closing
+		if (!reader.getLine().equals("END_COORDINATE_LIST"))
+		{
+			return null;
+		}
+
+		return list;
+	}
+
+	public static void writeCoordinateList(PrintWriter writer,
+			List<Coordinate> coordList)
+	{
+		writer.println("BEGIN_COORDINATE_LIST");
+		for (Coordinate coord : coordList)
+		{
+			writeCoordinate(writer, coord);
+		}
+		writer.println("END_COORDINATE_LIST");
 	}
 
 	public static List<String> readStringList(LineReader reader)

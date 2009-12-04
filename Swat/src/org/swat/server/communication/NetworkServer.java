@@ -3,23 +3,21 @@ package org.swat.server.communication;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class NetworkServer
+public class NetworkServer implements Runnable
 {
 	private final int port;
 
 	public NetworkServer()
 	{
-		port = 9876;
-		start();
+		this(9876);
 	}
 
 	public NetworkServer(int port)
 	{
 		this.port = port;
-		start();
 	}
 	
-	private void start()
+	public void run()
 	{
 		ServerSocket serverSocket = null;
 		boolean listening = true;
@@ -64,6 +62,6 @@ public class NetworkServer
 	public static void main(String args[])
 	{
 		// TODO remove
-		new NetworkServer();
+		new Thread(new NetworkServer()).start();
 	}
 }

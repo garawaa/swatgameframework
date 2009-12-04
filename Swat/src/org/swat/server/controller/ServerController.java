@@ -3,20 +3,30 @@ package org.swat.server.controller;
 import java.util.Iterator;
 import java.util.List;
 
-import org.swat.data.Game;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
+import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
-import org.swat.server.gameinteraction.GameInteractionManager;
+import org.swat.server.game.interaction.GameInteractionManager;
 
 public class ServerController {
 	
 	private final GamePersistence gamepersistence;
 	private final UserAuthentication userauthentication;
 	private final GameInteractionManager gameinteraction;
+	private static ServerController _instance = null;
+
+	public static synchronized ServerController getInstance()
+	{
+		if (_instance == null)
+			_instance = new ServerController();
+
+		return _instance;
+	}
 	
-	public ServerController() {
+	private ServerController()
+	{
 		gamepersistence = new GamePersistence();
 		userauthentication = new UserAuthentication();
 		gameinteraction = GameInteractionManager.getInstance();

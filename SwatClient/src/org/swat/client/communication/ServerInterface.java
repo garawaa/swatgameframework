@@ -15,7 +15,7 @@ public class ServerInterface
 	private static PrintWriter writer;
 	private static ServerConnection server;
 
-	private static String serverIP = "172.21.123.94";
+	private static String serverIP = "127.0.0.1";
 	private static int serverPort = 9876;
 
 	private static void connect()
@@ -39,39 +39,97 @@ public class ServerInterface
 		writer.println("password:password");
 	}
 
-	private static void verifyResponseOpening()
+	private static boolean verifyResponseOpening()
 	{
+		if (reader.getLine().startsWith("ERROR"))
+		{
+			// TODO error("error");
+			return false;
+		}
 		if (!reader.advance().equals("BEGIN_RESPONSE"))
 		{
 			// TODO error("Malformed response");
+			return false;
 		}
-		else if (reader.getLine().startsWith("ERROR"))
-		{
-			// TODO error("error");
-		}
+
+		return true;
 	}
 
-	private static void verifyResponseClosing()
+	private static boolean verifyResponseClosing()
 	{
 		if (!reader.advance().equals("END_RESPONSE"))
 		{
 			// TODO error("Malformed response");
+			return false;
 		}
+
+		return true;
 	}
 
 	public static GameState createGame(String gameType)
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("createGame");
+		writer.println(gameType);
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		GameState state = DataParsing.readGameState(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return state;
 	}
 
 	public static GameState joinGame(int gameID)
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("joinGame");
+		writer.println(gameID);
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		GameState state = DataParsing.readGameState(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return state;
 	}
 
-	public static GameState makeMove(List<Coordinate> coordinates)
+	public static GameState makeMove(List<Coordinate> coordList)
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("makeMove");
+		DataParsing.writeCoordinateList(writer, coordList);
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		GameState state = DataParsing.readGameState(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return state;
 	}
 
 	public static List<String> retrieveDeployedGames()
@@ -84,9 +142,11 @@ public class ServerInterface
 		writer.println("END_REQUEST");
 
 		// Read response
-		verifyResponseOpening();
+		if (!verifyResponseOpening())
+			return null;
 		List<String> games = DataParsing.readStringList(reader);
-		verifyResponseClosing();
+		if (!verifyResponseClosing())
+			return null;
 
 		disconnect();
 
@@ -95,22 +155,88 @@ public class ServerInterface
 
 	public static GameInfo retrieveGameInfo(String gameType)
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("retrieveGameInfo");
+		writer.println(gameType);
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		GameInfo info = DataParsing.readGameInfo(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return info;
 	}
 
 	public static GameState retrieveGameState(int gameID)
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("retrieveGameState");
+		writer.println(gameID);
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		GameState state = DataParsing.readGameState(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return state;
 	}
 
 	public static List<GameState> retrieveMyGames()
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("retrieveMyGames");
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		List<GameState> states = DataParsing.readGameStateList(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return states;
 	}
 
 	public static List<GameState> retrieveOpenGames()
 	{
-		return null;
+		connect();
+
+		// Send request
+		writeAuthenticationInfo();
+		writer.println("retrieveMyGames");
+		writer.println("END_REQUEST");
+
+		// Read response
+		if (!verifyResponseOpening())
+			return null;
+		List<GameState> states = DataParsing.readGameStateList(reader);
+		if (!verifyResponseClosing())
+			return null;
+
+		disconnect();
+
+		return states;
 	}
 
 	public static String getServerIP()

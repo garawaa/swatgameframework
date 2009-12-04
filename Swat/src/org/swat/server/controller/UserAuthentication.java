@@ -66,7 +66,7 @@ public class UserAuthentication {
 	
 	public boolean userauthenticate(String username, String password) {
 		if(users.containsKey(username)) {
-			if (users.get(username) == password) {
+			if (users.get(username).equals(password)) {
 				return true;
 			} else {
 				return false;

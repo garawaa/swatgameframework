@@ -32,9 +32,11 @@ public class ServerController {
 		gameinteraction = GameInteractionManager.getInstance();
 	}
 	
-	public List<Game> retrieveDeployedGames() {
+	public List<String> retrieveDeployedGames() { // list of game names : string
 		return gameinteraction.getDeployedGames();
 	}
+	
+	public List<GameInfo> 
 	
 	public List<GameState> retrieveOpenGames() {
 		return gameinteraction.getGamesThatNeedPlayers();
@@ -56,9 +58,11 @@ public class ServerController {
 		return gameinteraction.getPlayersGames(username);
 	}
 
-	public GameState makeMove(GameMove gamemove) {
+	public GameState makeMove(int gameID, int gameInstanceID, int gameStateID, String playerUID) {
 		try
 		{
+			GameMove gamemove = new GameMove(gameID, gameInstanceID, gameState, playerUID);
+			gamemove.
 			return gameinteraction.makeMove(gamemove);
 		}
 		catch (IllegalMoveException e)

@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
+import org.swat.data.Coordinate;
 import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
-import org.swat.server.game.interaction.GameInteractionManager;
+import org.swat.server.gameinteraction.GameInteractionManager;
 
 public class ServerController {
 	
@@ -58,11 +59,14 @@ public class ServerController {
 		return gameinteraction.getPlayersGames(username);
 	}
 
-	public GameState makeMove(int gameID, int gameInstanceID, int gameStateID, String playerUID) {
+	public GameState makeMove(int gameID, int gameInstanceID, int gameStateID, String playerUID, List<Coordinate> coordList) {
 		try
 		{
-			GameMove gamemove = new GameMove(gameID, gameInstanceID, gameState, playerUID);
-			gamemove.
+			GameMove gamemove = new GameMove(gameID, gameInstanceID, gameStateID, playerUID);
+			Iterator iter = coordList.iterator();
+			while(iter.hasNext()) {
+			   gamemove.addMoveCoordinate((Coordinate)iter.next());
+			}
 			return gameinteraction.makeMove(gamemove);
 		}
 		catch (IllegalMoveException e)

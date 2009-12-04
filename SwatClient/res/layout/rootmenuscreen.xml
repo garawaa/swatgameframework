@@ -10,4 +10,9 @@
 		android:layout_height="wrap_content" android:gravity="center_horizontal"
 		android:layout_x="0px" android:layout_y="0px">
 	</TextView>
+	<TextView android:id="@+id/textView2" android:text="Click 'Menu' to start"
+		android:textSize="30px" android:textColor="#ffffff" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:gravity="center_horizontal"
+		android:layout_x="0px" android:layout_y="350px">
+	</TextView>
 </AbsoluteLayout>

@@ -18,11 +18,8 @@ public class GameView extends View {
 
 	private int boardX;
 	private int boardY;
-	
+
 	private Context context;
-	
-	private int crossIndex = 0;
-	private int circleIndex = 0;
 
 	public GameView(Context context) {
 		super(context);
@@ -76,7 +73,7 @@ public class GameView extends View {
 					float pieceX = Control.getClickedLocation().getX()*((float)Control.boardWidth/3f);
 					float pieceY = Control.getClickedLocation().getY()*((float)Control.boardHeight/3f);
 					//Assume "this" player is always cross //test
-					if(crossIndex >= 5)
+					if(Control.crossIndex >= 5)
 					{
 						AlertDialog.Builder b = new AlertDialog.Builder(context);
 						b.setMessage("End of game");
@@ -88,8 +85,8 @@ public class GameView extends View {
 						b.show();
 						break;
 					}
-					crossPieces[crossIndex].setX((int)pieceX); //test
-					crossPieces[crossIndex++].setY((int)pieceY);
+					crossPieces[Control.crossIndex].setX((int)pieceX); //test
+					crossPieces[Control.crossIndex].setY((int)pieceY);
 					//redraw board
 					invalidate();
 				}
@@ -117,7 +114,7 @@ public class GameView extends View {
 		{
 			crossPieces[i] = new PieceImage(context);
 			circlePieces[i] = new PieceImage(context);
-			
+
 			crossPieces[i].setImage(img1, -320, 0, 100, 100);	
 			circlePieces[i].setImage(img2, -320, 00, 100, 100);
 		}

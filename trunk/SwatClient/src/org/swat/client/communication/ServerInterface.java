@@ -14,6 +14,8 @@ public class ServerInterface
 	private static LineReader reader;
 	private static PrintWriter writer;
 	private static ServerConnection server;
+	private static String username;
+	private static String password;
 
 	private static String serverIP = "127.0.0.1";
 	private static int serverPort = 9876;
@@ -34,9 +36,8 @@ public class ServerInterface
 
 	private static void writeAuthenticationInfo()
 	{
-		// TODO
-		writer.println("username:username");
-		writer.println("password:password");
+		writer.println("username:" + username);
+		writer.println("password:" + password);
 	}
 
 	private static boolean verifyResponseOpening()
@@ -268,5 +269,25 @@ public class ServerInterface
 		{
 			System.out.println(game);
 		}
+	}
+
+	public static String getUsername()
+	{
+		return username;
+	}
+
+	public static void setUsername(String username)
+	{
+		ServerInterface.username = username;
+	}
+
+	public static String getPassword()
+	{
+		return password;
+	}
+
+	public static void setPassword(String password)
+	{
+		ServerInterface.password = password;
 	}
 }

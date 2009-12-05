@@ -1,7 +1,6 @@
 package org.swat.client.userinterface;
 
 import org.swat.client.R;
-import org.swat.client.control.Control;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;

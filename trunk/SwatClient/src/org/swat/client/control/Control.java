@@ -293,4 +293,11 @@ public class Control
 		//currentGameState = ServerInterface.makeMove(coordinates);
 		//currentGameState = ControlTest.makeMove(coordinates);
 	}	
+	
+	/****/
+	public static void storeUserPassword(String user, String pass)
+	{
+		//ServerInterface.setUsername(user);
+		//ServerInterface.setPassword(pass);
+	}
 }

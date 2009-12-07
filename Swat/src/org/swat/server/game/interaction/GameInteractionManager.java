@@ -8,22 +8,22 @@ import java.util.List;
 import org.swat.data.GAME_STATE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
+import org.swat.data.GameState;
 import org.swat.server.game.Game;
 import org.swat.server.game.exceptions.GameNotFoundException;
 import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.server.game.impl.TicTacToe;
-import org.swat.data.GameState;
 
 public class GameInteractionManager implements GameInteraction {
 
 	private static GameInteractionManager _instance;
 	private static HashMap<Integer, Game> games;
 	
-	private HashMap<Integer, GameState> createdGames;
+	private final HashMap<Integer, GameState> createdGames;
 	private static HashMap<Integer, GameState> startedGames;
-	private HashMap<String, Collection<GameState>> gamesByPlayer;
+	private final HashMap<String, Collection<GameState>> gamesByPlayer;
 
 	private GameInteractionManager() {
 
@@ -136,6 +136,8 @@ public class GameInteractionManager implements GameInteraction {
 			throw (new IllegalGameJoinException());
 		
 		GameState requestedGameState = createdGames.get(gameInstanceID);
+		// TODO Game should only transition to STARTED state if enough players
+		// have joined
 		requestedGameState.addPlayer(playerUID);
 		requestedGameState.setGameState(GAME_STATE.STARTED);
 		createdGames.remove(gameInstanceID);

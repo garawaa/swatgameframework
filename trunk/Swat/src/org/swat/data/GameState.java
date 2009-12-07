@@ -3,8 +3,6 @@ package org.swat.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.swat.server.game.Game;
-
 
 public class GameState {
 	
@@ -18,12 +16,10 @@ public class GameState {
 	private List<String> messages;
 	private List<String> players;
 	
-	private Game game;
-	
 	private static int GAME_INSTANCE_ID_COUNTER = 0;
 	
-	public GameState(Game game) {
-		this.game = game;
+	public GameState()
+	{
 		this.messages = new ArrayList<String>();
 		this.players = new ArrayList<String>();
 		this.gameState = GAME_STATE.CREATED;
@@ -90,13 +86,7 @@ public class GameState {
 	}
 	
 	public void addPlayer(String newPlayer) {
-
-		if(this.game.getNumberOfPlayersNeeded() > this.players.size())
 			this.players.add(newPlayer);
-		
-		if(this.game.getNumberOfPlayersNeeded() == this.players.size())
-			this.gameState = GAME_STATE.STARTED;
-
 	}
 	
 	public int getPlayerNumber(String playerUID) {
@@ -117,6 +107,7 @@ public class GameState {
 		this.counter++;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		
 		if(o instanceof GameState)
@@ -127,10 +118,10 @@ public class GameState {
 		
 	}
 	
+	@Override
 	public GameState clone() {
 		
-		GameState clone = new GameState(this.game);
-		clone.game = this.game;
+		GameState clone = new GameState();
 		clone.gameInstanceID = this.gameInstanceID;
 		clone.gameState = this.gameState;
 		clone.messages = this.messages;

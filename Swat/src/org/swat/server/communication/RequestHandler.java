@@ -98,11 +98,13 @@ public class RequestHandler implements Runnable
 		}
 		String password = reader.getLine().substring(9);
 
-		// TODO Authenticate
-		if (!username.equals("username") || !password.equals("password"))
+		// Authenticate
+		if (!controller.userAuthenticate(username, password))
 		{
-			sendError("Invalid login credentials");
-			return;
+			// Create a new user since registration is not implemented
+			controller.addUser(username, password);
+			// sendError("Invalid login credentials");
+			// return;
 		}
 
 		// Start the response
@@ -229,7 +231,7 @@ public class RequestHandler implements Runnable
 		}
 
 		// Update the game
-		GameState state = null;// TODO controller.makeMove(coords);
+		GameState state = null;// TODO controller.makeMove(username, gameID, coords);
 
 		// Write the results
 		DataParsing.writeGameState(writer, state);
@@ -239,8 +241,7 @@ public class RequestHandler implements Runnable
 	{
 		// Get a list of the deployed games
 		List<String> games = new ArrayList<String>();// TODO controller.retrieveDeployedGames();
-		games.add("Chess");
-		games.add("Checkers");
+
 		// Write the results
 		DataParsing.writeStringList(writer, games);
 	}

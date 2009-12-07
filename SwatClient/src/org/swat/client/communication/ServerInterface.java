@@ -260,17 +260,6 @@ public class ServerInterface
 		ServerInterface.serverPort = serverPort;
 	}
 
-	public static void main(String args[])
-	{
-		// TODO remove
-		List<String> games = ServerInterface.retrieveDeployedGames();
-
-		for (String game : games)
-		{
-			System.out.println(game);
-		}
-	}
-
 	public static String getUsername()
 	{
 		return username;

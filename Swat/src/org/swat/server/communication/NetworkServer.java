@@ -53,7 +53,6 @@ public class NetworkServer implements Runnable
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -61,7 +60,6 @@ public class NetworkServer implements Runnable
 
 	public static void main(String args[])
 	{
-		// TODO remove
 		new Thread(new NetworkServer()).start();
 	}
 }

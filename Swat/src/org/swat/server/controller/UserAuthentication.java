@@ -38,7 +38,7 @@ public class UserAuthentication {
 		storeUsers();
 	}
 	
-	private void adduser(String username, String password) {
+	protected void adduser(String username, String password) {
 		users.put(username, password);
 	}
 	

@@ -111,7 +111,8 @@ public class GameState {
 	public boolean equals(Object o) {
 		
 		if(o instanceof GameState)
-			if(((GameState) o).gameInstanceID == this.gameInstanceID)
+			if (((GameState) o).gameInstanceID == this.gameInstanceID
+					&& ((GameState) o).counter == this.counter)
 				return true;
 		
 		return false;
@@ -131,6 +132,16 @@ public class GameState {
 		
 		return clone;
 		
+	}
+
+	public void setMessages(List<String> messages)
+	{
+		this.messages = messages;
+	}
+
+	public void setPlayers(List<String> players)
+	{
+		this.players = players;
 	}
 	
 }

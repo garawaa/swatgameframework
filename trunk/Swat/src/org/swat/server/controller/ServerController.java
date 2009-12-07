@@ -110,4 +110,8 @@ public class ServerController {
 		return userauthentication.userauthenticate(username, password);
 	}
 	
+	public void addUser(String username, String password) {
+		userauthentication.adduser(username, password);
+	}
+	
 }

@@ -38,7 +38,7 @@ public class TicTacToe implements Game {
 		pieces.put(1, "CHECK");
 		pieces.put(2, "CIRCLE");
 
-		initialState = new GameState(this);
+		initialState = new GameState();
 		initialState.setPieceInfo(new int[3][3]);
 		
 		//init gameinfo

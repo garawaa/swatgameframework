@@ -20,22 +20,37 @@ public class TicTacToe implements Game {
 	private static final int boardLength = 3;
 	private static final int boardWidth = 3;
 
-	private GameInfo gameInfo;
+	private static GameInfo gameInfo;
 	
 	private static TicTacToe instance;
 
 	private static HashMap<Integer, String> pieces = null;
 	private static GameState initialState = null;
+	
+	@Override
+	public GameInfo getGameInfo() {
+		return gameInfo;
+	}
 
 	private TicTacToe() {
 
 		pieces = new HashMap<Integer, String>();
-		pieces.put(1, "Check");
-		pieces.put(2, "Circle");
+		pieces.put(1, "CHECK");
+		pieces.put(2, "CIRCLE");
 
 		initialState = new GameState(this);
 		initialState.setPieceInfo(new int[3][3]);
-
+		
+		//init gameinfo
+		gameInfo = new GameInfo();
+		gameInfo.setBoardLength(boardLength);
+		gameInfo.setBoardWidth(boardWidth);
+		gameInfo.setGameID(ID);
+		gameInfo.setGameName(name);
+		gameInfo.setGameType(GAME_TYPE.ADD);
+		gameInfo.setNumPlayersNeeded(numberOfPlayersNeeded);
+		gameInfo.setPieces(pieces);
+		
 	}
 
 	public static synchronized Game getLogic() {
@@ -64,6 +79,15 @@ public class TicTacToe implements Game {
 	public GameState makeMove(GameState state, GameMove move)
 			throws IllegalGameStateException, IllegalMoveException {
 
+		/*
+		 * if it is not the turn of this player, error
+		 * 
+		 * increment counter
+		 * if move is invalid, error
+		 * check for winner, set accordingly
+		 * check for draw, set accordingly
+		 * update with results of move, return state
+		 */
 		synchronized (state) {
 
 			if (state.getGameState() != GAME_STATE.STARTED)
@@ -171,10 +195,6 @@ public class TicTacToe implements Game {
 
 	public void setGameInfo(GameInfo gameInfo) {
 		this.gameInfo = gameInfo;
-	}
-
-	public GameInfo getGameInfo() {
-		return gameInfo;
 	}
 
 }

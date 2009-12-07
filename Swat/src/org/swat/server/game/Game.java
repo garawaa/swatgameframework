@@ -3,6 +3,7 @@ package org.swat.server.game;
 import java.util.HashMap;
 
 import org.swat.data.GAME_TYPE;
+import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.server.game.exceptions.IllegalGameStateException;
@@ -28,5 +29,7 @@ public interface Game {
 
 	public GameState makeMove(GameState state, GameMove move)
 			throws IllegalGameStateException, IllegalMoveException;
+	
+	public GameInfo getGameInfo();
 
 }

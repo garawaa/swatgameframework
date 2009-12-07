@@ -5,33 +5,42 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.swat.data.GAME_STATE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.server.game.Game;
+import org.swat.server.game.exceptions.GameNotFoundException;
+import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
+import org.swat.server.game.impl.TicTacToe;
 import org.swat.data.GameState;
 
 public class GameInteractionManager implements GameInteraction {
 
-	private static int gameInstanceIDCounter = 0;
-
 	private static GameInteractionManager _instance;
-	private static HashMap<Integer, GameState> gameStates;
 	private static HashMap<Integer, Game> games;
+	
+	private HashMap<Integer, GameState> createdGames;
+	private static HashMap<Integer, GameState> startedGames;
+	private HashMap<String, Collection<GameState>> gamesByPlayer;
 
 	private GameInteractionManager() {
 
-		// TODO:
-		// enumerate all games
-		// initialize gameStates, games
+		startedGames = new HashMap<Integer, GameState>();
+		games = new HashMap<Integer, Game>();
+		createdGames = new HashMap<Integer, GameState>();
+		gamesByPlayer = new HashMap<String, Collection<GameState>>();
 
+		//IMPROVE: game finding and addition
+		Game newGame = TicTacToe.getLogic();
+		games.put(newGame.getID(), newGame);
+		
 	}
 
-	// add new game
 	public synchronized void deployGame(Game game) {
 
-		// TODO:
+		games.put(game.getID(), game);
 
 	}
 
@@ -47,76 +56,112 @@ public class GameInteractionManager implements GameInteraction {
 	@Override
 	public GameState createGame(int gameID, String playerUID) {
 
-		// TODO: create new gamestate and return it, store it too
-		return null;
+		Game gameToCreate = games.get(gameID);
+		GameState initialGameState = gameToCreate.getInitialState();
+		initialGameState.addPlayer(playerUID);
+		
+		if(!gamesByPlayer.containsKey(playerUID))
+			gamesByPlayer.put(playerUID, new ArrayList<GameState>());
+		gamesByPlayer.get(playerUID).add(initialGameState);
+		
+		createdGames.put(initialGameState.getGameInstanceID(), initialGameState);
+		
+		return (initialGameState.clone());
 
 	}
 
 	@Override
 	public List<GameState> getAllActiveGames() {
 
-		// return the collection of gamestates
-		return new ArrayList<GameState>(gameStates.values());
-
-	}
-	
-	/*
-	 * get list of game names for getdeployedgames
-	 * retrievegameinfo(string name)
-	 */
-	
-
-	@Override
-	public List<String> getDeployedGames() {
-
-		// TODO: return the collection of games
-		return null;
+		return new ArrayList<GameState>(startedGames.values());
 
 	}
 	
 	@Override
-	public GameInfo getGameInfo(String gameName) {
+	public Collection<String> getDeployedGames() {
+
+		Collection<String> deployedGames = new ArrayList<String>();
 		
-		//TODO
-		return null;
+		for(Game game : games.values())
+			deployedGames.add(game.getName());
+			
+		return deployedGames;
+
+	}
+	
+	@Override
+	public GameInfo getGameInfo(String gameName) throws GameNotFoundException {
+		
+		for(Game game : games.values())
+			if(gameName.equals(game.getName()))
+				return game.getGameInfo();
+		
+		throw new GameNotFoundException();
 		
 	}
 
 	@Override
-	public GameState getGameState(int gameInstanceID) {
+	public GameState getGameState(int gameInstanceID) throws IllegalGameStateException {
 
-		return gameStates.get(gameInstanceID);
-
+		if(startedGames.containsKey(gameInstanceID))
+			return (startedGames.get(gameInstanceID).clone());
+		if(createdGames.containsKey(gameInstanceID))
+			return (createdGames.get(gameInstanceID).clone());
+		
+		throw (new IllegalGameStateException());
+		
 	}
 
 	@Override
-	public List<GameState> getGamesThatNeedPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<GameState> getGamesThatNeedPlayers() {
+		return createdGames.values();
 	}
 
 	@Override
-	public List<GameState> getPlayersGames(String playerUID) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<GameState> getPlayersGames(String playerUID) {
+		return gamesByPlayer.get(playerUID);
 	}
 
 	@Override
-	public GameState joinGame(int gameInstanceID, String playerUID) {
-		// TODO Auto-generated method stub
-		return null;
+	public GameState joinGame(int gameInstanceID, String playerUID) throws IllegalGameJoinException {
+		
+		/*
+		 * if the game is not in the created state, throw exception
+		 * else, move it from created to active, add player, 
+		 * store in players games, store in started games, return 
+		 * state
+		 */
+		
+		if(!createdGames.containsKey(gameInstanceID))
+			throw (new IllegalGameJoinException());
+		
+		GameState requestedGameState = createdGames.get(gameInstanceID);
+		requestedGameState.addPlayer(playerUID);
+		requestedGameState.setGameState(GAME_STATE.STARTED);
+		createdGames.remove(gameInstanceID);
+		gamesByPlayer.get(playerUID).add(requestedGameState);
+		startedGames.put(gameInstanceID, requestedGameState);
+			
+		return requestedGameState.clone();
+		
 	}
 
 	@Override
 	public GameState makeMove(GameMove move) throws IllegalMoveException,
 			IllegalGameStateException {
 
+		/* TODO
+		 * if game is not started, exception
+		 * if game counter does not match, exception
+		 * synchronize
+		 */
+		
 		Game specifiedGame = games.get(move.getGameID());
-		GameState specifiedGameState = gameStates.get(move.getGameInstanceID());
+		GameState specifiedGameState = startedGames.get(move.getGameInstanceID());
 		if (specifiedGameState.getCounter() != move.getCounter())
 			throw new IllegalMoveException();
 
-		return specifiedGame.makeMove(specifiedGameState, move);
+		return (specifiedGame.makeMove(specifiedGameState, move).clone());
 
 	}
 

@@ -9,7 +9,6 @@ import org.swat.server.game.Game;
 public class GameState {
 	
 	private int counter;
-	private int gameID;
 	private int gameInstanceID;
 	
 	private int[][] pieceInfo;
@@ -17,23 +16,29 @@ public class GameState {
 	private String turnOfPlayer;
 	private String winnerID;
 	private List<String> messages;
-	private ArrayList<String> players;
+	private List<String> players;
 	
 	private Game game;
 	
+	private static int GAME_INSTANCE_ID_COUNTER = 0;
+	
 	public GameState(Game game) {
 		this.game = game;
+		this.messages = new ArrayList<String>();
+		this.players = new ArrayList<String>();
+		this.gameState = GAME_STATE.CREATED;
+		this.counter = 0;
+		
+		synchronized (this) {
+			GAME_INSTANCE_ID_COUNTER++;
+			this.gameInstanceID = GAME_INSTANCE_ID_COUNTER;
+		}
+		
 	}
 	
 	/*
 	 * Property accessors
 	 */
-	public int getGameID() {
-		return gameID;
-	}
-	public void setGameID(int gameID) {
-		this.gameID = gameID;
-	}
 	public int[][] getPieceInfo() {
 		return pieceInfo;
 	}
@@ -110,6 +115,31 @@ public class GameState {
 	
 	public synchronized void incrementCounter() {
 		this.counter++;
+	}
+	
+	public boolean equals(Object o) {
+		
+		if(o instanceof GameState)
+			if(((GameState) o).gameInstanceID == this.gameInstanceID)
+				return true;
+		
+		return false;
+		
+	}
+	
+	public GameState clone() {
+		
+		GameState clone = new GameState(this.game);
+		clone.game = this.game;
+		clone.gameInstanceID = this.gameInstanceID;
+		clone.gameState = this.gameState;
+		clone.messages = this.messages;
+		clone.players = this.players;
+		clone.pieceInfo = this.pieceInfo;
+		clone.counter = this.counter;
+		
+		return clone;
+		
 	}
 	
 }

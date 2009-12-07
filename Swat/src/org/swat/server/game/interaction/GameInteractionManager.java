@@ -139,7 +139,9 @@ public class GameInteractionManager implements GameInteraction {
 		requestedGameState.addPlayer(playerUID);
 		requestedGameState.setGameState(GAME_STATE.STARTED);
 		createdGames.remove(gameInstanceID);
-		gamesByPlayer.get(playerUID).add(requestedGameState);
+		for(String players: requestedGameState.getPlayers())
+			gamesByPlayer.get(players).add(requestedGameState);
+		
 		startedGames.put(gameInstanceID, requestedGameState);
 			
 		return requestedGameState.clone();
@@ -154,6 +156,7 @@ public class GameInteractionManager implements GameInteraction {
 		 * if game is not started, exception
 		 * if game counter does not match, exception
 		 * synchronize
+		 * store new state in gamestates as well as players games
 		 */
 		
 		Game specifiedGame = games.get(move.getGameID());

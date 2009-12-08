@@ -191,8 +191,4 @@ public class TicTacToe implements Game {
 		return GAME_TYPE.ADD;
 	}
 
-	public void setGameInfo(GameInfo gameInfo) {
-		this.gameInfo = gameInfo;
-	}
-
 }

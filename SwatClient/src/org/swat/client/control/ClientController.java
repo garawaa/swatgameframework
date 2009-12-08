@@ -193,15 +193,15 @@ public class ClientController
 		else
 		{
 			int gridX=0, gridY=0;
-			for(int i=0; i< boardWidth; i+=(float)boardWidth/3f)
+			for(int i=0; i< boardWidth; i+=boardWidth/3f)
 			{
-				if(x >= i && x <= i+(float)boardWidth/3f)				
+				if(x >= i && x <= i+boardWidth/3f)				
 					break;				
 				gridX+=1;
 			}
-			for(int i=0; i<boardHeight; i+=(float)boardHeight/3f)
+			for(int i=0; i<boardHeight; i+=boardHeight/3f)
 			{				
-				if(y >= i && y <= i+(float)boardHeight/3f)
+				if(y >= i && y <= i+boardHeight/3f)
 					break;				
 				gridY +=1;
 			}			
@@ -222,9 +222,6 @@ public class ClientController
 	public static List<String> retrieveDeployedGames()
 	{		
 		currentDeployedGames = ServerInterface.retrieveDeployedGames();
-		List<String> list = new ArrayList<String>();
-		list.add("Tic Tac Toe");
-		currentDeployedGames = list;
 		return currentDeployedGames;		
 	}
 

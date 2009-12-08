@@ -54,7 +54,7 @@ public class GamePersistence {
 		this.storeGameStates(new LinkedList<GameState>());
 	}
 	
-	public boolean storeGameStates(List<GameState> l) {
+	public boolean storeGameStates(Collection<GameState> l) {
 		recreatefile();
 		try {
 			FileOutputStream fos = new FileOutputStream(filename);

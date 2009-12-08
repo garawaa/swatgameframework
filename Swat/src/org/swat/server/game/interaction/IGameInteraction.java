@@ -2,16 +2,16 @@ package org.swat.server.game.interaction;
 
 import java.util.Collection;
 
-import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
+import org.swat.server.game.IGameInfo;
 import org.swat.server.game.exceptions.GameNotFoundException;
 import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 
 
-public interface GameInteraction {
+public interface IGameInteraction {
 	
 	/*
 	 * Provides a list of Game objects, whose 
@@ -21,7 +21,7 @@ public interface GameInteraction {
 	 */
 	public Collection<String> getDeployedGames();
 	
-	public GameInfo getGameInfo(String gameName) throws GameNotFoundException;
+	public IGameInfo getGameInfo(String gameName) throws GameNotFoundException;
 	
 	/*
 	 * Use ID obtained from getDeployedGames()

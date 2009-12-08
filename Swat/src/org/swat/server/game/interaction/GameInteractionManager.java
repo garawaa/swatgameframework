@@ -9,17 +9,17 @@ import org.swat.data.GAME_STATE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
-import org.swat.server.game.Game;
+import org.swat.server.game.IGame;
 import org.swat.server.game.exceptions.GameNotFoundException;
 import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.server.game.impl.TicTacToe;
 
-public class GameInteractionManager implements GameInteraction {
+public class GameInteractionManager implements IGameInteraction {
 
 	private static GameInteractionManager _instance;
-	private static HashMap<Integer, Game> games;
+	private static HashMap<Integer, IGame> games;
 	
 	private final HashMap<Integer, GameState> createdGames;
 	private static HashMap<Integer, GameState> startedGames;
@@ -28,23 +28,23 @@ public class GameInteractionManager implements GameInteraction {
 	private GameInteractionManager() {
 
 		startedGames = new HashMap<Integer, GameState>();
-		games = new HashMap<Integer, Game>();
+		games = new HashMap<Integer, IGame>();
 		createdGames = new HashMap<Integer, GameState>();
 		gamesByPlayer = new HashMap<String, Collection<Integer>>();
 
 		//IMPROVE: game finding and addition
-		Game newGame = TicTacToe.getLogic();
-		games.put(newGame.getID(), newGame);
+		IGame newGame = TicTacToe.getLogic();
+		games.put(newGame.getGameInfo().getGameID(), newGame);
 		
 	}
 
-	public synchronized void deployGame(Game game) {
+	public synchronized void deployGame(IGame game) {
 
-		games.put(game.getID(), game);
+		games.put(game.getGameInfo().getGameID(), game);
 
 	}
 
-	public static synchronized GameInteractionManager getInstance() {
+	public static synchronized IGameInteraction getInstance() {
 
 		if (_instance == null)
 			_instance = new GameInteractionManager();
@@ -56,8 +56,8 @@ public class GameInteractionManager implements GameInteraction {
 	@Override
 	public GameState createGame(int gameID, String playerUID) {
 
-		Game gameToCreate = games.get(gameID);
-		GameState initialGameState = gameToCreate.getInitialState();
+		IGame gameToCreate = games.get(gameID);
+		GameState initialGameState = gameToCreate.getGameInfo().getInitialState();
 		initialGameState.setGameID(gameID);
 		initialGameState.setNumberOfPlayersNeeded(gameToCreate.getGameInfo().getNumPlayersNeeded());
 		initialGameState.addPlayer(playerUID);
@@ -84,8 +84,8 @@ public class GameInteractionManager implements GameInteraction {
 
 		Collection<String> deployedGames = new ArrayList<String>();
 		
-		for(Game game : games.values())
-			deployedGames.add(game.getName());
+		for(IGame game : games.values())
+			deployedGames.add(game.getGameInfo().getGameName());
 			
 		return deployedGames;
 
@@ -94,8 +94,8 @@ public class GameInteractionManager implements GameInteraction {
 	@Override
 	public GameInfo getGameInfo(String gameName) throws GameNotFoundException {
 		
-		for(Game game : games.values())
-			if(gameName.equals(game.getName()))
+		for(IGame game : games.values())
+			if(gameName.equals(game.getGameInfo().getGameName()))
 				return game.getGameInfo();
 		
 		throw new GameNotFoundException();
@@ -169,7 +169,7 @@ public class GameInteractionManager implements GameInteraction {
 			throw new IllegalGameStateException();
 		
 		GameState specifiedGameState = startedGames.get(move.getGameInstanceID());
-		Game specifiedGame = games.get(specifiedGameState.getGameID());
+		IGame specifiedGame = games.get(specifiedGameState.getGameID());
 		
 		GameState newGameState = null;
 		synchronized(this) {

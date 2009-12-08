@@ -2,8 +2,10 @@ package org.swat.data;
 
 import java.util.Map;
 
+import org.swat.server.game.IGameInfo;
 
-public class GameInfo
+
+public class GameInfo implements IGameInfo
 {
 	private int gameID;
 	private String gameName;
@@ -16,6 +18,7 @@ public class GameInfo
 	
 	public GameInfo() {}
 
+	@Override
 	public String getGameName()
 	{
 		return gameName;
@@ -31,6 +34,7 @@ public class GameInfo
 		this.gameID = gameID;
 	}
 
+	@Override
 	public int getGameID() {
 		return gameID;
 	}
@@ -39,10 +43,12 @@ public class GameInfo
 		this.pieces = pieces;
 	}
 
+	@Override
 	public Map<Integer, String> getPieces() {
 		return pieces;
 	}
 
+	@Override
 	public GAME_TYPE getGameType() {
 		return gameType;
 	}
@@ -51,6 +57,7 @@ public class GameInfo
 		this.gameType = gameType;
 	}
 
+	@Override
 	public int getNumPlayersNeeded() {
 		return numPlayersNeeded;
 	}
@@ -59,6 +66,7 @@ public class GameInfo
 		this.numPlayersNeeded = numPlayersNeeded;
 	}
 
+	@Override
 	public int getBoardLength() {
 		return boardLength;
 	}
@@ -67,6 +75,7 @@ public class GameInfo
 		this.boardLength = boardLength;
 	}
 
+	@Override
 	public int getBoardWidth() {
 		return boardWidth;
 	}

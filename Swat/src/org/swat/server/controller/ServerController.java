@@ -6,18 +6,20 @@ import org.swat.data.Coordinate;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
+import org.swat.server.game.IGameInfo;
 import org.swat.server.game.exceptions.GameNotFoundException;
 import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.server.game.interaction.GameInteractionManager;
+import org.swat.server.game.interaction.IGameInteraction;
 
 
 public class ServerController {
 	
 	private final GamePersistence gamepersistence;
 	private final UserAuthentication userauthentication;
-	private final GameInteractionManager gameinteraction;
+	private final IGameInteraction gameinteraction;
 	private static ServerController _instance = null;
 	
 	private final static long minute = 60000;
@@ -58,7 +60,7 @@ public class ServerController {
 		return l;
 	}
 	
-	public GameInfo getGameInfo(String gamename) {
+	public IGameInfo getGameInfo(String gamename) {
 		try
 		 {
 			return gameinteraction.getGameInfo(gamename);

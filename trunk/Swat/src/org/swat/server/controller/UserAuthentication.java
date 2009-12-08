@@ -56,7 +56,7 @@ public class UserAuthentication {
 		try {
 			FileInputStream fis = new FileInputStream(filename);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			users = (Map<String, String>) ois.readObject();
+			users = (Map<String, String>)ois.readObject();
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {

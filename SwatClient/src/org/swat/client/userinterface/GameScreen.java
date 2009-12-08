@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.swat.client.R;
-import org.swat.client.control.Control;
+import org.swat.client.control.ClientController;
 import org.swat.data.Coordinate;
 
 import android.app.Activity;
@@ -59,7 +59,7 @@ public class GameScreen extends Activity
 		boardImage.setImageResource(R.drawable.tictactoeboard);		
 		//LayoutParams boardParams = new LayoutParams(Control.boardWidth, Control.boardHeight);
 		//LayoutParams boardParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-		LayoutParams boardParams = new LayoutParams(Control.boardWidth, Control.boardHeight);
+		LayoutParams boardParams = new LayoutParams(ClientController.boardWidth, ClientController.boardHeight);
 		boardParams.leftMargin = 0;
 		boardParams.topMargin = 0;
 		boardImage.setLayoutParams(boardParams);
@@ -100,13 +100,13 @@ public class GameScreen extends Activity
 		submitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				if(Control.okToSubmitMove)
+				if(ClientController.okToSubmitMove)
 				{
 					//Create list of clicked coordinates
 					List<Coordinate>coords = new ArrayList<Coordinate>();
-					coords.add(Control.getClickedLocation());
+					coords.add(ClientController.getClickedLocation());
 					//Submit move to server via control
-					Control.makeMove(coords);
+					ClientController.makeMove(coords);
 					
 					//Alert user as to what happened
 					AlertDialog.Builder b = new AlertDialog.Builder(GameScreen.this);
@@ -118,7 +118,7 @@ public class GameScreen extends Activity
 					});
 					b.show();
 					//After move is made, increment cross index
-					Control.crossIndex+=1;
+					ClientController.crossIndex+=1;
 					//TODO get other player's move and display it
 				}
 				else

@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
 
+
 import org.swat.server.game.interaction.*;
 import org.swat.data.*;
 
@@ -16,10 +17,13 @@ public class GamePersistence {
 	
 	private static final String filename = "gamestate";
 	
+	
 	public GamePersistence() {
+		
 		if (createfile()) {
 			initializeGameStates();
 		}
+		
 	}
 	
 	private boolean createfile() {
@@ -48,7 +52,7 @@ public class GamePersistence {
 	}
 	
 	private void initializeGameStates() {
-		this.storeGameStates(new LinkedList());
+		this.storeGameStates(new LinkedList<GameState>());
 	}
 	
 	public boolean storeGameStates(List<GameState> l) {

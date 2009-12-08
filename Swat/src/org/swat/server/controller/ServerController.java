@@ -1,9 +1,6 @@
 package org.swat.server.controller;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import org.swat.data.Coordinate;
 import org.swat.data.GameInfo;
@@ -22,6 +19,8 @@ public class ServerController {
 	private final UserAuthentication userauthentication;
 	private final GameInteractionManager gameinteraction;
 	private static ServerController _instance = null;
+	
+	Timer timer;
 
 	public static synchronized ServerController getInstance()
 	{
@@ -33,13 +32,21 @@ public class ServerController {
 	
 	private ServerController()
 	{
-		gamepersistence = new GamePersistence();
-		userauthentication = new UserAuthentication();
+		timer = new Timer();
 		gameinteraction = GameInteractionManager.getInstance();
+		userauthentication = new UserAuthentication();
+		gamepersistence = new GamePersistence();
+		timer.schedule(new GamePersistenceTask(), 10*10000);
+	}
+	
+	class GamePersistenceTask extends TimerTask {
+		public void run() {
+			gamepersistence.storeGameStates(gameinteraction.getAllActiveGames());
+		}
 	}
 	
 	public List<String> retrieveDeployedGames() { // list of game names : string
-		List<String> l = new LinkedList();
+		List<String> l = new LinkedList<String>();
 		Collection<String> c = gameinteraction.getDeployedGames();
 		Iterator<String> iter = c.iterator();
 		
@@ -63,9 +70,9 @@ public class ServerController {
 	}
 	
 	public List<GameState> retrieveOpenGames() {
-		List<GameState> l = new LinkedList();
+		List<GameState> l = new LinkedList<GameState>();
 		Collection<GameState> c = gameinteraction.getGamesThatNeedPlayers();
-		Iterator iter = c.iterator();
+		Iterator<GameState> iter = c.iterator();
 		
 		while(iter.hasNext()) {
 			   l.add((GameState)iter.next());
@@ -99,7 +106,7 @@ public class ServerController {
 	
 	public List<GameState> retrieveMyGame(String username) {
 		
-		List<GameState> l = new LinkedList();
+		List<GameState> l = new LinkedList<GameState>();
 		Collection<GameState> c = gameinteraction.getPlayersGames(username);
 		Iterator<GameState> iter = c.iterator();
 		
@@ -151,9 +158,11 @@ public class ServerController {
 		return null;
 	}
 	
+/*
 	public boolean storeGameStates() {
 		return gamepersistence.storeGameStates(gameinteraction.getAllActiveGames());
 	}
+*/
 	
 	public boolean userAuthenticate(String username, String password) {
 		return userauthentication.userauthenticate(username, password);

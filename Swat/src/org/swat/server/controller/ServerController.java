@@ -53,7 +53,6 @@ public class ServerController {
 		while(iter.hasNext()) {
 			   l.add(iter.next());
 		}
-		
 		return l;
 	}
 	
@@ -65,7 +64,6 @@ public class ServerController {
 		 catch(GameNotFoundException ex){
 			 ex.printStackTrace();
 		 }
-		 
 		 return null;
 	}
 	
@@ -77,7 +75,6 @@ public class ServerController {
 		while(iter.hasNext()) {
 			   l.add((GameState)iter.next());
 		}
-		
 		return l;
 	}
 	
@@ -90,9 +87,7 @@ public class ServerController {
 				username);
 	}
 	
-	//gameinstanceid ?
 	public GameState joinGame(int gameid, String username) {
-		
 		try
 		 {
 			return gameinteraction.joinGame(gameid, username);
@@ -100,7 +95,6 @@ public class ServerController {
 		 catch(IllegalGameJoinException ex){
 			 ex.printStackTrace();
 		 }
-		 
 		 return null;
 	}
 	
@@ -157,12 +151,6 @@ public class ServerController {
 		}
 		return null;
 	}
-	
-/*
-	public boolean storeGameStates() {
-		return gamepersistence.storeGameStates(gameinteraction.getAllActiveGames());
-	}
-*/
 	
 	public boolean userAuthenticate(String username, String password) {
 		return userauthentication.userauthenticate(username, password);

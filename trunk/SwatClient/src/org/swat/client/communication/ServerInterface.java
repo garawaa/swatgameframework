@@ -111,13 +111,16 @@ public class ServerInterface
 		return state;
 	}
 
-	public static GameState makeMove(List<Coordinate> coordList)
+	public static GameState makeMove(int gameID, int stateID,
+			List<Coordinate> coordList)
 	{
 		connect();
 
 		// Send request
 		writeAuthenticationInfo();
 		writer.println("makeMove");
+		writer.println(gameID);
+		writer.println(stateID);
 		DataParsing.writeCoordinateList(writer, coordList);
 		writer.println("END_REQUEST");
 

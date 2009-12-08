@@ -1,14 +1,18 @@
 package org.swat.server.controller;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.swat.data.Coordinate;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
-import org.swat.data.Coordinate;
-import org.swat.server.communication.NetworkServer;
-import org.swat.server.game.Game;
-import org.swat.server.game.exceptions.*;
+import org.swat.server.game.exceptions.GameNotFoundException;
+import org.swat.server.game.exceptions.IllegalGameJoinException;
+import org.swat.server.game.exceptions.IllegalGameStateException;
+import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.server.game.interaction.GameInteractionManager;
 
 
@@ -40,7 +44,7 @@ public class ServerController {
 		Iterator<String> iter = c.iterator();
 		
 		while(iter.hasNext()) {
-			   l.add((String)iter.next());
+			   l.add(iter.next());
 		}
 		
 		return l;
@@ -73,8 +77,10 @@ public class ServerController {
 	//public retrieveGameInfo()
 	
 	//who create a game?
-	public GameState createGame(int gameid, String username) {
-		return gameinteraction.createGame(gameid, username);
+	public GameState createGame(String gameName, String username)
+	{
+		return gameinteraction.createGame(getGameInfo(gameName).getGameID(),
+				username);
 	}
 	
 	//gameinstanceid ?
@@ -98,20 +104,20 @@ public class ServerController {
 		Iterator<GameState> iter = c.iterator();
 		
 		while(iter.hasNext()) {
-			   l.add((GameState)iter.next());
+			   l.add(iter.next());
 		}
 		
 		return l;
 	}
 
-	public GameState makeMove(int gameID, int gameInstanceID, int gameStateID, String playerUID, List<Coordinate> coordList) {
+	public GameState makeMove(int gameInstanceID, int gameStateID,
+			String playerUID, List<Coordinate> coordList)
+	{
 		try
 		{
-			GameMove gamemove = new GameMove(gameID, gameInstanceID, gameStateID, playerUID);
-			Iterator<Coordinate> iter = coordList.iterator();
-			while(iter.hasNext()) {
-			   gamemove.addMoveCoordinate((Coordinate)iter.next());
-			}
+			GameMove gamemove = new GameMove(gameInstanceID, gameStateID,
+					playerUID);
+			gamemove.setMoveCoordinates(coordList);
 			return gameinteraction.makeMove(gamemove);
 		}
 		catch (IllegalMoveException e)
@@ -137,7 +143,7 @@ public class ServerController {
 		List<GameState> l = gamepersistence.getGameStates();
 		Iterator<GameState> li = l.iterator();
 		while (li.hasNext()) {
-			GameState gs = (GameState)li.next();
+			GameState gs = li.next();
 			if (gs.getGameInstanceID() == gameinstanceid) {
 					return gs;
 			}

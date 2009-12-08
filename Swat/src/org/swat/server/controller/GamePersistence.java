@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 
-import org.swat.server.game.interaction.*;
 import org.swat.data.*;
 
 public class GamePersistence {

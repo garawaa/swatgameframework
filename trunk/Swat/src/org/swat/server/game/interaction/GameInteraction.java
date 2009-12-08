@@ -1,7 +1,6 @@
 package org.swat.server.game.interaction;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;

@@ -78,9 +78,6 @@ public class ServerController {
 		return l;
 	}
 	
-	//public retrieveGameInfo()
-	
-	//who create a game?
 	public GameState createGame(String gameName, String username)
 	{
 		return gameinteraction.createGame(getGameInfo(gameName).getGameID(),

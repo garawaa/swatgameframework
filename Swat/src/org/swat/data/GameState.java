@@ -11,6 +11,7 @@ public class GameState implements Serializable {
 	private int counter;
 	private int gameInstanceID;
 	
+	private int numberOfPlayersNeeded;
 	private int[][] pieceInfo;
 	private GAME_STATE gameState;
 	private String turnOfPlayer;
@@ -89,11 +90,18 @@ public class GameState implements Serializable {
 	
 	public void addPlayer(String newPlayer) {
 			this.players.add(newPlayer);
+		
+		if(this.players.size() == 1)
+			this.turnOfPlayer = newPlayer;
+		
+		if(this.numberOfPlayersNeeded == this.players.size())
+			this.gameState = GAME_STATE.STARTED;
+
 	}
 	
 	public int getPlayerNumber(String playerUID) {
 		
-		int playerNumber = -1;
+		int playerNumber = 0;
 		String[] playerUIDs = new String[players.size()];
 		playerUIDs = players.toArray(playerUIDs);
 		
@@ -144,6 +152,24 @@ public class GameState implements Serializable {
 	public void setPlayers(List<String> players)
 	{
 		this.players = players;
+	}
+	
+	public void updatePlayerTurns() {
+		
+		String[] playerUIDs = new String[players.size()];
+		playerUIDs = players.toArray(playerUIDs);
+		int neededPlayerID = (this.getPlayerNumber(turnOfPlayer)+1)%players.size();
+		
+		this.setTurnOfPlayer(playerUIDs[neededPlayerID]);
+		
+	}
+
+	public int getNumberOfPlayersNeeded() {
+		return numberOfPlayersNeeded;
+	}
+
+	public void setNumberOfPlayersNeeded(int numberOfPlayersNeeded) {
+		this.numberOfPlayersNeeded = numberOfPlayersNeeded;
 	}
 	
 }

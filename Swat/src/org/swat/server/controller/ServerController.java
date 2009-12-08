@@ -36,7 +36,7 @@ public class ServerController {
 		gameinteraction = GameInteractionManager.getInstance();
 		userauthentication = new UserAuthentication();
 		gamepersistence = new GamePersistence();
-		timer.schedule(new GamePersistenceTask(), 10*10000);
+		timer.schedule(new GamePersistenceTask(), 10*10000); // ten minutes
 	}
 	
 	class GamePersistenceTask extends TimerTask {
@@ -168,8 +168,8 @@ public class ServerController {
 		return userauthentication.userauthenticate(username, password);
 	}
 	
-	public void addUser(String username, String password) {
-		userauthentication.adduser(username, password);
+	public boolean addUser(String username, String password) {
+		return userauthentication.adduser(username, password);
 	}
 	
 }

@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.swat.data.Coordinate;
@@ -182,7 +181,7 @@ public class RequestHandler implements Runnable
 		}
 
 		// Create the game
-		GameState state = null; // TODO controller.createGame(gameName, username);
+		GameState state = controller.createGame(gameName, username);
 		if (state == null)
 		{
 			sendError("Unable to create game");
@@ -222,6 +221,30 @@ public class RequestHandler implements Runnable
 
 	private void makeMove()
 	{
+		int gameID, stateID;
+
+		// Read the gameID
+		try
+		{
+			gameID = Integer.parseInt(reader.advance());
+		}
+		catch (NumberFormatException e)
+		{
+			sendError("Invalid gameID received");
+			return;
+		}
+
+		// Read the stateID
+		try
+		{
+			stateID = Integer.parseInt(reader.advance());
+		}
+		catch (NumberFormatException e)
+		{
+			sendError("Invalid stateID received");
+			return;
+		}
+
 		// Read the list of coordinates
 		List<Coordinate> coords = DataParsing.readCoordinateList(reader);
 		if (coords == null)
@@ -231,7 +254,8 @@ public class RequestHandler implements Runnable
 		}
 
 		// Update the game
-		GameState state = null;// TODO controller.makeMove(username, gameID, coords);
+		GameState state = controller
+				.makeMove(gameID, stateID, username, coords);
 
 		// Write the results
 		DataParsing.writeGameState(writer, state);
@@ -240,7 +264,7 @@ public class RequestHandler implements Runnable
 	private void retrieveDeployedGames()
 	{
 		// Get a list of the deployed games
-		List<String> games = new ArrayList<String>();// TODO controller.retrieveDeployedGames();
+		List<String> games = controller.retrieveDeployedGames();
 
 		// Write the results
 		DataParsing.writeStringList(writer, games);
@@ -258,7 +282,7 @@ public class RequestHandler implements Runnable
 		}
 
 		// Retrieve the GameInfo
-		GameInfo info = null; // TODO controller.retrieveGameInfo(gameName);
+		GameInfo info = controller.getGameInfo(gameName);
 		if (info == null)
 		{
 			sendError("Could not find game '" + gameName + "'");
@@ -299,7 +323,7 @@ public class RequestHandler implements Runnable
 	private void retrieveMyGames()
 	{
 		// Retrieve a list of the user's active games
-		List<GameState> games = null; // TODO controller.retrieveMyGames(username);
+		List<GameState> games = controller.retrieveMyGame(username);
 
 		// Write the results
 		DataParsing.writeGameStateList(writer, games);

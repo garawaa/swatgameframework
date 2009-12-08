@@ -1,21 +1,19 @@
 package org.swat.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class GameMove {
 	
-	private int gameID;
 	private int gameInstanceID;
 	private int counter;
 	
 	private String playerUID;
-	private ArrayList<Coordinate> moveCoordinates;
+	private List<Coordinate> moveCoordinates;
 	
-	public GameMove(int gameID, int gameInstanceID, int gameStateID,
+	public GameMove(int gameInstanceID, int gameStateID,
 			String playerUID) {
 		super();
-		this.gameID = gameID;
 		this.gameInstanceID = gameInstanceID;
 		this.counter = gameStateID;
 		this.playerUID = playerUID;
@@ -25,12 +23,6 @@ public class GameMove {
 	/*
 	 * Getters and setters
 	 */
-	public int getGameID() {
-		return gameID;
-	}
-	public void setGameID(int gameID) {
-		this.gameID = gameID;
-	}
 	public int getGameInstanceID() {
 		return gameInstanceID;
 	}
@@ -59,9 +51,14 @@ public class GameMove {
 	}
 
 
-	public ArrayList<Coordinate> getMoveCoordinates()
+	public List<Coordinate> getMoveCoordinates()
 	{
 		return moveCoordinates;
+	}
+
+	public void setMoveCoordinates(List<Coordinate> moveCoordinates)
+	{
+		this.moveCoordinates = moveCoordinates;
 	}
 	
 

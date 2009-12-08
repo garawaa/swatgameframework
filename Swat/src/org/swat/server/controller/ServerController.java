@@ -37,7 +37,7 @@ public class ServerController {
 	public List<String> retrieveDeployedGames() { // list of game names : string
 		List<String> l = new LinkedList();
 		Collection<String> c = gameinteraction.getDeployedGames();
-		Iterator iter = c.iterator();
+		Iterator<String> iter = c.iterator();
 		
 		while(iter.hasNext()) {
 			   l.add((String)iter.next());
@@ -56,7 +56,6 @@ public class ServerController {
 		 }
 		 
 		 return null;
-		 
 	}
 	
 	public List<GameState> retrieveOpenGames() {

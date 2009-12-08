@@ -9,6 +9,7 @@ public class GameState implements Serializable {
 	private static final long serialVersionUID = 834939964183873294L;
 
 	private int counter;
+	private int gameID;
 	private int gameInstanceID;
 	
 	private int numberOfPlayersNeeded;
@@ -170,6 +171,14 @@ public class GameState implements Serializable {
 
 	public void setNumberOfPlayersNeeded(int numberOfPlayersNeeded) {
 		this.numberOfPlayersNeeded = numberOfPlayersNeeded;
+	}
+
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
 	}
 	
 }

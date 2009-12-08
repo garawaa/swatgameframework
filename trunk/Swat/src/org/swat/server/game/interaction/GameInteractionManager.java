@@ -58,6 +58,7 @@ public class GameInteractionManager implements GameInteraction {
 
 		Game gameToCreate = games.get(gameID);
 		GameState initialGameState = gameToCreate.getInitialState();
+		initialGameState.setGameID(gameID);
 		initialGameState.setNumberOfPlayersNeeded(gameToCreate.getGameInfo().getNumPlayersNeeded());
 		initialGameState.addPlayer(playerUID);
 		
@@ -162,12 +163,13 @@ public class GameInteractionManager implements GameInteraction {
 	public GameState makeMove(GameMove move) throws IllegalMoveException,
 			IllegalGameStateException {
 
-		Game specifiedGame = games.get(move.getGameID());
+		
 		
 		if(!startedGames.containsKey(move.getGameInstanceID()))
 			throw new IllegalGameStateException();
 		
 		GameState specifiedGameState = startedGames.get(move.getGameInstanceID());
+		Game specifiedGame = games.get(specifiedGameState.getGameID());
 		
 		GameState newGameState = null;
 		synchronized(this) {

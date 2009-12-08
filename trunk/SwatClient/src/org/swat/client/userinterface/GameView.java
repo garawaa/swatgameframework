@@ -1,6 +1,6 @@
 package org.swat.client.userinterface;
 
-import org.swat.client.control.Control;
+import org.swat.client.control.ClientController;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -66,14 +66,14 @@ public class GameView extends View {
 			boardX = (int)event.getX();
 			boardY = (int)event.getY();
 			//If its this player's turn, send the clicked coordinates to control
-			if(Control.getCurrentTurnPlayerID() == Control.getThisPlayerID())
+			if(ClientController.getCurrentTurnPlayerID() == ClientController.getThisPlayerID())
 			{
-				if(Control.setClickedLocation(boardX, boardY))
+				if(ClientController.setClickedLocation(boardX, boardY))
 				{
-					float pieceX = Control.getClickedLocation().getX()*((float)Control.boardWidth/3f);
-					float pieceY = Control.getClickedLocation().getY()*((float)Control.boardHeight/3f);
+					float pieceX = ClientController.getClickedLocation().getX()*((float)ClientController.boardWidth/3f);
+					float pieceY = ClientController.getClickedLocation().getY()*((float)ClientController.boardHeight/3f);
 					//Assume "this" player is always cross //test
-					if(Control.crossIndex >= 5)
+					if(ClientController.crossIndex >= 5)
 					{
 						AlertDialog.Builder b = new AlertDialog.Builder(context);
 						b.setMessage("End of game");
@@ -85,8 +85,8 @@ public class GameView extends View {
 						b.show();
 						break;
 					}
-					crossPieces[Control.crossIndex].setX((int)pieceX); //test
-					crossPieces[Control.crossIndex].setY((int)pieceY);
+					crossPieces[ClientController.crossIndex].setX((int)pieceX); //test
+					crossPieces[ClientController.crossIndex].setY((int)pieceY);
 					//redraw board
 					invalidate();
 				}

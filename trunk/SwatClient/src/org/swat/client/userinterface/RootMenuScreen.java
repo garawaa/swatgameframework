@@ -3,7 +3,7 @@ package org.swat.client.userinterface;
 import java.util.List;
 
 import org.swat.client.R;
-import org.swat.client.control.Control;
+import org.swat.client.control.ClientController;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -65,15 +65,15 @@ public class RootMenuScreen extends Activity
 		switch (item.getItemId()) {
 		case depGames:
 			//Retrieve deployed games
-			startListActivity(Control.retrieveDeployedGames(), Strings.deployedGames);
+			startListActivity(ClientController.retrieveDeployedGames(), Strings.deployedGames);
 			return true;
 		case openGames:
 			//Retrieve open games
-			startListActivity(Control.retrieveOpenGames(), Strings.openGames);
+			startListActivity(ClientController.retrieveOpenGames(), Strings.openGames);
 			return true;
 		case myGames:
 			//Retrieve my games
-			startListActivity(Control.retrieveMyGames(), Strings.myGames);
+			startListActivity(ClientController.retrieveMyGames(), Strings.myGames);
 			return true;	    
 		}
 		return false;

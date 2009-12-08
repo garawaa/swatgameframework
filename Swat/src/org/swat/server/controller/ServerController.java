@@ -1,7 +1,6 @@
 package org.swat.server.controller;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
@@ -9,8 +8,7 @@ import org.swat.data.GameState;
 import org.swat.data.Coordinate;
 import org.swat.server.communication.NetworkServer;
 import org.swat.server.game.Game;
-import org.swat.server.game.exceptions.IllegalGameStateException;
-import org.swat.server.game.exceptions.IllegalMoveException;
+import org.swat.server.game.exceptions.*;
 import org.swat.server.game.interaction.GameInteractionManager;
 
 
@@ -37,11 +35,31 @@ public class ServerController {
 	}
 	
 	public List<String> retrieveDeployedGames() { // list of game names : string
-		return gameinteraction.getDeployedGames();
+		List<String> l = new LinkedList();
+		Collection<String> c = gameinteraction.getDeployedGames();
+		Iterator iter = c.iterator();
+		
+		while(iter.hasNext()) {
+			   l.add((String)iter.next());
+		}
+		
+		return l;
 	}
 	
 	public GameInfo getGameInfo(String gamename) {
-		return gameinteraction.getGameInfo(gamename);
+		try
+		 {
+			return gameinteraction.getGameInfo(gamename);
+		 }
+		 catch(GameNotFoundException ex){
+			 ex.printStackTrace();
+		 }
+		 
+		 // empty gameinfo
+		 GameInfo gi = new GameInfo();
+		 
+		 return gi;
+		 
 	}
 	
 	public List<GameState> retrieveOpenGames() {

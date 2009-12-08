@@ -13,6 +13,8 @@ public class GameInfo
 	private int boardWidth;
 	private GameState initialState;
 	private Map<Integer, String> pieces;
+	
+	public GameInfo() {}
 
 	public String getGameName()
 	{

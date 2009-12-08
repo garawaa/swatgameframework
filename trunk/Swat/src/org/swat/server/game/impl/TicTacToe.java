@@ -8,11 +8,11 @@ import org.swat.data.GAME_TYPE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
-import org.swat.server.game.Game;
+import org.swat.server.game.IGame;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 
-public class TicTacToe implements Game {
+public class TicTacToe implements IGame {
 
 	private static final int ID = 1;
 	private static final String name = "TicTacToe";
@@ -26,11 +26,6 @@ public class TicTacToe implements Game {
 
 	private static HashMap<Integer, String> pieces = null;
 	private static GameState initialState = null;
-	
-	@Override
-	public GameInfo getGameInfo() {
-		return gameInfo;
-	}
 
 	private TicTacToe() {
 
@@ -50,10 +45,11 @@ public class TicTacToe implements Game {
 		gameInfo.setGameType(GAME_TYPE.ADD);
 		gameInfo.setNumPlayersNeeded(numberOfPlayersNeeded);
 		gameInfo.setPieces(pieces);
+		gameInfo.setInitialState(initialState);
 		
 	}
 
-	public static synchronized Game getLogic() {
+	public static synchronized IGame getLogic() {
 
 		if (instance == null)
 			instance = new TicTacToe();
@@ -61,19 +57,20 @@ public class TicTacToe implements Game {
 		return instance;
 
 	}
+	
+	/*
+	 * Provides all the information needed for this game
+	 * @see org.swat.server.game.IGame#getGameInfo()
+	 */
+	@Override
+	public GameInfo getGameInfo() {
+		return gameInfo;
+	}
+	
 
 	/*
 	 * Game logic
 	 */
-	@Override
-	public GameState getInitialState() {
-		return initialState;
-	}
-
-	@Override
-	public HashMap<Integer, String> getPieces() {
-		return pieces;
-	}
 
 	@Override
 	public GameState makeMove(GameState state, GameMove move)
@@ -156,39 +153,6 @@ public class TicTacToe implements Game {
 
 	/*
 	 * (end) game logic
-	 */
-
-	/*
-	 * Property accessors
-	 */
-	@Override
-	public int getBoardLength() {
-		return boardLength;
-	}
-
-	@Override
-	public int getBoardWidth() {
-		return boardWidth;
-	}
-
-	@Override
-	public int getID() {
-		return ID;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public int getNumberOfPlayersNeeded() {
-		return numberOfPlayersNeeded;
-	}
-
-	@Override
-	public GAME_TYPE getGameType() {
-		return GAME_TYPE.ADD;
-	}
+	 */	
 
 }

@@ -3,8 +3,9 @@ package org.swat.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.Serializable; // weiyu needs serializable class, keep it
 
-public class GameState {
+public class GameState implements Serializable {
 	
 	private int counter;
 	private int gameInstanceID;

@@ -30,7 +30,7 @@ public class UserAuthentication {
 	}
 	
 	private void initializeUsers() {
-		users = new HashMap ();
+		users = new HashMap<String, String>();
 		adduser("weiyu","1111"); // add more users if necessary
 		adduser("steve","1111");
 		adduser("tom","1111");
@@ -38,8 +38,13 @@ public class UserAuthentication {
 		storeUsers();
 	}
 	
-	protected void adduser(String username, String password) {
-		users.put(username, password);
+	protected boolean adduser(String username, String password) {
+		if(users.containsKey(username)) {
+			return false;
+		} else {
+			users.put(username, password);
+			return true;
+		}
 	}
 	
 	private void storeUsers() {

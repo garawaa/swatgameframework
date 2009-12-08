@@ -82,13 +82,11 @@ public class TicTacToe implements Game {
 		/*
 		 * if it is not the turn of this player, error
 		 * 
-		 * increment counter
-		 * if move is invalid, error
 		 * check for winner, set accordingly
 		 * check for draw, set accordingly
 		 * update with results of move, return state
 		 */
-		synchronized (state) {
+		synchronized (this) {
 
 			if (state.getGameState() != GAME_STATE.STARTED)
 				throw new IllegalGameStateException();
@@ -96,6 +94,9 @@ public class TicTacToe implements Game {
 			if (!state.getTurnOfPlayer().equals(move.getPlayerUID()))
 				throw new IllegalMoveException();
 			
+			if (state.getCounter()+1 != move.getCounter())
+				throw new IllegalMoveException();
+
 			Coordinate[] moveCoordinates = new Coordinate[1];
 			moveCoordinates = move.getMoveCoordinates().toArray(moveCoordinates);
 			
@@ -108,33 +109,33 @@ public class TicTacToe implements Game {
 			int playerNumber = state.getPlayerNumber(move.getPlayerUID());
 			state.getPieceInfo()[x][y] = playerNumber;
 			
+			//set the turn of player
+			state.updatePlayerTurns();
+			state.incrementCounter();
+			
 			state.setGameState(GAME_STATE.DRAWN);
 			int[][] pieces = state.getPieceInfo();
 			
 			//check for draw
 			for(int loop1=0; loop1<3; loop1++)
 				for(int loop2=0; loop2<3; loop2++)
-					if(pieces[loop1][loop2] == 0)
+					if(pieces[loop1][loop2] == 0) {
 						state.setGameState(GAME_STATE.STARTED);
+						return (state);
+					}
 			
 			//check for winner
-			int pieceInfo[][] = state.getPieceInfo();
 			int sum[] = new int[8];
 			
 			for(int loop1=0; loop1<3; loop1++)
 				for(int loop2=0; loop2<3; loop2++) {
-					sum[loop1] += pieceInfo[loop1][loop2];
-					sum[loop1+3] += pieceInfo[loop2][loop1];
-					if(pieceInfo[loop1][loop2] == 0) {
-						sum[loop1] = -6;
-						sum[loop2+3] = -6;
-					}
-						
+					sum[loop1] += pieces[loop1][loop2];
+					sum[loop1+3] += pieces[loop2][loop1];					
 				}
 			
 			for(int loop1=0; loop1<3; loop1++) {
-				sum[6] += pieceInfo[loop1][loop1];
-				sum[7] += pieceInfo[2-loop1][2-loop1];
+				sum[6] += pieces[loop1][loop1];
+				sum[7] += pieces[2-loop1][2-loop1];
 			}
 			
 			for(int loop1=0; loop1<8; loop1++) {
@@ -142,14 +143,11 @@ public class TicTacToe implements Game {
 				if(sum[loop1] == 3 || sum[loop1] == 6) {
 					state.setWinnerID(move.getPlayerUID());
 					state.setGameState(GAME_STATE.FINISHED);
-					break;
+					return(state);
 				}
 					
 			}
 			
-			//increment state ID
-			state.incrementCounter();			
-
 		}
 		
 		return state;

@@ -23,14 +23,14 @@ public class GameInteractionManager implements GameInteraction {
 	
 	private final HashMap<Integer, GameState> createdGames;
 	private static HashMap<Integer, GameState> startedGames;
-	private final HashMap<String, Collection<GameState>> gamesByPlayer;
+	private HashMap<String, Collection<Integer>> gamesByPlayer;
 
 	private GameInteractionManager() {
 
 		startedGames = new HashMap<Integer, GameState>();
 		games = new HashMap<Integer, Game>();
 		createdGames = new HashMap<Integer, GameState>();
-		gamesByPlayer = new HashMap<String, Collection<GameState>>();
+		gamesByPlayer = new HashMap<String, Collection<Integer>>();
 
 		//IMPROVE: game finding and addition
 		Game newGame = TicTacToe.getLogic();
@@ -58,11 +58,12 @@ public class GameInteractionManager implements GameInteraction {
 
 		Game gameToCreate = games.get(gameID);
 		GameState initialGameState = gameToCreate.getInitialState();
+		initialGameState.setNumberOfPlayersNeeded(gameToCreate.getGameInfo().getNumPlayersNeeded());
 		initialGameState.addPlayer(playerUID);
 		
 		if(!gamesByPlayer.containsKey(playerUID))
-			gamesByPlayer.put(playerUID, new ArrayList<GameState>());
-		gamesByPlayer.get(playerUID).add(initialGameState);
+			gamesByPlayer.put(playerUID, new ArrayList<Integer>());
+		gamesByPlayer.get(playerUID).add(initialGameState.getGameInstanceID());
 		
 		createdGames.put(initialGameState.getGameInstanceID(), initialGameState);
 		
@@ -119,7 +120,14 @@ public class GameInteractionManager implements GameInteraction {
 
 	@Override
 	public Collection<GameState> getPlayersGames(String playerUID) {
-		return gamesByPlayer.get(playerUID);
+		Collection<GameState> playersGames = new ArrayList<GameState>();
+		for(Integer gameStateID : gamesByPlayer.get(playerUID)) {
+			if(createdGames.containsKey(gameStateID))
+				playersGames.add(createdGames.get(gameStateID));
+			else
+				playersGames.add(startedGames.get(gameStateID));
+		}
+		return(playersGames);
 	}
 
 	@Override
@@ -142,7 +150,7 @@ public class GameInteractionManager implements GameInteraction {
 		requestedGameState.setGameState(GAME_STATE.STARTED);
 		createdGames.remove(gameInstanceID);
 		for(String players: requestedGameState.getPlayers())
-			gamesByPlayer.get(players).add(requestedGameState);
+			gamesByPlayer.get(players).add(requestedGameState.getGameInstanceID());
 		
 		startedGames.put(gameInstanceID, requestedGameState);
 			
@@ -154,19 +162,22 @@ public class GameInteractionManager implements GameInteraction {
 	public GameState makeMove(GameMove move) throws IllegalMoveException,
 			IllegalGameStateException {
 
-		/* TODO
-		 * if game is not started, exception
-		 * if game counter does not match, exception
-		 * synchronize
-		 * store new state in gamestates as well as players games
-		 */
-		
 		Game specifiedGame = games.get(move.getGameID());
+		
+		if(!startedGames.containsKey(move.getGameInstanceID()))
+			throw new IllegalGameStateException();
+		
 		GameState specifiedGameState = startedGames.get(move.getGameInstanceID());
-		if (specifiedGameState.getCounter() != move.getCounter())
-			throw new IllegalMoveException();
-
-		return (specifiedGame.makeMove(specifiedGameState, move).clone());
+		
+		GameState newGameState = null;
+		synchronized(this) {
+			
+			newGameState = specifiedGame.makeMove(specifiedGameState, move);
+			startedGames.put(newGameState.getGameInstanceID(), newGameState);
+				
+		}
+		
+		return (newGameState.clone());
 
 	}
 

@@ -96,7 +96,7 @@ public class ServerController {
 		
 		List<GameState> l = new LinkedList();
 		Collection<GameState> c = gameinteraction.getPlayersGames(username);
-		Iterator iter = c.iterator();
+		Iterator<GameState> iter = c.iterator();
 		
 		while(iter.hasNext()) {
 			   l.add((GameState)iter.next());
@@ -109,7 +109,7 @@ public class ServerController {
 		try
 		{
 			GameMove gamemove = new GameMove(gameID, gameInstanceID, gameStateID, playerUID);
-			Iterator iter = coordList.iterator();
+			Iterator<Coordinate> iter = coordList.iterator();
 			while(iter.hasNext()) {
 			   gamemove.addMoveCoordinate((Coordinate)iter.next());
 			}
@@ -134,17 +134,16 @@ public class ServerController {
 		}
 		catch(IllegalGameStateException ex)
 		{}
-		finally{
-			List<GameState> l = gamepersistence.getGameStates();
-			Iterator li = l.iterator();
-			while (li.hasNext()) {
-				GameState gs = (GameState)li.next();
-				if (gs.getGameInstanceID() == gameinstanceid) {
+		
+		List<GameState> l = gamepersistence.getGameStates();
+		Iterator<GameState> li = l.iterator();
+		while (li.hasNext()) {
+			GameState gs = (GameState)li.next();
+			if (gs.getGameInstanceID() == gameinstanceid) {
 					return gs;
-				}
 			}
-			return null;
 		}
+		return null;
 	}
 	
 	public boolean storeGameStates() {

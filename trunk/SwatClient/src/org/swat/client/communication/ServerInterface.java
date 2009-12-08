@@ -17,7 +17,7 @@ public class ServerInterface
 	private static String username;
 	private static String password;
 
-	private static String serverIP = "172.21.210.197";
+	private static String serverIP = "127.0.0.1";
 	private static int serverPort = 9876;
 
 	private static void connect()

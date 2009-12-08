@@ -20,7 +20,9 @@ public class ServerController {
 	private final GameInteractionManager gameinteraction;
 	private static ServerController _instance = null;
 	
-	Timer timer;
+	private final static long minute = 60000;
+	
+	private Timer timer;
 
 	public static synchronized ServerController getInstance()
 	{
@@ -36,7 +38,7 @@ public class ServerController {
 		gameinteraction = GameInteractionManager.getInstance();
 		userauthentication = new UserAuthentication();
 		gamepersistence = new GamePersistence();
-		timer.schedule(new GamePersistenceTask(), 10*10000); // ten minutes
+		timer.scheduleAtFixedRate(new GamePersistenceTask(), minute, minute*20); // 1 minute delay, 10 minutes period
 	}
 	
 	class GamePersistenceTask extends TimerTask {

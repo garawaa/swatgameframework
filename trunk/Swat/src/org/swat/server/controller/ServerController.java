@@ -55,15 +55,20 @@ public class ServerController {
 			 ex.printStackTrace();
 		 }
 		 
-		 // empty gameinfo
-		 GameInfo gi = new GameInfo();
-		 
-		 return gi;
+		 return null;
 		 
 	}
 	
 	public List<GameState> retrieveOpenGames() {
-		return gameinteraction.getGamesThatNeedPlayers();
+		List<GameState> l = new LinkedList();
+		Collection<GameState> c = gameinteraction.getGamesThatNeedPlayers();
+		Iterator iter = c.iterator();
+		
+		while(iter.hasNext()) {
+			   l.add((GameState)iter.next());
+		}
+		
+		return l;
 	}
 	
 	//public retrieveGameInfo()
@@ -75,11 +80,29 @@ public class ServerController {
 	
 	//gameinstanceid ?
 	public GameState joinGame(int gameid, String username) {
-		return gameinteraction.joinGame(gameid, username);
+		
+		try
+		 {
+			return gameinteraction.joinGame(gameid, username);
+		 }
+		 catch(IllegalGameJoinException ex){
+			 ex.printStackTrace();
+		 }
+		 
+		 return null;
 	}
 	
 	public List<GameState> retrieveMyGame(String username) {
-		return gameinteraction.getPlayersGames(username);
+		
+		List<GameState> l = new LinkedList();
+		Collection<GameState> c = gameinteraction.getPlayersGames(username);
+		Iterator iter = c.iterator();
+		
+		while(iter.hasNext()) {
+			   l.add((GameState)iter.next());
+		}
+		
+		return l;
 	}
 
 	public GameState makeMove(int gameID, int gameInstanceID, int gameStateID, String playerUID, List<Coordinate> coordList) {
@@ -106,18 +129,22 @@ public class ServerController {
 	}
 	
 	public GameState retrieveGameState(int gameinstanceid) {
-		GameState gamestate = gameinteraction.getGameState(gameinstanceid);
-		if (gamestate == null) {
+		try{
+			return gameinteraction.getGameState(gameinstanceid);
+		}
+		catch(IllegalGameStateException ex)
+		{}
+		finally{
 			List<GameState> l = gamepersistence.getGameStates();
 			Iterator li = l.iterator();
 			while (li.hasNext()) {
 				GameState gs = (GameState)li.next();
 				if (gs.getGameInstanceID() == gameinstanceid) {
-					gamestate = gs;
+					return gs;
 				}
 			}
+			return null;
 		}
-		return gamestate;
 	}
 	
 	public boolean storeGameStates() {

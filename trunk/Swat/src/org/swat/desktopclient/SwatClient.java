@@ -36,11 +36,11 @@ public class SwatClient extends JFrame
 		}
 		else
 		{
-			String gameID = JOptionPane.showInputDialog(this,
-					"Enter the Game ID of the game you wish to join:");
-			if (gameID == null)
+			String gameInstanceID = JOptionPane.showInputDialog(this,
+					"Enter the ID of the game you wish to join:");
+			if (gameInstanceID == null)
 				System.exit(0);
-			Controller.getInstance().joinGame(Integer.parseInt(gameID));
+			Controller.getInstance().joinGame(Integer.parseInt(gameInstanceID));
 		}
 
 		// Update the title with the gameID

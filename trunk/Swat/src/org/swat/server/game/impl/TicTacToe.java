@@ -91,7 +91,7 @@ public class TicTacToe implements IGame {
 			if (!state.getTurnOfPlayer().equals(move.getPlayerUID()))
 				throw new IllegalMoveException();
 			
-			if (state.getCounter()+1 != move.getCounter())
+			if (state.getCounter() != move.getCounter())
 				throw new IllegalMoveException();
 
 			Coordinate[] moveCoordinates = new Coordinate[1];

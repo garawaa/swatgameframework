@@ -57,6 +57,12 @@ public class GameInteractionManager implements IGameInteraction {
 	@Override
 	public GameState createGame(int gameID, String playerUID) {
 
+		if(!games.containsKey(gameID)) {
+			GameState tempGameState = new GameState();
+			tempGameState.addMessage(MESSAGE.ILLEGAL_GAME_SPEC.toString());
+			return (tempGameState);
+		}
+		
 		IGame gameToCreate = games.get(gameID);
 		GameState initialGameState = gameToCreate.getGameInfo().getInitialState();
 		initialGameState.setGameID(gameID);
@@ -128,6 +134,10 @@ public class GameInteractionManager implements IGameInteraction {
 	@Override
 	public Collection<GameState> getPlayersGames(String playerUID) {
 		Collection<GameState> playersGames = new ArrayList<GameState>();
+		
+		if(!gamesByPlayer.containsKey(playerUID))
+			return(playersGames);
+		
 		for(Integer gameStateID : gamesByPlayer.get(playerUID)) {
 			if(createdGames.containsKey(gameStateID))
 				playersGames.add(createdGames.get(gameStateID));

@@ -9,6 +9,7 @@ import org.swat.data.GAME_STATE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
+import org.swat.data.MESSAGE;
 import org.swat.server.game.IGame;
 import org.swat.server.game.exceptions.GameNotFoundException;
 import org.swat.server.game.exceptions.IllegalGameJoinException;
@@ -93,26 +94,30 @@ public class GameInteractionManager implements IGameInteraction {
 	}
 	
 	@Override
-	public GameInfo getGameInfo(String gameName) throws GameNotFoundException {
+	public GameInfo getGameInfo(String gameName) {
 		
 		for(IGame game : games.values())
 			if(gameName.equals(game.getGameInfo().getGameName()))
 				return game.getGameInfo();
 		
-		throw new GameNotFoundException();
+		GameInfo tempGameInfo = new GameInfo();
+		tempGameInfo.setGameID(-1);
+		return (tempGameInfo);
 		
 	}
 
 	@Override
-	public GameState getGameState(int gameInstanceID) throws IllegalGameStateException {
+	public GameState getGameState(int gameInstanceID) {
 
 		if(startedGames.containsKey(gameInstanceID))
 			return (startedGames.get(gameInstanceID).clone());
 		if(createdGames.containsKey(gameInstanceID))
 			return (createdGames.get(gameInstanceID).clone());
 		
-		throw (new IllegalGameStateException());
-		
+		GameState tempGameState = new GameState();
+		tempGameState.addMessage(MESSAGE.ILLEGAL_GAME_STATE.toString());
+		return (tempGameState);
+				
 	}
 
 	@Override
@@ -133,7 +138,7 @@ public class GameInteractionManager implements IGameInteraction {
 	}
 
 	@Override
-	public GameState joinGame(int gameInstanceID, String playerUID) throws IllegalGameJoinException {
+	public GameState joinGame(int gameInstanceID, String playerUID) {
 		
 		/*
 		 * if the game is not in the created state, throw exception
@@ -142,8 +147,11 @@ public class GameInteractionManager implements IGameInteraction {
 		 * state
 		 */
 		
-		if(!createdGames.containsKey(gameInstanceID))
-			throw (new IllegalGameJoinException());
+		if(!createdGames.containsKey(gameInstanceID)){
+			GameState tempGameState = new GameState();
+			tempGameState.addMessage(MESSAGE.ILLEGAL_GAME_JOIN.toString());
+			return (tempGameState);
+		}
 		
 		GameState requestedGameState = createdGames.get(gameInstanceID);
 		// TODO Game should only transition to STARTED state if enough players
@@ -165,13 +173,14 @@ public class GameInteractionManager implements IGameInteraction {
 	}
 
 	@Override
-	public GameState makeMove(GameMove move) throws IllegalMoveException,
-			IllegalGameStateException {
+	public GameState makeMove(GameMove move) {
 
+		GameState tempGameState = new GameState();
 		
-		
-		if(!startedGames.containsKey(move.getGameInstanceID()))
-			throw new IllegalGameStateException();
+		if(!startedGames.containsKey(move.getGameInstanceID())){
+			tempGameState.addMessage(MESSAGE.ILLEGAL_GAME_STATE.toString());
+			return (tempGameState);
+		}
 		
 		GameState specifiedGameState = startedGames.get(move.getGameInstanceID());
 		IGame specifiedGame = games.get(specifiedGameState.getGameID());
@@ -179,7 +188,15 @@ public class GameInteractionManager implements IGameInteraction {
 		GameState newGameState = null;
 		synchronized(this) {
 			
-			newGameState = specifiedGame.makeMove(specifiedGameState, move);
+			try {
+				newGameState = specifiedGame.makeMove(specifiedGameState, move);
+			} catch (IllegalGameStateException e) {
+				tempGameState.addMessage(MESSAGE.ILLEGAL_GAME_STATE.toString());
+				return (tempGameState);
+			} catch (IllegalMoveException e) {
+				tempGameState.addMessage(MESSAGE.ILLEGAL_GAME_MOVE.toString());
+				return (tempGameState);
+			}
 			startedGames.put(newGameState.getGameInstanceID(), newGameState);
 				
 		}

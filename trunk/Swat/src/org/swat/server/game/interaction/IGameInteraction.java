@@ -5,10 +5,6 @@ import java.util.Collection;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
-import org.swat.server.game.exceptions.GameNotFoundException;
-import org.swat.server.game.exceptions.IllegalGameJoinException;
-import org.swat.server.game.exceptions.IllegalGameStateException;
-import org.swat.server.game.exceptions.IllegalMoveException;
 
 
 public interface IGameInteraction {
@@ -21,7 +17,7 @@ public interface IGameInteraction {
 	 */
 	public Collection<String> getDeployedGames();
 	
-	public IGameInfo getGameInfo(String gameName) throws GameNotFoundException;
+	public IGameInfo getGameInfo(String gameName);
 	
 	/*
 	 * Use ID obtained from getDeployedGames()
@@ -31,11 +27,11 @@ public interface IGameInteraction {
 	public Collection<GameState> getGamesThatNeedPlayers();
 	
 	
-	public GameState makeMove(GameMove move) throws IllegalMoveException, IllegalGameStateException;
+	public GameState makeMove(GameMove move);
 	
-	public GameState getGameState(int gameInstanceID) throws IllegalGameStateException;
+	public GameState getGameState(int gameInstanceID);
 	
-	public GameState joinGame(int gameInstanceID, String playerUID) throws IllegalGameJoinException;
+	public GameState joinGame(int gameInstanceID, String playerUID);
 	
 	/*
 	 * Retrieves the list of games for which the player

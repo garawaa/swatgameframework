@@ -26,7 +26,7 @@ public class LineReader
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
+			currentLine = null;
 			e.printStackTrace();
 		}
 		return currentLine;

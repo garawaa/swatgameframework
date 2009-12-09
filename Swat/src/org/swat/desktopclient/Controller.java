@@ -12,7 +12,7 @@ import org.swat.desktopclient.communication.ServerInterface;
 public class Controller
 {
 	private String gameName = "Tic-Tac-Toe";
-	private int gameID = GameState.UNDEFINED_INSTANCE_ID;
+	private int gameInstanceID = GameState.UNDEFINED_INSTANCE_ID;
 	private IGameInfo info = ServerInterface.retrieveGameInfo(gameName);
 	private GameState state = null;
 	private final Collection<StateListener> stateListeners = new ArrayList<StateListener>();
@@ -39,7 +39,7 @@ public class Controller
 					updateState();
 					try
 					{
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 					}
 					catch (InterruptedException e)
 					{
@@ -77,7 +77,7 @@ public class Controller
 	{
 		List<Coordinate> list = new ArrayList<Coordinate>();
 		list.add(new Coordinate(x, y));
-		ServerInterface.makeMove(gameID, state.getCounter(), list);
+		ServerInterface.makeMove(gameInstanceID, state.getCounter(), list);
 		updateState();
 	}
 
@@ -88,13 +88,13 @@ public class Controller
 
 	private synchronized void updateState()
 	{
-		if (gameID == GameState.UNDEFINED_INSTANCE_ID)
+		if (gameInstanceID == GameState.UNDEFINED_INSTANCE_ID)
 		{
 			state = info.getInitialState();
 		}
 		else
 		{
-			state = ServerInterface.retrieveGameState(gameID);
+			state = ServerInterface.retrieveGameState(gameInstanceID);
 		}
 
 		// Notify listeners
@@ -108,18 +108,18 @@ public class Controller
 	{
 		ServerInterface.setUsername("User" + System.currentTimeMillis());
 		state = ServerInterface.createGame(gameName);
-		gameID = state.getGameInstanceID();
+		gameInstanceID = state.getGameInstanceID();
 	}
 
 	public void joinGame(int gameID)
 	{
 		ServerInterface.setUsername("User" + System.currentTimeMillis());
 		state = ServerInterface.joinGame(gameID);
-		this.gameID = state.getGameInstanceID();
+		this.gameInstanceID = state.getGameInstanceID();
 	}
 
 	public int getGameID()
 	{
-		return gameID;
+		return gameInstanceID;
 	}
 }

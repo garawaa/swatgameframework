@@ -11,10 +11,6 @@ import org.swat.data.Coordinate;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
-import org.swat.server.game.exceptions.GameNotFoundException;
-import org.swat.server.game.exceptions.IllegalGameJoinException;
-import org.swat.server.game.exceptions.IllegalGameStateException;
-import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.server.game.interaction.GameInteractionManager;
 import org.swat.server.game.interaction.IGameInteraction;
 
@@ -66,14 +62,7 @@ public class ServerController {
 	}
 	
 	public IGameInfo getGameInfo(String gamename) {
-		try
-		 {
 			return gameinteraction.getGameInfo(gamename);
-		 }
-		 catch(GameNotFoundException ex){
-			 ex.printStackTrace();
-		 }
-		 return null;
 	}
 	
 	public List<GameState> retrieveOpenGames() {
@@ -94,14 +83,7 @@ public class ServerController {
 	}
 	
 	public GameState joinGame(int gameid, String username) {
-		try
-		 {
 			return gameinteraction.joinGame(gameid, username);
-		 }
-		 catch(IllegalGameJoinException ex){
-			 ex.printStackTrace();
-		 }
-		 return null;
 	}
 	
 	public List<GameState> retrieveMyGame(String username) {
@@ -120,42 +102,14 @@ public class ServerController {
 	public GameState makeMove(int gameInstanceID, int gameStateID,
 			String playerUID, List<Coordinate> coordList)
 	{
-		try
-		{
 			GameMove gamemove = new GameMove(gameInstanceID, gameStateID,
 					playerUID);
 			gamemove.setMoveCoordinates(coordList);
 			return gameinteraction.makeMove(gamemove);
-		}
-		catch (IllegalMoveException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalGameStateException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	public GameState retrieveGameState(int gameinstanceid) {
-		try{
 			return gameinteraction.getGameState(gameinstanceid);
-		}
-		catch(IllegalGameStateException ex)
-		{}
-		
-		List<GameState> l = gamepersistence.getGameStates();
-		Iterator<GameState> li = l.iterator();
-		while (li.hasNext()) {
-			GameState gs = li.next();
-			if (gs.getGameInstanceID() == gameinstanceid) {
-					return gs;
-			}
-		}
-		return null;
 	}
 	
 	public boolean userAuthenticate(String username, String password) {

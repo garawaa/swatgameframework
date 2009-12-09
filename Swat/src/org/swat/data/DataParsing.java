@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DataParsing
 {
-	public static GameInfo readGameInfo(LineReader reader)
+	public static IGameInfo readGameInfo(LineReader reader)
 	{
 		String gameID, gameName, gameType, numPlayersNeeded, boardLength, boardWidth;
 		GameState initialState;
@@ -93,7 +93,7 @@ public class DataParsing
 		}
 	}
 
-	public static void writeGameInfo(PrintWriter writer, GameInfo info)
+	public static void writeGameInfo(PrintWriter writer, IGameInfo info)
 	{
 		writer.println("BEGIN_GAME_INFO");
 		writer.println("gameID=" + info.getGameID());

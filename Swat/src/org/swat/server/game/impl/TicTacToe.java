@@ -15,7 +15,7 @@ import org.swat.server.game.exceptions.IllegalMoveException;
 public class TicTacToe implements IGame {
 
 	private static final int ID = 1;
-	private static final String name = "TicTacToe";
+	private static final String name = "Tic-Tac-Toe";
 	private static final int numberOfPlayersNeeded = 2;
 	private static final int boardLength = 3;
 	private static final int boardWidth = 3;
@@ -30,8 +30,8 @@ public class TicTacToe implements IGame {
 	private TicTacToe() {
 
 		pieces = new HashMap<Integer, String>();
-		pieces.put(1, "CHECK");
-		pieces.put(2, "CIRCLE");
+		pieces.put(1, "x");
+		pieces.put(2, "o");
 
 		initialState = new GameState();
 		initialState.setPieceInfo(new int[3][3]);

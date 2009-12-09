@@ -21,6 +21,7 @@ import org.swat.data.GAME_STATE;
 import org.swat.data.GAME_TYPE;
 import org.swat.data.GameInfo;
 import org.swat.data.GameState;
+import org.swat.data.IGameInfo;
 import org.swat.data.LineReader;
 
 public class DataParsingTests
@@ -315,7 +316,7 @@ public class DataParsingTests
 		info.setPieces(intStringMap);
 	}
 
-	private boolean equalsGameInfo(GameInfo first, GameInfo second)
+	private boolean equalsGameInfo(IGameInfo first, IGameInfo second)
 	{
 		// Compare each field
 		if (first.getGameID() != second.getGameID())
@@ -416,7 +417,7 @@ public class DataParsingTests
 	public void testReadGameInfo() throws IOException
 	{
 		LineReader reader = new LineReader(new StringReader(GAME_INFO));
-		GameInfo ginfo = DataParsing.readGameInfo(reader);
+		IGameInfo ginfo = DataParsing.readGameInfo(reader);
 		reader.close();
 
 		assertTrue(equalsGameInfo(info, ginfo));

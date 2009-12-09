@@ -228,14 +228,14 @@ public class ClientController
 	/** Retrieves list of open games **/
 	public static List<String> retrieveOpenGames() 
 	{		
-		//currentOpenGames = ServerInterface.retrieveOpenGames();
+		// currentOpenGames = ServerInterface.retrieveOpenGames();
 		//currentOpenGames = ControlTest.retrieveOpenGames();
 		
-		List<String> openGamesNames = new ArrayList<String>();		
-		//for(GameState gameState: currentOpenGames)
-		for(int i = 0; i<3; i++)
+		List<String> openGamesNames = new ArrayList<String>();
+		// for(GameState gameState: currentOpenGames)
+		for (int i = 0; i < 3; i++)
 		{
-			 openGamesNames.add("Tic Tac Toe");
+			openGamesNames.add("Tic Tac Toe");
 		}
 		return openGamesNames;
 	}

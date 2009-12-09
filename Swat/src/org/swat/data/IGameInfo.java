@@ -1,9 +1,7 @@
-package org.swat.server.game;
+package org.swat.data;
 
 import java.util.Map;
 
-import org.swat.data.GAME_TYPE;
-import org.swat.data.GameState;
 
 public interface IGameInfo {
 	

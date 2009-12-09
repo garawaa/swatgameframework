@@ -1,4 +1,4 @@
-package org.swat.client.communication;
+package org.swat.desktopclient.communication;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,7 +17,7 @@ public class ServerInterface
 	private static String username;
 	private static String password;
 
-	private static String serverIP = "172.21.120.135";
+	private static String serverIP = "127.0.0.1";
 	private static int serverPort = 9876;
 
 	private static void connect()

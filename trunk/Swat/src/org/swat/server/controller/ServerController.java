@@ -1,9 +1,13 @@
 package org.swat.server.controller;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.swat.data.Coordinate;
-import org.swat.data.GameInfo;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
@@ -24,7 +28,7 @@ public class ServerController {
 	
 	private final static long minute = 60000;
 	
-	private Timer timer;
+	private final Timer timer;
 
 	public static synchronized ServerController getInstance()
 	{
@@ -44,6 +48,7 @@ public class ServerController {
 	}
 	
 	class GamePersistenceTask extends TimerTask {
+		@Override
 		public void run() {
 			gamepersistence.storeGameStates(gameinteraction.getAllActiveGames());
 		}
@@ -77,7 +82,7 @@ public class ServerController {
 		Iterator<GameState> iter = c.iterator();
 		
 		while(iter.hasNext()) {
-			   l.add((GameState)iter.next());
+			   l.add(iter.next());
 		}
 		return l;
 	}

@@ -1,16 +1,16 @@
 package org.swat.server.controller;
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
-
-import org.swat.data.*;
+import org.swat.data.GameState;
 
 public class GamePersistence {
 	
@@ -67,6 +67,7 @@ public class GamePersistence {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public  List<GameState> getGameStates() {
 		try {
 			FileInputStream fis = new FileInputStream(filename);

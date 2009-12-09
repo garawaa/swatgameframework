@@ -150,8 +150,12 @@ public class GameInteractionManager implements IGameInteraction {
 		requestedGameState.addPlayer(playerUID);
 		requestedGameState.setGameState(GAME_STATE.STARTED);
 		createdGames.remove(gameInstanceID);
-		for(String players: requestedGameState.getPlayers())
-			gamesByPlayer.get(players).add(requestedGameState.getGameInstanceID());
+		
+		for(String player: requestedGameState.getPlayers()) {
+			if(!gamesByPlayer.containsKey(player))
+				gamesByPlayer.put(player, new ArrayList<Integer>());
+			gamesByPlayer.get(player).add(requestedGameState.getGameInstanceID());
+		}
 		
 		startedGames.put(gameInstanceID, requestedGameState);
 			

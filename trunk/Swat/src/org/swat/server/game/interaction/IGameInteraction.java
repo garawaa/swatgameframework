@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
-import org.swat.server.game.IGameInfo;
+import org.swat.data.IGameInfo;
 import org.swat.server.game.exceptions.GameNotFoundException;
 import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;

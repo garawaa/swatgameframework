@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.swat.data.Coordinate;
 import org.swat.data.DataParsing;
-import org.swat.data.GameInfo;
 import org.swat.data.GameState;
+import org.swat.data.IGameInfo;
 import org.swat.data.LineReader;
 import org.swat.server.controller.ServerController;
 
@@ -282,7 +282,7 @@ public class RequestHandler implements Runnable
 		}
 
 		// Retrieve the GameInfo
-		GameInfo info = controller.getGameInfo(gameName);
+		IGameInfo info = controller.getGameInfo(gameName);
 		if (info == null)
 		{
 			sendError("Could not find game '" + gameName + "'");

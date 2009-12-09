@@ -7,6 +7,8 @@ import java.util.List;
 public class GameState implements Serializable {
 	
 	private static final long serialVersionUID = 834939964183873294L;
+	public static final int UNDEFINED_INSTANCE_ID = -1;
+	private static int GAME_INSTANCE_ID_COUNTER = 0;
 
 	private int counter;
 	private int gameID;
@@ -20,20 +22,21 @@ public class GameState implements Serializable {
 	private List<String> messages;
 	private List<String> players;
 	
-	private static int GAME_INSTANCE_ID_COUNTER = 0;
-	
 	public GameState()
 	{
 		this.messages = new ArrayList<String>();
 		this.players = new ArrayList<String>();
 		this.gameState = GAME_STATE.CREATED;
+		this.gameInstanceID = UNDEFINED_INSTANCE_ID;
 		this.counter = 0;
-		
-		synchronized (this) {
-			GAME_INSTANCE_ID_COUNTER++;
-			this.gameInstanceID = GAME_INSTANCE_ID_COUNTER;
+	}
+
+	public void instantiate()
+	{
+		synchronized (this)
+		{
+			this.gameInstanceID = GAME_INSTANCE_ID_COUNTER++;
 		}
-		
 	}
 	
 	/*

@@ -17,7 +17,7 @@ public class ServerInterface
 	private static String username;
 	private static String password;
 
-	private static String serverIP = "172.21.120.135";
+	private static String serverIP = "127.0.0.1";
 	private static int serverPort = 9876;
 
 	private static void connect()
@@ -42,14 +42,19 @@ public class ServerInterface
 
 	private static boolean verifyResponseOpening()
 	{
-		if (reader.advance().startsWith("ERROR"))
+		if (reader.advance() == null)
 		{
-			// TODO error("error");
+			System.err.println("ERROR: No response from server");
+			return false;
+		}
+		if (reader.getLine().startsWith("ERROR"))
+		{
+			System.err.println(reader.getLine());
 			return false;
 		}
 		if (!reader.getLine().equals("BEGIN_RESPONSE"))
 		{
-			// TODO error("Malformed response");
+			System.err.println("ERROR: Invalid response from server");
 			return false;
 		}
 
@@ -60,7 +65,7 @@ public class ServerInterface
 	{
 		if (!reader.advance().equals("END_RESPONSE"))
 		{
-			// TODO error("Malformed response");
+			System.err.println("ERROR: Invalid response from server");
 			return false;
 		}
 

@@ -42,14 +42,19 @@ public class ServerInterface
 
 	private static boolean verifyResponseOpening()
 	{
-		if (reader.advance().startsWith("ERROR"))
+		if (reader.advance() == null)
 		{
-			// TODO error("error");
+			System.err.println("ERROR: No response from server");
+			return false;
+		}
+		if (reader.getLine().startsWith("ERROR"))
+		{
+			System.err.println(reader.getLine());
 			return false;
 		}
 		if (!reader.getLine().equals("BEGIN_RESPONSE"))
 		{
-			// TODO error("Malformed response");
+			System.err.println("ERROR: Invalid response from server");
 			return false;
 		}
 
@@ -60,7 +65,7 @@ public class ServerInterface
 	{
 		if (!reader.advance().equals("END_RESPONSE"))
 		{
-			// TODO error("Malformed response");
+			System.err.println("ERROR: Invalid response from server");
 			return false;
 		}
 

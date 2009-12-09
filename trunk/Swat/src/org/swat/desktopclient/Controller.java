@@ -12,7 +12,7 @@ import org.swat.desktopclient.communication.ServerInterface;
 public class Controller
 {
 	private String gameName = "Tic-Tac-Toe";
-	private int gameID = -1;
+	private int gameID = GameState.UNDEFINED_INSTANCE_ID;
 	private IGameInfo info = ServerInterface.retrieveGameInfo(gameName);
 	private GameState state = null;
 	private final Collection<StateListener> stateListeners = new ArrayList<StateListener>();
@@ -47,7 +47,6 @@ public class Controller
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
@@ -89,7 +88,7 @@ public class Controller
 
 	private synchronized void updateState()
 	{
-		if (gameID < 0)
+		if (gameID == GameState.UNDEFINED_INSTANCE_ID)
 		{
 			state = info.getInitialState();
 		}
@@ -116,7 +115,7 @@ public class Controller
 	{
 		ServerInterface.setUsername("User" + System.currentTimeMillis());
 		state = ServerInterface.joinGame(gameID);
-		gameID = state.getGameInstanceID();
+		this.gameID = state.getGameInstanceID();
 	}
 
 	public int getGameID()

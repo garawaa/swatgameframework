@@ -61,6 +61,7 @@ public class GameInteractionManager implements IGameInteraction {
 		initialGameState.setGameID(gameID);
 		initialGameState.setNumberOfPlayersNeeded(gameToCreate.getGameInfo().getNumPlayersNeeded());
 		initialGameState.addPlayer(playerUID);
+		initialGameState.instantiate();
 		
 		if(!gamesByPlayer.containsKey(playerUID))
 			gamesByPlayer.put(playerUID, new ArrayList<Integer>());

@@ -256,6 +256,11 @@ public class RequestHandler implements Runnable
 		// Update the game
 		GameState state = controller
 				.makeMove(gameID, stateID, username, coords);
+		if (state == null)
+		{
+			sendError("Invalid move");
+			return;
+		}
 
 		// Write the results
 		DataParsing.writeGameState(writer, state);

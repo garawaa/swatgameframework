@@ -143,6 +143,10 @@ public class GameState implements Serializable {
 		clone.players = this.players;
 		clone.pieceInfo = this.pieceInfo;
 		clone.counter = this.counter;
+		clone.turnOfPlayer = this.turnOfPlayer;
+		clone.winnerID = this.winnerID;
+		clone.gameID = this.gameID;
+		clone.numberOfPlayersNeeded = this.numberOfPlayersNeeded;
 		
 		return clone;
 		

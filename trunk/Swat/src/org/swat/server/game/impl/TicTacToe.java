@@ -113,18 +113,6 @@ public class TicTacToe implements IGame {
 			state.setGameState(GAME_STATE.DRAWN);
 			int[][] pieces = state.getPieceInfo();
 			
-
-			for (int i = 0; i < state.getPieceInfo()[0].length; i++)
-			{
-				for (int j = 0; j < state.getPieceInfo().length; j++)
-				{
-					System.out
-							.print(state.getPieceInfo()[j][i] + "   ");
-				}
-				System.out.println();
-			}
-			System.out.println();
-			
 			// Check for a winner
 			if ((pieces[0][0] == pieces[1][0] && pieces[1][0] == pieces[2][0] && pieces[2][0] != 0)
 					|| (pieces[0][1] == pieces[1][1]
@@ -144,9 +132,6 @@ public class TicTacToe implements IGame {
 			{
 				state.setWinnerID(move.getPlayerUID());
 				state.setGameState(GAME_STATE.FINISHED);
-
-				System.out.println("Finished");
-				
 				return (state);
 			}
 
@@ -155,13 +140,11 @@ public class TicTacToe implements IGame {
 				for(int loop2=0; loop2<3; loop2++)
 					if(pieces[loop1][loop2] == 0) {
 						state.setGameState(GAME_STATE.STARTED);
-						System.out.println("Started");
 						return (state);
 					}
 		}
-			System.out.println("Drawn");
+
 		return state;
-		
 	}
 
 	/*

@@ -103,7 +103,7 @@ public class TicTacToe implements IGame {
 			if(state.getPieceInfo()[x][y] != 0)
 				throw new IllegalMoveException();
 			
-			int playerNumber = state.getPlayerNumber(move.getPlayerUID());
+			int playerNumber = state.getPlayerNumber(move.getPlayerUID()) + 1;
 			state.getPieceInfo()[x][y] = playerNumber;
 			
 			//set the turn of player
@@ -113,40 +113,53 @@ public class TicTacToe implements IGame {
 			state.setGameState(GAME_STATE.DRAWN);
 			int[][] pieces = state.getPieceInfo();
 			
-			//check for draw
+
+			for (int i = 0; i < state.getPieceInfo()[0].length; i++)
+			{
+				for (int j = 0; j < state.getPieceInfo().length; j++)
+				{
+					System.out
+							.print(state.getPieceInfo()[j][i] + "   ");
+				}
+				System.out.println();
+			}
+			System.out.println();
+			
+			// Check for a winner
+			if ((pieces[0][0] == pieces[1][0] && pieces[1][0] == pieces[2][0] && pieces[2][0] != 0)
+					|| (pieces[0][1] == pieces[1][1]
+							&& pieces[1][1] == pieces[2][1] && pieces[2][1] != 0)
+					|| (pieces[0][2] == pieces[1][2]
+							&& pieces[1][2] == pieces[2][2] && pieces[2][2] != 0)
+					|| (pieces[0][0] == pieces[0][1]
+							&& pieces[0][1] == pieces[0][2] && pieces[0][2] != 0)
+					|| (pieces[1][0] == pieces[1][1]
+							&& pieces[1][1] == pieces[1][2] && pieces[1][2] != 0)
+					|| (pieces[2][0] == pieces[2][1]
+							&& pieces[2][1] == pieces[2][2] && pieces[2][2] != 0)
+					|| (pieces[0][0] == pieces[1][1]
+							&& pieces[1][1] == pieces[2][2] && pieces[2][2] != 0)
+					|| (pieces[2][0] == pieces[1][1]
+							&& pieces[1][1] == pieces[0][2] && pieces[0][2] != 0))
+			{
+				state.setWinnerID(move.getPlayerUID());
+				state.setGameState(GAME_STATE.FINISHED);
+
+				System.out.println("Finished");
+				
+				return (state);
+			}
+
+			// See if there are still empty spaces
 			for(int loop1=0; loop1<3; loop1++)
 				for(int loop2=0; loop2<3; loop2++)
 					if(pieces[loop1][loop2] == 0) {
 						state.setGameState(GAME_STATE.STARTED);
+						System.out.println("Started");
 						return (state);
 					}
-			
-			//check for winner
-			int sum[] = new int[8];
-			
-			for(int loop1=0; loop1<3; loop1++)
-				for(int loop2=0; loop2<3; loop2++) {
-					sum[loop1] += pieces[loop1][loop2];
-					sum[loop1+3] += pieces[loop2][loop1];					
-				}
-			
-			for(int loop1=0; loop1<3; loop1++) {
-				sum[6] += pieces[loop1][loop1];
-				sum[7] += pieces[2-loop1][2-loop1];
-			}
-			
-			for(int loop1=0; loop1<8; loop1++) {
-			
-				if(sum[loop1] == 3 || sum[loop1] == 6) {
-					state.setWinnerID(move.getPlayerUID());
-					state.setGameState(GAME_STATE.FINISHED);
-					return(state);
-				}
-					
-			}
-			
 		}
-		
+			System.out.println("Drawn");
 		return state;
 		
 	}

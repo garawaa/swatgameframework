@@ -103,20 +103,6 @@ public class GameState implements Serializable {
 
 	}
 	
-	public int getPlayerNumber(String playerUID) {
-		
-		int playerNumber = 0;
-		String[] playerUIDs = new String[players.size()];
-		playerUIDs = players.toArray(playerUIDs);
-		
-		for(int loop1=0; loop1<playerUIDs.length; loop1++)
-			if(playerUIDs[loop1].equals(playerUID))
-				playerNumber = loop1+1;
-		
-		return (playerNumber);
-		
-	}
-	
 	public synchronized void incrementCounter() {
 		this.counter++;
 	}
@@ -163,12 +149,9 @@ public class GameState implements Serializable {
 	}
 	
 	public void updatePlayerTurns() {
-		
-		String[] playerUIDs = new String[players.size()];
-		playerUIDs = players.toArray(playerUIDs);
-		int neededPlayerID = (this.getPlayerNumber(turnOfPlayer)+1)%players.size();
-		
-		this.setTurnOfPlayer(playerUIDs[neededPlayerID]);
+
+		setTurnOfPlayer(players.get((getPlayerNumber(turnOfPlayer) + 1)
+				% players.size()));
 		
 	}
 
@@ -186,6 +169,11 @@ public class GameState implements Serializable {
 
 	public void setGameID(int gameID) {
 		this.gameID = gameID;
+	}
+
+	public int getPlayerNumber(String playerUID)
+	{
+		return players.indexOf(playerUID);
 	}
 	
 }

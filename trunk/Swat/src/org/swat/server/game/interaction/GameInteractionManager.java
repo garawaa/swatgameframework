@@ -11,8 +11,6 @@ import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.data.MESSAGE;
 import org.swat.server.game.IGame;
-import org.swat.server.game.exceptions.GameNotFoundException;
-import org.swat.server.game.exceptions.IllegalGameJoinException;
 import org.swat.server.game.exceptions.IllegalGameStateException;
 import org.swat.server.game.exceptions.IllegalMoveException;
 import org.swat.server.game.impl.TicTacToe;
@@ -24,7 +22,7 @@ public class GameInteractionManager implements IGameInteraction {
 	
 	private final HashMap<Integer, GameState> createdGames;
 	private static HashMap<Integer, GameState> startedGames;
-	private HashMap<String, Collection<Integer>> gamesByPlayer;
+	private final HashMap<String, Collection<Integer>> gamesByPlayer;
 
 	private GameInteractionManager() {
 

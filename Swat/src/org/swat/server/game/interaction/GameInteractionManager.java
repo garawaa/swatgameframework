@@ -20,9 +20,9 @@ public class GameInteractionManager implements IGameInteraction {
 	private static GameInteractionManager _instance;
 	private static HashMap<Integer, IGame> games;
 	
-	private final HashMap<Integer, GameState> createdGames;
+	private static HashMap<Integer, GameState> createdGames;
 	private static HashMap<Integer, GameState> startedGames;
-	private final HashMap<String, Collection<Integer>> gamesByPlayer;
+	private static HashMap<String, Collection<Integer>> gamesByPlayer;
 
 	private GameInteractionManager() {
 

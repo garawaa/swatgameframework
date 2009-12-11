@@ -3,7 +3,12 @@ package org.swat.data;
 import java.util.Map;
 
 
-
+/**
+ * The data object that provides information about a game
+ * 
+ * @author steve
+ *
+ */
 public class GameInfo implements IGameInfo
 {
 	private int gameID;

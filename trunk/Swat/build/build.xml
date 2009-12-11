@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Dec 11, 2009 12:16:25 PM                                                        
+
+     SWAT build file    
+    
+                   
+     steve                                                                
+     ====================================================================== -->
+
+<project name="SWAT build file" default="default">
+    <description>
+            
+    </description>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" description="">
+        <javadoc author="on" destdir="../javadoc" sourcepath="../src"/>
+    </target>
+
+</project>

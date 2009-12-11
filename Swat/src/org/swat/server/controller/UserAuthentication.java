@@ -9,15 +9,21 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author weiyu
- *
- */
+
 public class UserAuthentication {
 	
+	/**
+	 * the name of the file that are used to store user information
+	 */
 	private static final String filename = "userinfo";
+	/**
+	 * a map that stores user names and user passwords
+	 */
 	private Map<String, String> users;
 	
+	/**
+	 * class constructor
+	 */
 	public UserAuthentication() {
 		if (createfile()) {
 			initializeUsers();
@@ -26,6 +32,10 @@ public class UserAuthentication {
 		}
 	}
 	
+	/**
+	 * create a file that stores user information
+	 * @return whether the file has been created successfully
+	 */
 	private boolean createfile() {
 		try {
 			File file = new File(filename);
@@ -39,6 +49,9 @@ public class UserAuthentication {
 		return false;
 	}
 	
+	/**
+	 * insert the information of administrators
+	 */
 	private void initializeUsers() {
 		users = new HashMap<String, String>();
 		adduser("weiyu","1111"); // add more users if necessary
@@ -48,6 +61,12 @@ public class UserAuthentication {
 		storeUsers();
 	}
 	
+	/**
+	 * add a new user (user registration)
+	 * @param username receives a user name
+	 * @param password receives a user password
+	 * @return returns the status whether user registration is successful
+	 */
 	protected boolean adduser(String username, String password) {
 		if(users.containsKey(username)) {
 			return false;
@@ -57,6 +76,9 @@ public class UserAuthentication {
 		}
 	}
 	
+	/**
+	 * store user information into a file
+	 */
 	private void storeUsers() {
 		try {
 			FileOutputStream fos = new FileOutputStream(filename);
@@ -67,6 +89,9 @@ public class UserAuthentication {
 		}
 	}
 
+	/**
+	 * retrieve user information from a file
+	 */
 	@SuppressWarnings("unchecked")
 	private void retrieveUsers() {
 		try {
@@ -81,10 +106,10 @@ public class UserAuthentication {
 	}
 	
 	/**
-	 * 
-	 * @param username
-	 * @param password
-	 * @return
+	 * authenticate a user (login)
+	 * @param username receives a user name
+	 * @param password receives a user password
+	 * @return returns the status whether user login is successful
 	 */
 	public boolean userauthenticate(String username, String password) {
 		if(users.containsKey(username)) {

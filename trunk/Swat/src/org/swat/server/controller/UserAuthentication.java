@@ -67,7 +67,7 @@ public class UserAuthentication {
 	 * @param password receives a user password
 	 * @return returns the status whether user registration is successful
 	 */
-	protected boolean adduser(String username, String password) {
+	public boolean adduser(String username, String password) {
 		if(users.containsKey(username)) {
 			return false;
 		} else {

@@ -6,8 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Provides methods for serializing data objects into Strings as well are
+ * reading them back
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class DataParsing
 {
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static IGameInfo readGameInfo(LineReader reader)
 	{
 		String gameID, gameName, gameType, numPlayersNeeded, boardLength, boardWidth;
@@ -107,6 +118,10 @@ public class DataParsing
 		writer.println("END_GAME_INFO");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static GameState readGameState(LineReader reader)
 	{
 		int[][] pieceInfo;
@@ -187,6 +202,10 @@ public class DataParsing
 		}
 	}
 
+	/**
+	 * @param writer
+	 * @param state
+	 */
 	public static void writeGameState(PrintWriter writer, GameState state)
 	{
 		writer.println("BEGIN_GAME_STATE");
@@ -201,6 +220,10 @@ public class DataParsing
 		writer.println("END_GAME_STATE");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static List<GameState> readGameStateList(LineReader reader)
 	{
 		List<GameState> stateList = new ArrayList<GameState>();
@@ -227,6 +250,10 @@ public class DataParsing
 		return stateList;
 	}
 
+	/**
+	 * @param writer
+	 * @param stateList
+	 */
 	public static void writeGameStateList(PrintWriter writer,
 			List<GameState> stateList)
 	{
@@ -238,6 +265,10 @@ public class DataParsing
 		writer.println("END_GAME_STATE_LIST");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static Coordinate readCoordinate(LineReader reader)
 	{
 		String x, y;
@@ -278,6 +309,10 @@ public class DataParsing
 		}
 	}
 
+	/**
+	 * @param writer
+	 * @param coord
+	 */
 	public static void writeCoordinate(PrintWriter writer, Coordinate coord)
 	{
 		writer.println("BEGIN_COORDINATE");
@@ -286,6 +321,10 @@ public class DataParsing
 		writer.println("END_COORDINATE");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static List<Coordinate> readCoordinateList(LineReader reader)
 	{
 		List<Coordinate> list = new ArrayList<Coordinate>();
@@ -312,6 +351,10 @@ public class DataParsing
 		return list;
 	}
 
+	/**
+	 * @param writer
+	 * @param coordList
+	 */
 	public static void writeCoordinateList(PrintWriter writer,
 			List<Coordinate> coordList)
 	{
@@ -323,6 +366,10 @@ public class DataParsing
 		writer.println("END_COORDINATE_LIST");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static List<String> readStringList(LineReader reader)
 	{
 		List<String> list = new ArrayList<String>();
@@ -349,6 +396,10 @@ public class DataParsing
 		return list;
 	}
 
+	/**
+	 * @param writer
+	 * @param list
+	 */
 	public static void writeStringList(PrintWriter writer, List<String> list)
 	{
 		writer.println("BEGIN_STRING_LIST");
@@ -359,6 +410,10 @@ public class DataParsing
 		writer.println("END_STRING_LIST");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static Map<Integer, String> readIntStringMap(LineReader reader)
 	{
 		Map<Integer, String> map = new HashMap<Integer, String>();
@@ -394,6 +449,10 @@ public class DataParsing
 		return map;
 	}
 
+	/**
+	 * @param writer
+	 * @param map
+	 */
 	public static void writeIntStringMap(PrintWriter writer,
 			Map<Integer, String> map)
 	{
@@ -405,6 +464,10 @@ public class DataParsing
 		writer.println("END_INT_STRING_MAP");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static Map<String, Integer> readStringIntMap(LineReader reader)
 	{
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -440,6 +503,10 @@ public class DataParsing
 		return map;
 	}
 
+	/**
+	 * @param writer
+	 * @param map
+	 */
 	public static void writeStringIntMap(PrintWriter writer,
 			Map<String, Integer> map)
 	{
@@ -451,6 +518,10 @@ public class DataParsing
 		writer.println("END_STRING_INT_MAP");
 	}
 
+	/**
+	 * @param reader
+	 * @return
+	 */
 	public static int[][] read2DIntArray(LineReader reader)
 	{
 		int[][] array;
@@ -513,6 +584,10 @@ public class DataParsing
 		return array;
 	}
 
+	/**
+	 * @param writer
+	 * @param array
+	 */
 	public static void write2DIntArray(PrintWriter writer, int[][] array)
 	{
 		writer.println("BEGIN_2D_INT_ARRAY");

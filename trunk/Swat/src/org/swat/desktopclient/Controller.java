@@ -9,6 +9,12 @@ import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
 import org.swat.desktopclient.communication.ServerInterface;
 
+/**
+ * Main controller for the client
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class Controller
 {
 	private String gameName = "Tic-Tac-Toe";
@@ -19,6 +25,11 @@ public class Controller
 
 	private static Controller instance = null;
 
+	/**
+	 * Singleton access
+	 * 
+	 * @return
+	 */
 	public static Controller getInstance()
 	{
 		if (instance == null)
@@ -51,16 +62,25 @@ public class Controller
 		}).start();
 	}
 
+	/**
+	 * @return
+	 */
 	public GameState getState()
 	{
 		return state;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getGameName()
 	{
 		return gameName;
 	}
 
+	/**
+	 * @param gameName
+	 */
 	public void setGameName(String gameName)
 	{
 		this.gameName = gameName;
@@ -68,11 +88,22 @@ public class Controller
 		state = null;
 	}
 
+	/**
+	 * @return
+	 */
 	public IGameInfo getInfo()
 	{
 		return info;
 	}
 
+	/**
+	 * Used to report user actions, i.e. mouse clicks
+	 * 
+	 * @param x
+	 *            The x coordinate of the action
+	 * @param y
+	 *            The y coordinate of the action
+	 */
 	public void boardAction(int x, int y)
 	{
 		List<Coordinate> list = new ArrayList<Coordinate>();
@@ -81,6 +112,12 @@ public class Controller
 		updateState();
 	}
 
+	/**
+	 * Lets the controller know to update the listener when the game state
+	 * changes
+	 * 
+	 * @param listener
+	 */
 	public void registerStateListener(StateListener listener)
 	{
 		stateListeners.add(listener);
@@ -104,6 +141,9 @@ public class Controller
 		}
 	}
 
+	/**
+	 * Creates a game
+	 */
 	public void createGame()
 	{
 		ServerInterface.setUsername("User" + System.currentTimeMillis());
@@ -111,6 +151,12 @@ public class Controller
 		gameInstanceID = state.getGameInstanceID();
 	}
 
+	/**
+	 * Adds user to an existing game
+	 * 
+	 * @param gameID
+	 *            The gameInstanceID of the game to join
+	 */
 	public void joinGame(int gameID)
 	{
 		ServerInterface.setUsername("User" + System.currentTimeMillis());
@@ -118,11 +164,17 @@ public class Controller
 		this.gameInstanceID = state.getGameInstanceID();
 	}
 
+	/**
+	 * @return
+	 */
 	public String getUsername()
 	{
 		return ServerInterface.getUsername();
 	}
 
+	/**
+	 * @return The gameInstanceID of the current game
+	 */
 	public int getGameID()
 	{
 		return gameInstanceID;

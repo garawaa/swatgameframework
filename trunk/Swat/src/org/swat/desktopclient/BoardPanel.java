@@ -18,6 +18,12 @@ import org.swat.data.GAME_STATE;
 import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
 
+/**
+ * Renders the board and pieces and sends user actions
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class BoardPanel extends JPanel implements StateListener
 {
 	private static final long serialVersionUID = -1197773687175269925L;
@@ -28,6 +34,9 @@ public class BoardPanel extends JPanel implements StateListener
 	private GameState state;
 	private final Controller controller = Controller.getInstance();
 
+	/**
+	 * Initializes the panel
+	 */
 	public BoardPanel()
 	{
 		this.info = controller.getInfo();

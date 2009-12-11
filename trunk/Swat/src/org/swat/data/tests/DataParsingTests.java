@@ -24,6 +24,12 @@ import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
 import org.swat.data.LineReader;
 
+/**
+ * Provides JUnit tests for all of the DataParsing methods
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class DataParsingTests
 {
 	public static final String STRING_LIST = 

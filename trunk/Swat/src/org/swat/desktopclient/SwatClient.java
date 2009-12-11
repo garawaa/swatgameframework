@@ -9,10 +9,19 @@ import javax.swing.WindowConstants;
 
 import org.swat.desktopclient.communication.ServerInterface;
 
+/**
+ * Simple SWAT client. Mostly generic, but only supports Tic-Tac-Toe right now
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class SwatClient extends JFrame
 {
 	private static final long serialVersionUID = -8599957408414899969L;
 
+	/**
+	 * Prompts the user for info on joining a game, then creates the main frame
+	 */
 	public SwatClient()
 	{
 		// Initialize the window
@@ -55,6 +64,11 @@ public class SwatClient extends JFrame
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Reads the IP address from the command line, then starts the GUI
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		// Get the IP address from the command line

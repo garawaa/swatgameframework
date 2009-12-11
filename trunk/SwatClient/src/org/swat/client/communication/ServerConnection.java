@@ -16,12 +16,24 @@ public class ServerConnection
 	private PrintWriter writer = null;
 	private LineReader reader = null;
 
+	/**
+	 * Initializes the address and port
+	 * 
+	 * @param serverIP
+	 *            String representation of the server's IP address
+	 * @param serverPort
+	 */
 	public ServerConnection(String serverIP, int serverPort)
 	{
 		this.serverIP = serverIP;
 		this.serverPort = serverPort;
 	}
 
+	/**
+	 * Connects if necessary and attaches a writer to the socket
+	 * 
+	 * @return A writer to the stream
+	 */
 	public PrintWriter getWriter()
 	{
 		// Return existing writer
@@ -50,6 +62,11 @@ public class ServerConnection
 		}
 	}
 
+	/**
+	 * Connects if necessary and attaches a reader to the socket
+	 * 
+	 * @return A reader for the stream
+	 */
 	public LineReader getReader()
 	{
 		// Return existing reader
@@ -98,6 +115,9 @@ public class ServerConnection
 		}
 	}
 
+	/**
+	 * Closes the socket, reader and writer
+	 */
 	public void closeConnection()
 	{
 		// Close socket and streams
@@ -117,21 +137,33 @@ public class ServerConnection
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public String getServerIP()
 	{
 		return serverIP;
 	}
 
+	/**
+	 * @param serverIP
+	 */
 	public void setServerIP(String serverIP)
 	{
 		this.serverIP = serverIP;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getServerPort()
 	{
 		return serverPort;
 	}
 
+	/**
+	 * @param serverPort
+	 */
 	public void setServerPort(int serverPort)
 	{
 		this.serverPort = serverPort;

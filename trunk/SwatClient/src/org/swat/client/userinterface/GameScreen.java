@@ -23,6 +23,9 @@ import android.widget.RelativeLayout.LayoutParams;
 public class GameScreen extends Activity
 {
 	/**Called when back button is hit**/
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onKeyDown(int, android.view.KeyEvent)
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
@@ -32,6 +35,7 @@ public class GameScreen extends Activity
 			AlertDialog.Builder b = new AlertDialog.Builder(GameScreen.this);
 			b.setMessage("Game will be saved on server");
 			b.show();
+			GameScreen.this.finish();			
 			//TODO save game on server
 			return true;			
 		}
@@ -43,6 +47,9 @@ public class GameScreen extends Activity
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 	/** Called when the activity is first created. */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -70,7 +77,7 @@ public class GameScreen extends Activity
 		mainLayout.addView(boardLayout);
 		
 		GameView drawView = new GameView(GameScreen.this);
-		drawView.setImages(R.drawable.o, R.drawable.x, R.drawable.tictactoeboard);
+		drawView.setImages(R.drawable.o, R.drawable.x);
 		LayoutParams drawViewParams = new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		//drawViewParams.leftMargin = 0;
@@ -98,6 +105,9 @@ public class GameScreen extends Activity
 		setContentView(mainLayout);
 
 		submitButton.setOnClickListener(new OnClickListener(){
+			/* (non-Javadoc)
+			 * @see android.view.View.OnClickListener#onClick(android.view.View)
+			 */
 			@Override
 			public void onClick(View v) {
 				if(ClientController.okToSubmitMove)

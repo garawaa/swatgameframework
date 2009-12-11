@@ -9,6 +9,10 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author weiyu
+ *
+ */
 public class UserAuthentication {
 	
 	private static final String filename = "userinfo";
@@ -62,7 +66,7 @@ public class UserAuthentication {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void retrieveUsers() {
 		try {
@@ -76,6 +80,12 @@ public class UserAuthentication {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public boolean userauthenticate(String username, String password) {
 		if(users.containsKey(username)) {
 			if (users.get(username).equals(password)) {

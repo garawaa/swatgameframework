@@ -1,0 +1,10 @@
+org.swat.data
+org.swat.data.tests
+org.swat.desktopclient
+org.swat.desktopclient.communication
+org.swat.server.communication
+org.swat.server.controller
+org.swat.server.game
+org.swat.server.game.exceptions
+org.swat.server.game.impl
+org.swat.server.game.interaction

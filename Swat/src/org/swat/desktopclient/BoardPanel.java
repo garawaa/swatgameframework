@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.swat.data.GAME_STATE;
 import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
 
@@ -91,6 +93,29 @@ public class BoardPanel extends JPanel implements StateListener
 	{
 		state = controller.getState();
 		repaint();
+		
+		// Display end-of-game messages
+		if (state.getGameState() == GAME_STATE.FINISHED)
+		{
+			if (state.getWinnerID().equals(controller.getUsername()))
+			{
+				JOptionPane.showMessageDialog(this.getParent(), "You win!",
+						"You win!", JOptionPane.INFORMATION_MESSAGE);
+				System.exit(0);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this.getParent(), "You lose",
+						"You lose", JOptionPane.INFORMATION_MESSAGE);
+				System.exit(0);
+			}
+		}
+		else if (state.getGameState() == GAME_STATE.DRAWN)
+		{
+			JOptionPane.showMessageDialog(this.getParent(), "There was a tie",
+					"There was a tie", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
 	}
 
 	private class BoardMouseListener implements MouseListener

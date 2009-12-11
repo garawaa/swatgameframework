@@ -15,6 +15,12 @@ import org.swat.data.IGameInfo;
 import org.swat.data.LineReader;
 import org.swat.server.controller.ServerController;
 
+/**
+ * Directs every client request and returns any results
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class RequestHandler implements Runnable
 {
 	private final Socket socket;
@@ -25,6 +31,11 @@ public class RequestHandler implements Runnable
 	private boolean error = false;
 	private String username;
 
+	/**
+	 * Starts the handler on the given socket
+	 * 
+	 * @param socket
+	 */
 	public RequestHandler(Socket socket)
 	{
 		this.socket = socket;

@@ -3,15 +3,30 @@ package org.swat.server.communication;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * Listens for clients on a TCP socket and spawns RequestHandlers for them
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class NetworkServer implements Runnable
 {
 	private final int port;
 
+	/**
+	 * Creates a server with default port 9876
+	 */
 	public NetworkServer()
 	{
 		this(9876);
 	}
 
+	/**
+	 * Creates a server with the specified port
+	 * 
+	 * @param port
+	 *            Port to listen on
+	 */
 	public NetworkServer(int port)
 	{
 		this.port = port;
@@ -58,6 +73,11 @@ public class NetworkServer implements Runnable
 
 	}
 
+	/**
+	 * Main method for the SWAT server.
+	 * 
+	 * @param args
+	 */
 	public static void main(String args[])
 	{
 		new Thread(new NetworkServer()).start();

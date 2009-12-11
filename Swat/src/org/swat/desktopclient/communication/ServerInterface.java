@@ -9,6 +9,12 @@ import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
 import org.swat.data.LineReader;
 
+/**
+ * Provides access to the server's exported interface.
+ * 
+ * @author tombuzbee
+ * 
+ */
 public class ServerInterface
 {
 	private static LineReader reader;
@@ -72,6 +78,12 @@ public class ServerInterface
 		return true;
 	}
 
+	/**
+	 * Sends the createGame command
+	 * 
+	 * @param gameType
+	 * @return
+	 */
 	public static GameState createGame(String gameType)
 	{
 		connect();
@@ -94,6 +106,12 @@ public class ServerInterface
 		return state;
 	}
 
+	/**
+	 * Sends the joinGame command
+	 * 
+	 * @param gameID
+	 * @return
+	 */
 	public static GameState joinGame(int gameID)
 	{
 		connect();
@@ -116,6 +134,14 @@ public class ServerInterface
 		return state;
 	}
 
+	/**
+	 * Sends the makeMove command
+	 * 
+	 * @param gameID
+	 * @param stateID
+	 * @param coordList
+	 * @return
+	 */
 	public static GameState makeMove(int gameID, int stateID,
 			List<Coordinate> coordList)
 	{
@@ -141,6 +167,11 @@ public class ServerInterface
 		return state;
 	}
 
+	/**
+	 * Sends the retrieveDeployedGames command
+	 * 
+	 * @return
+	 */
 	public static List<String> retrieveDeployedGames()
 	{
 		connect();
@@ -162,6 +193,12 @@ public class ServerInterface
 		return games;
 	}
 
+	/**
+	 * Sends the retrieveGameInfo command
+	 * 
+	 * @param gameType
+	 * @return
+	 */
 	public static IGameInfo retrieveGameInfo(String gameType)
 	{
 		connect();
@@ -184,6 +221,12 @@ public class ServerInterface
 		return info;
 	}
 
+	/**
+	 * Sends the retrieveGameState command
+	 * 
+	 * @param gameID
+	 * @return
+	 */
 	public static GameState retrieveGameState(int gameID)
 	{
 		connect();
@@ -206,6 +249,11 @@ public class ServerInterface
 		return state;
 	}
 
+	/**
+	 * Sends the retrieveMyGames command
+	 * 
+	 * @return
+	 */
 	public static List<GameState> retrieveMyGames()
 	{
 		connect();
@@ -227,6 +275,11 @@ public class ServerInterface
 		return states;
 	}
 
+	/**
+	 * Sends the retrieveOpenGames command
+	 * 
+	 * @return
+	 */
 	public static List<GameState> retrieveOpenGames()
 	{
 		connect();
@@ -248,41 +301,65 @@ public class ServerInterface
 		return states;
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getServerIP()
 	{
 		return serverIP;
 	}
 
+	/**
+	 * @param serverIP
+	 */
 	public static void setServerIP(String serverIP)
 	{
 		ServerInterface.serverIP = serverIP;
 	}
 
+	/**
+	 * @return
+	 */
 	public static int getServerPort()
 	{
 		return serverPort;
 	}
 
+	/**
+	 * @param serverPort
+	 */
 	public static void setServerPort(int serverPort)
 	{
 		ServerInterface.serverPort = serverPort;
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getUsername()
 	{
 		return username;
 	}
 
+	/**
+	 * @param username
+	 */
 	public static void setUsername(String username)
 	{
 		ServerInterface.username = username;
 	}
 
+	/**
+	 * @return
+	 */
 	public static String getPassword()
 	{
 		return password;
 	}
 
+	/**
+	 * @param password
+	 */
 	public static void setPassword(String password)
 	{
 		ServerInterface.password = password;

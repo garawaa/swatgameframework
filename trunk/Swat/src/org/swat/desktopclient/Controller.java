@@ -118,6 +118,11 @@ public class Controller
 		this.gameInstanceID = state.getGameInstanceID();
 	}
 
+	public String getUsername()
+	{
+		return ServerInterface.getUsername();
+	}
+
 	public int getGameID()
 	{
 		return gameInstanceID;

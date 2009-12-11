@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
+import org.swat.desktopclient.communication.ServerInterface;
+
 public class SwatClient extends JFrame
 {
 	private static final long serialVersionUID = -8599957408414899969L;
@@ -55,6 +57,17 @@ public class SwatClient extends JFrame
 	
 	public static void main(String[] args)
 	{
+		// Get the IP address from the command line
+		if (args.length == 1)
+		{
+			if (args[0].matches("[0-9][0-9]?[0-9]?\\.[0-9][0-9]?[0-9]?\\."
+					+ "[0-9][0-9]?[0-9]?\\.[0-9][0-9]?[0-9]?"))
+			{
+				ServerInterface.setServerIP(args[0]);
+			}
+		}
+		System.out.println("Using server IP " + ServerInterface.getServerIP());
+
 		// Set the widget style
 		try
 		{

@@ -100,10 +100,10 @@ public class GamePersistence {
 			return (List<GameState>) ois.readObject();
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
-			return null;
+			return (new LinkedList<GameState>());
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			return null;
+			return (new LinkedList<GameState>());
 		}
 	}	
 

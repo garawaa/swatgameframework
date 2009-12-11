@@ -11,6 +11,7 @@ import org.swat.data.Coordinate;
 import org.swat.data.GameMove;
 import org.swat.data.GameState;
 import org.swat.data.IGameInfo;
+import org.swat.data.MESSAGE;
 import org.swat.server.game.interaction.GameInteractionManager;
 import org.swat.server.game.interaction.IGameInteraction;
 
@@ -145,6 +146,19 @@ public class ServerController {
 			   l.add(iter.next());
 		}
 		
+		if (l.isEmpty()) {
+			List<GameState> temp = gamepersistence.getGameStates();
+			List<GameState> l2 = new LinkedList<GameState>();
+			Iterator<GameState> iter2 = temp.iterator();
+			while (iter2.hasNext()) {
+				GameState gs_temp = iter2.next();
+				if (gs_temp.getPlayers().contains(username)) {
+					l2.add(gs_temp);
+				}
+			}
+			return l2;
+		}
+		
 		return l;
 	}
 
@@ -171,7 +185,22 @@ public class ServerController {
 	 * @return returns the gamestate
 	 */
 	public GameState retrieveGameState(int gameinstanceid) {
-			return gameinteraction.getGameState(gameinstanceid);
+		
+		    GameState gs = gameinteraction.getGameState(gameinstanceid);
+		    if (gs.getMessages().contains(MESSAGE.ILLEGAL_GAME_STATE.toString())) {
+		    	List<GameState> l = gamepersistence.getGameStates();
+		    	Iterator<GameState> iter = l.iterator();
+		    	while(iter.hasNext()) {
+		    		GameState temp = iter.next();
+		    		if (temp.getGameInstanceID() == gameinstanceid) {
+		    			return temp;
+		    		}
+		    	}
+		    	return gs;
+		    }
+		    else {
+		    	return gs;
+		    }
 	}
 	
 	/**

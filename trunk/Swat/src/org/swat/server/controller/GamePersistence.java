@@ -14,9 +14,15 @@ import org.swat.data.GameState;
 
 public class GamePersistence {
 	
+	/**
+	 * The name of the file that stores gamestates.
+	 */
 	private static final String filename = "gamestate";
 	
 	
+	/**
+	 * GamePersistence Class Constructor
+	 */
 	public GamePersistence() {
 		
 		if (createfile()) {
@@ -25,6 +31,10 @@ public class GamePersistence {
 		
 	}
 	
+	/**
+	 * Create an empty file that is used to store gamestates.
+	 * @return Returns a boolean showing whether the file is successfully created.
+	 */
 	private boolean createfile() {
 		try {
 			File file = new File(filename);
@@ -38,6 +48,9 @@ public class GamePersistence {
 		return false;
 	}
 	
+	/**
+	 * Recreate an empty file that is used to stores gamestates.
+	 */
 	private void recreatefile() {
 		try {
 			File file = new File(filename);
@@ -50,10 +63,18 @@ public class GamePersistence {
 		}
 	}
 	
+	/**
+	 * store an empty list into the file
+	 */
 	private void initializeGameStates() {
 		this.storeGameStates(new LinkedList<GameState>());
 	}
 	
+	/**
+	 * store a list of gamestates into a file
+	 * @param l receives a list of gamestates
+	 * @return returns the status whether gamestates have been stored.
+	 */
 	public boolean storeGameStates(Collection<GameState> l) {
 		recreatefile();
 		try {
@@ -67,8 +88,12 @@ public class GamePersistence {
 		}
 	}
 	
+	/**
+	 * get a list of gamestates that were stored.
+	 * @return returns a list of gamestates
+	 */
 	@SuppressWarnings("unchecked")
-	public  List<GameState> getGameStates() {
+	public List<GameState> getGameStates() {
 		try {
 			FileInputStream fis = new FileInputStream(filename);
 			ObjectInputStream ois = new ObjectInputStream(fis);

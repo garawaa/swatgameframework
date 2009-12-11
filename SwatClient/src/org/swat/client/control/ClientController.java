@@ -8,6 +8,10 @@ import org.swat.data.Coordinate;
 import org.swat.data.GameInfo;
 import org.swat.data.GameState;
 
+/**
+ * @author Abhi Keshav
+ *
+ */
 public class ClientController 
 {
 	/*Methods to be used: retrieveDeployedGames, retrieveOpenGames, createGame, joinGame, 
@@ -218,14 +222,18 @@ public class ClientController
 	// Server interaction methods
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX	
 
-	/** Retrieves list of deployed games **/
+	/**Retrieves list of deployed games
+	 * @return List of games
+	 */
 	public static List<String> retrieveDeployedGames()
 	{		
 		currentDeployedGames = ServerInterface.retrieveDeployedGames();
 		return currentDeployedGames;		
 	}
 
-	/** Retrieves list of open games **/
+	/**Retrieves list of open games 
+	 * @return List of games
+	 */
 	public static List<String> retrieveOpenGames() 
 	{		
 		// currentOpenGames = ServerInterface.retrieveOpenGames();
@@ -239,8 +247,10 @@ public class ClientController
 		}
 		return openGamesNames;
 	}
-
-	/** Retrieves list of my games **/
+	
+	/**Retrieves list of my games
+	 * @return List of games
+	 */
 	public static List<String> retrieveMyGames() 
 	{
 		//currentMyGames = ServerInterface.retrieveMyGames();
@@ -255,8 +265,10 @@ public class ClientController
 		}
 		return myGamesNames;
 	}
-
-	/** Creates new game of specified type **/
+	
+	/**Creates new game of specified type
+	 * @param gameType Type of game
+	 */
 	public static void createNewGame(String gameType) 
 	{
 		//currentGameInfo = ServerInterface.retrieveGameInfo(gameType);					
@@ -268,7 +280,9 @@ public class ClientController
 		otherPlayerID = 0; //for now set it to 0
 	}
 
-	/** Joins specified game **/
+	/**Joins specified game
+	 * @param gameID Id of game
+	 */
 	public static void joinGame(int gameID)
 	{
 		//currentGameState = ServerInterface.joinGame(gameID);
@@ -278,21 +292,28 @@ public class ClientController
 		otherPlayerID = 0; //for now set it to 0	
 	}
 
-	/** Retrieves game state of current game **/ 
+	/**Retrieves game state of current game
+	 * 
+	 */
 	public static void retrieveGameState()
 	{
 		//currentGameState = ServerInterface.retrieveGameState(currentGameState.getGameID());
 		//currentGameState = ControlTest.retrieveGameState(currentGameState.getGameID());
 	}
 	
-	/** Makes move with given list of coordinates **/
+	/**Makes move with given list of coordinates
+	 * @param coordinates List of coordinates
+	 */
 	public static void makeMove(List<Coordinate> coordinates)
 	{
 		//currentGameState = ServerInterface.makeMove(coordinates);
 		//currentGameState = ControlTest.makeMove(coordinates);
 	}	
 	
-	/****/
+	/** Store username and password
+	 * @param user user name
+	 * @param pass password
+	 */
 	public static void storeUserPassword(String user, String pass)
 	{
 		//ServerInterface.setUsername(user);

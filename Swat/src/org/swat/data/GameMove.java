@@ -2,7 +2,12 @@ package org.swat.data;
 
 import java.util.List;
 
-
+/**
+ * The data object that describes a game move
+ * 
+ * @author steve
+ *
+ */
 public class GameMove {
 	
 	private int gameInstanceID;

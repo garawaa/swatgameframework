@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The data object that describes the current state of a game
+ * 
+ * @author steve
+ *
+ */
 public class GameState implements Serializable {
 	
 	private static final long serialVersionUID = 834939964183873294L;

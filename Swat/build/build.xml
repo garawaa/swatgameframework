@@ -17,7 +17,7 @@
           target: default              
          ================================= -->
     <target name="default" description="">
-        <javadoc author="on" destdir="../javadoc" sourcepath="../src"/>
+        <javadoc2 author="on" destdir="../javadoc" sourcepath="../src"/>
     </target>
 
 </project>

@@ -1,5 +1,9 @@
 package org.swat.client.userinterface;
 
+/**
+ * @author Abhi Keshav
+ *
+ */
 public class RequestCodes 
 {
 	public static int gameListScreenRequestCode = 0x01;

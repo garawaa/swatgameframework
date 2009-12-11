@@ -12,7 +12,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+/**
+ * @author Abhi Keshav
+ *
+ */
 public class GameView extends View {
+	/**
+	 * 
+	 */
 	private static PieceImage [] crossPieces; 
 	private static PieceImage [] circlePieces;
 
@@ -21,6 +28,9 @@ public class GameView extends View {
 
 	private Context context;
 
+	/**
+	 * @param context The Context of the Activity
+	 */
 	public GameView(Context context) {
 		super(context);
 		setFocusable(true); //necessary for getting the touch events
@@ -30,6 +40,9 @@ public class GameView extends View {
 	}
 
 	// the method that draws the balls
+	/* (non-Javadoc)
+	 * @see android.view.View#onDraw(android.graphics.Canvas)
+	 */
 	@Override protected void onDraw(Canvas canvas) {
 		//canvas.drawColor(0xFFCCCCCC);     //if you want another background color       
 
@@ -48,7 +61,12 @@ public class GameView extends View {
 		}
 	}
 
-	// events when touching the screen
+	/**
+	 * 
+	 */
+	/* (non-Javadoc)
+	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
+	 */
 	public boolean onTouchEvent(MotionEvent event) {
 		int eventaction = event.getAction(); 		
 
@@ -96,8 +114,13 @@ public class GameView extends View {
 		return true; 	
 	}
 
-	/**Animates next/previous card motion
-	 * @param ctx context**/
+	
+	/**
+	 * Run animation
+	 * @param ctx Context
+	 * @param animDirection Direction of animation
+	 * @return The animation
+	 */
 	public Animation runAnimation(Activity ctx, int animDirection) {
 		Animation animation = AnimationUtils.loadAnimation(ctx,
 				animDirection);		
@@ -107,8 +130,11 @@ public class GameView extends View {
 		return animation;
 	}
 
-	/**Set images for the three cards**/
-	public void setImages(int img1, int img2, int img3)
+	/**Set images for the crosses and circles
+	 * @param img1 Image resource for the cross
+	 * @param img2 Image resource for the circle
+	 */
+	public void setImages(int img1, int img2)
 	{			
 		for(int i = 0; i<9 ; i++)
 		{

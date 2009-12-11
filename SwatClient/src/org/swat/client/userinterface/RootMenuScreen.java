@@ -35,6 +35,9 @@ public class RootMenuScreen extends Activity
 	// Menu-related functions
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	/** create the menu items */
+	/**
+	 * @param menu The menu for which buttons are created
+	 */
 	private void populateMenu(Menu menu) {
 
 		// enable keyb shortcuts, qwerty mode = true means only show keyb shortcuts (not numeric) and vice versa
@@ -60,7 +63,10 @@ public class RootMenuScreen extends Activity
 		}
 	}
 
-	/** respond to menu item selection */
+	/**respond to menu item selection
+	 * @param item Menu items
+	 * @return true or false depending on button clicked
+	 */
 	private boolean applyMenuChoice(MenuItem item) {		
 		switch (item.getItemId()) {
 		case depGames:
@@ -84,12 +90,18 @@ public class RootMenuScreen extends Activity
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 	/** hook into menu button for activity */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override public boolean onCreateOptionsMenu(Menu menu) {
 		populateMenu(menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	/** when menu button option selected */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override public boolean onOptionsItemSelected(MenuItem item) {
 		return applyMenuChoice(item) || super.onOptionsItemSelected(item);
 	}
@@ -98,6 +110,10 @@ public class RootMenuScreen extends Activity
 	// Actions based on control output
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+	/**Starts ListActivity to display list of games
+	 * @param list List of game names
+	 * @param type Type of list (deployed, my, join games)
+	 */
 	private void startListActivity(List<String> list, String type)
 	{		
 		Intent gameListView = new Intent(RootMenuScreen.this, GameListScreen.class);
@@ -113,6 +129,9 @@ public class RootMenuScreen extends Activity
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 	/** Called when the activity is first created. */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{

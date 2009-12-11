@@ -14,12 +14,17 @@ import android.widget.ListView;
 
 public class GameListScreen extends ListActivity
 {		
+	/**
+	 * 
+	 */
 	private String listType;
 	private String [] gameList;
 
 	//TODO add create game menu in case of deployed games list 
 
-	/** Called on list item click **/
+	/* (non-Javadoc)
+	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
+	 */
 	@Override
 	public void onListItemClick(ListView l, View v, final int position, long id)
 	{						
@@ -92,6 +97,9 @@ public class GameListScreen extends ListActivity
 	}
 
 	/** Called when the activity is first created. */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{

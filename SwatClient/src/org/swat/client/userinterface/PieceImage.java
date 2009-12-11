@@ -12,31 +12,56 @@ public class PieceImage  {
 	private int coordX = 0; // the x coordinate at the canvas
 	private int coordY = 0; // the y coordinate at the canvas
 
+	/**
+	 * @param c Context of the Activity
+	 */
 	public PieceImage(Context c)
 	{
 		context = c;
 	}
 
+	/**
+	 * @param newValue
+	 */
 	void setX(int newValue) {
 		coordX = newValue;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getX() {
 		return coordX;
 	}
 
+	/**
+	 * @param newValue
+	 */
 	void setY(int newValue) {
 		coordY = newValue;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getY() {
 		return coordY;
 	}	
 
+	/**
+	 * @return
+	 */
 	public Bitmap getBitmap() {
 		return img;
 	}
 
+	/** Sets the image for itself
+	 * @param p Image resource
+	 * @param x X-coordinate
+	 * @param y Y-coordinate
+	 * @param width Width of image
+	 * @param height Height of image
+	 */
 	public void setImage(int p, int x, int y, int width, int height){
 		try
 		{			

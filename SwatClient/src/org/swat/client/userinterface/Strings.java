@@ -1,5 +1,9 @@
 package org.swat.client.userinterface;
 
+/**
+ * @author Abhi Keshav
+ *
+ */
 public class Strings 
 {		
 	public static String deployedGames = "Deployed Games";

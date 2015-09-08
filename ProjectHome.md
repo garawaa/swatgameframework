@@ -1,0 +1,1 @@
+This is a multi-player multi-platform online board game framework. Currently targeted towards grid-based board games, including tic-tac-toe, chess, connect 4 and checkers, this game framework can potentially be extended to other board game frameworks. Among the targeted platforms include Android phones, desktops, netbooks etc.
